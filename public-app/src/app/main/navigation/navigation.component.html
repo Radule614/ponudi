@@ -1,0 +1,10 @@
+<nav>
+  <div *ngFor="let route of navRoutes" class="link-wrapper">
+    <a [routerLink]="route.path" routerLinkActive="active-link">
+      <span *ngIf="route?.data!['nav']['icon']" class="icon">
+        <fa-icon [icon]="['fas', route?.data!['nav']['icon']]"></fa-icon>
+      </span>
+      <span class="text">{{route?.data!['nav']['value']}}</span>
+    </a>
+  </div>
+</nav>
