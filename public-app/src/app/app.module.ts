@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MainModule } from './main/main.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    MainModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AuthModule,
+    MainModule
   ],
   providers: [],
   bootstrap: [AppComponent]

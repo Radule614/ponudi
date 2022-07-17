@@ -1,48 +1,17 @@
 <div class="auth-block">
 
-  <div class="form-block login-block" [@loginBlock]="state">
-    <div class="inner">
-      <h3>Sign in to ROOSTER</h3>
-      <form>
-        <div class="form-group">
-          <label for="login-username"></label>
-          <input type="text" name="username" id="login-username" placeholder="username">
-        </div>
-        <div class="form-group">
-          <label for="login-password"></label>
-          <input type="password" name="password" id="login-password" placeholder="password">
-        </div>
-        <button>sign in</button>
-      </form>
-    </div>
+  <div class="form-container login-block" [@loginBlock]="state">
+    <app-login></app-login>
   </div>
-  <div class="form-block register-block" [@registerBlock]="state">
-    <div class="inner">
-      <h3>Create Account</h3>
-      <form>
-        <div class="form-group">
-          <label for="username"></label>
-          <input type="text" name="username" id="username" placeholder="username">
-        </div>
-        <div class="form-group">
-          <label for="email"></label>
-          <input type="text" name="email" id="email" placeholder="email">
-        </div>
-        <div class="form-group">
-          <label for="password"></label>
-          <input type="password" name="password" id="password" placeholder="password">
-        </div>
-        <div class="form-group">
-          <label for="password-confirm"></label>
-          <input type="password" name="passwordConfirm" id="password-confirm" placeholder="confirm password">
-        </div>
-        <button>sign up</button>
-      </form>
-    </div>
+  <div class="form-container register-block" [@registerBlock]="state">
+    <app-register></app-register>
   </div>
 
   <div class="transition-block" [@transitionBlock]="state">
-    <button (click)="switchState()">sing in</button>
+    <button (click)="switchState()">
+      <div *ngIf="state=='register'" class="inner login-text">sign in</div>
+      <div *ngIf="state=='login'" class="inner register-text">sign up</div>
+    </button>
   </div>
 
   <div class="message-block login-message" [@loginMessage]="state">

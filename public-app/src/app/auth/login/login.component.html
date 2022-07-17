@@ -1,0 +1,14 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h3>Sign in to ROOSTER</h3>
+  
+  <div class="form-group">
+    <label for="login-username"></label>
+    <input type="text" name="username" id="login-username" placeholder="username" formControlName="username">
+  </div>
+  <div class="form-group">
+    <label for="login-password"></label>
+    <input type="password" name="password" id="login-password" placeholder="password" formControlName="password">
+  </div>
+
+  <button>sign in</button>
+</form>

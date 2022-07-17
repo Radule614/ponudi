@@ -12,19 +12,6 @@
   & > * {
     position: relative;
   }
-  button{
-    display:block;
-    outline: none;
-    background-color: var(--active-primary);
-    border:2px solid #fff;
-    padding: 12px 80px;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 50px;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-
   .transition-block{
     width: 400px;
     height: 100%;
@@ -33,11 +20,23 @@
     left:0px;
     background-color: var(--active-primary);
     transform-origin: center;
+    overflow: hidden;
     button{
       margin: 390px auto 0px auto;
+      position: relative;
+      height: 52px;
+      .inner{
+        position: absolute;
+        display: block;
+        top:0px;
+        left:0px;
+        right:0px;
+        bottom:0px;
+        margin:auto;
+        height: 26px;
+      }
     }
   }
-
   .message-block{
     width: 400px;
     position: absolute;
@@ -53,43 +52,14 @@
       right:0px;
     }
   }
- 
-  .form-block{
+  .form-container{
     width: 700px;
     position: absolute;
     top:0px;
     color: var(--active-primary);
-    .inner{
-      width: 400px;
-      margin:auto;
-      margin-top: 100px;
-      h3{
-        text-align: center;
-        margin-bottom: 50px;
-      }
-      input{
-        width: 100%;
-        padding:12px 20px;
-        outline: none;
-        border: none;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-        margin-top: 15px;
-        &:first-child{
-          margin-top: 0px;
-        }
-      }
-      button{
-        background-color: var(--active-primary);
-        border:2px solid var(--active-primary);
-        color: #fff;
-        margin:auto;
-        margin-top: 50px;
-      }
-    }
 
     &.register-block{
       right:0px;
     }
   }
-  
 }
