@@ -2,21 +2,21 @@
   <h3>Create Account</h3>
 
   <div class="form-group">
-    <label for="username"></label>
-    <input type="text" name="username" id="username" placeholder="username" formControlName="username">
+    <custom-input [form]="form" controlName="username" placeholder="username"></custom-input>
   </div>
   <div class="form-group">
-    <label for="email"></label>
-    <input type="text" name="email" id="email" placeholder="email" formControlName="email">
+    <custom-input [form]="form" controlName="email" placeholder="email" type="email"></custom-input>
   </div>
   <div class="form-group">
-    <label for="password"></label>
-    <input type="password" name="password" id="password" placeholder="password" formControlName="password">
+    <custom-input [form]="form" controlName="password" placeholder="password" type="password"></custom-input>
   </div>
   <div class="form-group">
-    <label for="password-confirm"></label>
-    <input type="password" name="passwordConfirm" id="password-confirm" placeholder="confirm password" formControlName="passwordConfirm">
+    <custom-input [form]="form" controlName="passwordConfirm" placeholder="confirm password" type="password"></custom-input>
+  </div>
+  <div class="form-group gender-block">
+    <custom-radio [form]="form" controlName="gender" value="male"></custom-radio>
+    <custom-radio [form]="form" controlName="gender" value="female"></custom-radio>
   </div>
   
-  <button>sign up</button>
+  <button class="button-primary">sign up</button>
 </form>

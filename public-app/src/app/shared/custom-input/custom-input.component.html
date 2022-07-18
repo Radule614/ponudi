@@ -1,0 +1,15 @@
+
+<div class="wrapper" [formGroup]="form">
+  <label  class="nohighlight" 
+          (click)="inputEl.focus()" 
+          [ngClass]="{'animate': focused || !empty}"
+  >
+  {{placeholder}}
+  </label>
+  <input  [type]="type" 
+          [formControlName]="controlName" 
+          (change)="valueChanged($event)" 
+          (focus)="onFocus($event)" 
+          (blur)="onBlur($event)" 
+          #inputEl>
+</div>

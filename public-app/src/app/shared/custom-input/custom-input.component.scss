@@ -1,0 +1,31 @@
+.wrapper{
+  position: relative;
+  margin-top: 10px;
+  input {
+    width: 100%;
+    padding:12px 20px;
+    outline: none;
+    border: none;
+    border:1px solid var(--active-primary);
+    overflow:visible;
+  }
+  label {
+    position: absolute;
+    top:0px;
+    left:22px;
+    bottom:0px;
+    margin:auto;
+    display: flex;
+    align-items: center;
+    cursor: text;
+    padding:0px 4px;
+    margin: 20px 0px;
+    background-color: #fff;
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    opacity: 1;
+    &.animate{
+      transform: translateY(-25px) translateX(-12px);
+      opacity: 1;
+    }
+  }
+}

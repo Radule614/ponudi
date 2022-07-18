@@ -58,7 +58,7 @@ import { Component, OnInit } from '@angular/core';
     ]),
     trigger('registerBlock', [
       state('register', style({ transform: 'translateX(0)',       opacity:1 })),
-      state('login',    style({ transform: 'translateX(2000px)',  opacity:0 })),
+      state('login',    style({ transform: 'translateX(-2000px)',  opacity:0 })),
       transition('register => login', animate(400, 
         style({ transform: 'translateX(-100px)', opacity:0 })
       )),

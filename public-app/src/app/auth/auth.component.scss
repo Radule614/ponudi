@@ -25,6 +25,12 @@
       margin: 390px auto 0px auto;
       position: relative;
       height: 52px;
+      &:active:hover{
+        outline: 12px solid rgba(#fff, 0.3);
+      }
+      &:hover::before{
+        outline: 12px solid rgba(#fff, 0.08);
+      }
       .inner{
         position: absolute;
         display: block;
