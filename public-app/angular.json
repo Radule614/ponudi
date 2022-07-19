@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "twitter-clone"
+  "cli": {
+    "analytics": "feb91129-3956-4340-a6a7-f749c2237a20"
+  }
 }

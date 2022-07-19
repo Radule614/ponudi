@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 
 @Component({
   selector: 'custom-input',
@@ -7,7 +7,7 @@ import { FormGroup } from "@angular/forms";
   styleUrls: ['./custom-input.component.scss']
 })
 export class CustomInputComponent {
-  @Input() public form: FormGroup;
+  @Input() public form: UntypedFormGroup;
   @Input() public controlName: string;
   @Input() public type: string;
   @Input() public placeholder: string;

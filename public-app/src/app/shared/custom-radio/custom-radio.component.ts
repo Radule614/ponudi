@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 
 @Component({
   selector: 'custom-radio',
@@ -7,7 +7,7 @@ import { FormGroup } from "@angular/forms";
   styleUrls: ['./custom-radio.component.scss']
 })
 export class CustomRadioComponent{
-  @Input() public form: FormGroup;
+  @Input() public form: UntypedFormGroup;
   @Input() public controlName: string;
   @Input() public value: string;
   
