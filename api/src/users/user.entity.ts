@@ -1,29 +1,48 @@
-import { Column, Entity, PrimaryColumn, ObjectIdColumn, ObjectID, Unique } from "typeorm";
+import { Column, Entity, ObjectIdColumn, ObjectID } from "typeorm";
 
+
+enum UserRole {
+    ADMIN = "admin",
+    USER = "user"
+}
 
 @Entity()
 export class User {
     @ObjectIdColumn()
     id: ObjectID
-    @Column()
+    @Column({
+        default: ""
+    })
     name: string
-    @Column()
+    @Column({
+        default: ""
+    })
     surname: string
     @Column({
         unique: true
     })
     username: string
-    @Column()
+    @Column({
+        default: ""
+    })
     password: string
     @Column({
         unique: true
     })
     email: string
-    @Column()
+    @Column({
+        default: ""
+    })
     description: string
-    @Column()
+    @Column({
+        default: ""
+    })
     profileUrl: string
-    @Column()
-    role: string[]
+    @Column({
+        enum: UserRole,
+        default: [UserRole.USER],
+        nullable: false
+    })
+    role: Array<string> = [UserRole.USER]
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "./user.entity";
-import { IUser } from "./user.interface";
+import { RegisterDTO } from "src/auth/dtos/register.dto";
 
 
 @Injectable()
@@ -17,8 +17,12 @@ export class UserService {
         return this.userRepository.find({});
     }
 
-    async create(user: IUser): Promise<any> {
-        return this.userRepository.save(user);
+    async create(user: RegisterDTO): Promise<any> {
+        let newUser = {
+            ...user,
+            role: ["user"]
+        }
+        return this.userRepository.save(newUser);
     }
 
 }

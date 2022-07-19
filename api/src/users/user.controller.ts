@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
-import { User } from "./user.entity";
-import { UserDTO } from "./user.dto";
+import { Body, Controller, Get, HttpException, Post, UseFilters, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { IUser } from "./user.interface";
+import { MongoErrorInterceptor } from "src/interceptors/error.interceptor";
+import { MongoErrorFilter } from "src/errorFilters/mongo-error.filter";
 
 @Controller('users')
+@UseInterceptors(MongoErrorInterceptor)
+@UseFilters(MongoErrorFilter)
 export class UserController {
 
     constructor(
@@ -12,14 +13,8 @@ export class UserController {
     ) { }
 
     @Get('/')
-    async getAll(): Promise<UserDTO[]> {
-        return this.userService.getAll()
+    async getAllUsers() {
+        return await this.userService.getAll()
     }
-
-    @Post('/')
-    async create(@Body() user: IUser) {
-        this.userService.create(user)
-    }
-
 
 }
