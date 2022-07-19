@@ -12,7 +12,9 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     UsersModule,
     AuthModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     TypeOrmModule.forRoot({
       "type": "mongodb",
       "database": process.env.DATABASE_NAME,

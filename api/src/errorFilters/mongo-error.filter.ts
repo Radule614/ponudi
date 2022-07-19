@@ -15,7 +15,7 @@ export class MongoErrorFilter implements ExceptionFilter {
         const message: string = exception.message
         const ctx = host.switchToHttp()
         const response = ctx.getResponse<Response>()
-
+        console.log(message)
         let resp: IResp = this.determineResponseByCode(exception.code)
 
         response

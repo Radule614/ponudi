@@ -5,7 +5,7 @@ import { MongoException } from "src/exceptions/mongo.exception";
 
 
 @Injectable()
-export class MongoErrorInterceptor implements NestInterceptor {
+export class ErrorInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
         return next
             .handle()

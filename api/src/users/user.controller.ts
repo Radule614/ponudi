@@ -1,10 +1,11 @@
-import { Body, Controller, Get, HttpException, Post, UseFilters, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, Post, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { MongoErrorInterceptor } from "src/interceptors/error.interceptor";
+import { ErrorInterceptor } from "src/interceptors/error.interceptor";
 import { MongoErrorFilter } from "src/errorFilters/mongo-error.filter";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller('users')
-@UseInterceptors(MongoErrorInterceptor)
+@UseInterceptors(ErrorInterceptor)
 @UseFilters(MongoErrorFilter)
 export class UserController {
 
@@ -13,8 +14,9 @@ export class UserController {
     ) { }
 
     @Get('/')
+    @UseGuards(JwtAuthGuard)
     async getAllUsers() {
-        return await this.userService.getAll()
+        return await this.userService.findAll()
     }
 
 }

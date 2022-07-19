@@ -13,7 +13,7 @@ export class UserService {
         private readonly userRepository: Repository<User>
     ) { }
 
-    async getAll(): Promise<User[]> {
+    async findAll(): Promise<User[]> {
         return this.userRepository.find({});
     }
 
@@ -23,6 +23,14 @@ export class UserService {
             role: ["user"]
         }
         return this.userRepository.save(newUser);
+    }
+
+    async find(params: Object): Promise<User> {
+        return this.userRepository.findOne(params)
+    }
+
+    async findByUsername(usernameObject: Object): Promise<User> {
+        return this.userRepository.findOne(usernameObject)
     }
 
 }
