@@ -21,11 +21,10 @@
     padding:0px 4px;
     margin: 20px 0px;
     background-color: #fff;
-    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-    opacity: 1;
-    &.animate{
-      transform: translateY(-25px) translateX(-12px);
-      opacity: 1;
-    }
+    transform: translateY(-25px) translateX(-12px);
+    //transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    // &.animate{
+    //   transform: translateY(-25px) translateX(-12px);
+    // }
   }
 }

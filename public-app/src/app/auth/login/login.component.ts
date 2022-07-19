@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/store";
+import { login } from "src/app/store/auth/auth.actions";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +12,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms
 export class LoginComponent implements OnInit{
   form: UntypedFormGroup;
 
-  constructor(){}
+  constructor(private store: Store<AppState>){}
 
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
@@ -19,6 +22,10 @@ export class LoginComponent implements OnInit{
   }
   
   onSubmit(){
-    console.log(this.form);
+    if(this.form.status == 'VALID'){
+      this.store.dispatch(login({...this.form.getRawValue()}));
+    }else{
+      console.log(this.form.status)
+    }
   }
 }

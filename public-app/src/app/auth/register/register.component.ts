@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 
@@ -9,7 +10,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms
 export class RegisterComponent implements OnInit{
   form: UntypedFormGroup;
 
-  constructor(){}
+  constructor(private http: HttpClient){}
   
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
@@ -23,5 +24,16 @@ export class RegisterComponent implements OnInit{
   
   onSubmit(){
     console.log(this.form);
+    this.http.post('http://localhost:8000/auth/register', 
+      {
+        username: this.form.getRawValue().username,
+        email: this.form.getRawValue().email,
+        password: this.form.getRawValue().password,
+        name: "1",
+        surname: "2"
+      }
+    ).subscribe(data => {
+      console.log(data);
+    });
   }
 }
