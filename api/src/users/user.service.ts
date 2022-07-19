@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "./user.entity";
 import { RegisterDTO } from "src/auth/dtos/register.dto";
+import { UserRole } from "./enums/user-role.enum";
 
 
 @Injectable()
@@ -20,7 +21,7 @@ export class UserService {
     async create(user: RegisterDTO): Promise<any> {
         let newUser = {
             ...user,
-            role: ["user"]
+            role: [UserRole.USER]
         }
         return this.userRepository.save(newUser);
     }
