@@ -1,10 +1,7 @@
 import { Column, Entity, ObjectIdColumn, ObjectID } from "typeorm";
+import { UserRole } from "./enums/user-role.enum";
 
 
-enum UserRole {
-    ADMIN = "admin",
-    USER = "user"
-}
 
 @Entity()
 export class User {
@@ -39,10 +36,9 @@ export class User {
     })
     profileUrl: string
     @Column({
-        enum: UserRole,
         default: [UserRole.USER],
         nullable: false
     })
-    role: Array<string> = [UserRole.USER]
+    role: Array<UserRole> = [UserRole.USER]
 
 }
