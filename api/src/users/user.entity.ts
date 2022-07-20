@@ -39,6 +39,6 @@ export class User {
         default: [UserRole.USER],
         nullable: false
     })
-    role: Array<UserRole> = [UserRole.USER]
+    roles: Array<UserRole> = [UserRole.USER]
 
 }
