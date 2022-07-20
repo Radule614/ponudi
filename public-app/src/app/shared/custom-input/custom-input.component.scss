@@ -1,13 +1,15 @@
 .wrapper{
   position: relative;
-  margin-top: 10px;
   input {
     width: 100%;
     padding:12px 20px;
     outline: none;
-    border: none;
-    border:1px solid var(--active-primary);
+    border:2px solid var(--active-primary);
     overflow:visible;
+    border-radius: 5px;
+    &.ng-invalid.ng-dirty{
+      border:2px solid var(--error-primary);
+    }
   }
   label {
     position: absolute;
@@ -16,15 +18,21 @@
     bottom:0px;
     margin:auto;
     display: flex;
+    font-size: 14px;
     align-items: center;
     cursor: text;
-    padding:0px 4px;
+    padding:0px 5px;
     margin: 20px 0px;
-    background-color: #fff;
+    background-color: var(--light-primary);
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    &.animate{
+      transform: translateY(-25px) translateX(-12px);
+    }
+  }
+  input.ng-invalid.ng-dirty + label{
+    color: var(--error-primary);
+  }
+  input.ng-dirty + label{
     transform: translateY(-25px) translateX(-12px);
-    //transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-    // &.animate{
-    //   transform: translateY(-25px) translateX(-12px);
-    // }
   }
 }

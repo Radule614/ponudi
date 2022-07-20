@@ -7,6 +7,15 @@
   <div class="form-group">
     <custom-input [form]="form" controlName="password" placeholder="password" type="password"></custom-input>
   </div>
-
+  <div class="error-block">
+    {{errorMessage}}
+  </div>
   <button class="button-primary">sign in</button>
 </form>
+
+<div class="loader" *ngIf="loading">
+  <div class="background"></div>
+  <div class="spinner">
+    <spinner></spinner>
+  </div>
+</div>

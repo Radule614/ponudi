@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { CustomInputComponent } from './custom-input/custom-input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomRadioComponent } from './custom-radio/custom-radio.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     CustomInputComponent,
-    CustomRadioComponent
+    CustomRadioComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { CustomRadioComponent } from './custom-radio/custom-radio.component';
   ],
   exports: [
     CustomInputComponent,
-    CustomRadioComponent
+    CustomRadioComponent,
+    SpinnerComponent
   ]
 })
 export class SharedModule { }

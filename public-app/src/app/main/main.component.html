@@ -1,26 +1,25 @@
-<div class="main container">
+<div class="main">
   <header>
     <div class="header-inner">
       <div class="logo">
         <img src="assets/rooster-logo.png" alt="img">
-        <span>rooster</span>
+        <span>ponudi</span>
       </div>
       <app-navigation></app-navigation>
     </div>
-    <div class="profile">
-      <div class="image-wrapper">
-        <img src="assets/user.png" alt="alt">
-      </div>
-      <div class="info-panel">
-        <div class="fullname">Rade Stojanovic</div>
-        <div class="username">@<span>Radule614</span></div>
-      </div>
-      <div class="dots">
-        <fa-icon [icon]="['fas', 'ellipsis']"></fa-icon>
+  </header>
+  <div class="main-inner">
+    <div class="horizontal-panel">
+      <div class="account-group">
+        <div class="info">
+          {{loggedUser?.username}}
+        </div>
+        <button *ngIf="!!loggedUser" class="button-primary" (click)="logout()">Log Out</button>
+        <button *ngIf="!loggedUser" class="button-primary" routerLink="/auth">Sign In</button>
       </div>
     </div>
-  </header>
-  <div class="content">
-    <router-outlet></router-outlet>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
