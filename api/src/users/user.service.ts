@@ -34,4 +34,9 @@ export class UserService {
         return this.userRepository.findOne(usernameObject)
     }
 
+    async findProfileById(id: string) {
+        let params: Object = { id }
+        return this.userRepository.findOneBy(params)
+    }
+
 }
