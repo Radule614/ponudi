@@ -1,42 +1,37 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { User } from "./user.entity";
 import { RegisterDTO } from "src/auth/dtos/register.dto";
 import { UserRole } from "./enums/user-role.enum";
+import { IUserRepository } from "./interfaces/user-repository.interface";
+import { User, UserDocument } from "./user.schema";
+import { UserRepository } from "./user.repository";
 
 
 @Injectable()
 export class UserService {
 
     constructor(
-        @InjectRepository(User)
-        private readonly userRepository: Repository<User>
+        @Inject('IUserRepository') private readonly userRepository: IUserRepository
     ) { }
 
     async findAll(): Promise<User[]> {
-        return this.userRepository.find({});
+        return await this.userRepository.findAll();
     }
 
     async create(user: RegisterDTO): Promise<any> {
         let newUser = {
             ...user,
-            role: [UserRole.USER]
+            roles: [UserRole.USER]
         }
-        return this.userRepository.save(newUser);
+        return await this.userRepository.create(newUser);
     }
 
     async find(params: Object): Promise<User> {
-        return this.userRepository.findOne(params)
+        return await this.userRepository.findBy(params)
     }
 
-    async findByUsername(usernameObject: Object): Promise<User> {
-        return this.userRepository.findOne(usernameObject)
+    async findByUsername(username: string): Promise<User> {
+        return await this.userRepository.findByUsername(username)
     }
-
-    async findProfileById(id: string) {
-        let params: Object = { id }
-        return this.userRepository.findOneBy(params)
-    }
-
 }

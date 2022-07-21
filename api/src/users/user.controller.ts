@@ -8,6 +8,7 @@ import { UserRole } from "./enums/user-role.enum";
 import { RolesGuard } from "src/auth/guards/role.guard";
 import { ObjectID } from "typeorm";
 import { ReqWithUser } from "./interfaces/request-with-user.interface";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('users')
 @UseInterceptors(ErrorInterceptor)
@@ -30,8 +31,9 @@ export class UserController {
     @UseGuards(JwtAuthGuard, RolesGuard)
     async findOne(@Req() request: ReqWithUser) {
         let { user } = request
-        let { password, roles, ...userDto } = user
-        return userDto
+        user.password = undefined
+        user.roles = undefined
+        return user
     }
 
 
