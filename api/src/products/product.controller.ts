@@ -6,7 +6,7 @@ import { Controller, Get } from "@nestjs/common";
 @Controller('products')
 export class ProductController {
 
-    @Get()
+    @Get('/categories')
     async getProductCategories() {
         return [
             { name: 'vozila', path: 'category/vozila', icon: 'car' },
