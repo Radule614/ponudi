@@ -32,13 +32,6 @@
       margin: 390px auto 0px auto;
       position: relative;
       height: 52px;
-      color: var(--dark-primary);
-      &:active:hover{
-        outline-color: rgba(var(--light-primary-rgb), 0.3);
-      }
-      &:hover::before{
-        outline-color: rgba(var(--light-primary-rgb), 0.08);
-      }
       .inner{
         position: absolute;
         display: block;
