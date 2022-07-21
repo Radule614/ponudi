@@ -1,0 +1,46 @@
+.wrapper{
+  position: relative;
+  input {
+    width: 100%;
+    padding:12px 20px;
+    outline: none;
+    border:2px solid var(--active-primary);
+    overflow:visible;
+    border-radius: 5px;
+    &.ng-invalid.ng-dirty{
+      border:2px solid var(--error-primary);
+    }
+  }
+  label {
+    position: absolute;
+    top:0px;
+    left:22px;
+    bottom:0px;
+    margin:auto;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    cursor: text;
+    padding:0px 5px;
+    margin: 20px 0px;
+    background-color: var(--light-primary);
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    &.animate{
+      transform: translateY(-25px) translateX(-12px);
+    }
+  }
+  input.ng-invalid.ng-dirty + label{
+    color: var(--error-primary);
+  }
+  input.ng-dirty + label{
+    transform: translateY(-25px) translateX(-12px);
+  }
+  &.custom-error {
+    input {
+      border:2px solid var(--error-primary);
+      & + label{
+        color: var(--error-primary);
+      }
+    }
+  }
+}

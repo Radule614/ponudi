@@ -1,0 +1,19 @@
+:root{
+  --active-primary-rgb: 60, 137, 205;
+  --active-secondary-rgb: 18, 148, 144;
+  --dark-primary-rgb: 33, 37, 43;
+  --dark-secondary-rgb: 40, 44, 52;
+  --light-primary-rgb: 234, 242, 239;
+  --light-secondary-rgb: 255, 238, 219;
+  --dim-primary-rgb: 227, 231, 211;
+  --error-primary-rgb: 255,51,51;
+
+  --active-primary: rgb(var(--active-primary-rgb));
+  --active-secondary: rgb(var(--active-secondary-rgb));
+  --dark-primary: rgb(var(--dark-primary-rgb));
+  --dark-secondary: rgb(var(--dark-secondary-rgb));
+  --light-primary: rgb(var(--light-primary-rgb));
+  --light-secondary: rgb(var(--light-secondary-rgb));
+  --dim-primary: rgb(var(--dim-primary-rgb));
+  --error-primary: rgb(var(--error-primary-rgb));
+}

@@ -1,15 +1,15 @@
 nav{
   .link-wrapper{
-    margin-top: 5px;
     &:first-child{
       margin-top: 0px;
     }
     & > a{
-      padding:8px 25px 8px 12px;
+      padding:10px 25px 10px 12px;
       color: var(--active-primary);
-      font-size: 20px;
-      border-radius: 50px;
-      display: inline-block;
+      font-size: 18px;
+      display: block;
+      color:var(--light-primary);
+      transition: background-color 0.13s ease;
       span{
         display: inline-block;
       }
@@ -21,11 +21,10 @@ nav{
         padding-left: 10px;
       }
       &:hover{
-        background-color: rgba(var(--active-primary-rgb), $alpha: 0.15);
+        background-color: rgba(var(--active-primary-rgb), $alpha: 0.20);
       }
       &.active-link{
         background-color: var(--active-primary);
-        color:#fff;
       }
     }
   }

@@ -1,0 +1,24 @@
+form {
+  width: 455px;
+  margin-top: 50px;
+  .form-group{
+    &.double{
+      display: flex;
+      & > div{
+        margin-left:10px;
+        &:first-child{
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+  .gender-block{
+    display: flex;
+  }
+  .error-block{
+    margin-top: 5px;
+  }
+  button{
+    margin-top: 20px;
+  }
+}
