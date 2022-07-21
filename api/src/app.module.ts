@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/user.module';
-import { User } from "./users/user.entity"
 import { AuthModule } from './auth/auth.module';
+import { MongooseModule } from '@nestjs/mongoose'
 
 
 @Module({
@@ -15,17 +15,8 @@ import { AuthModule } from './auth/auth.module';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    TypeOrmModule.forRoot({
-      "type": "mongodb",
-      "database": process.env.DATABASE_NAME,
-      "url": `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@e2chat.va4mk.mongodb.net/?retryWrites=true&w=majority`,
-      "useNewUrlParser": true,
-      "synchronize": true,
-      "logging": true,
-      "useUnifiedTopology": true,
-      "entities": [User]
-    })],
-
+    MongooseModule.forRoot(`mongodb+srv://srdjan:srkisrki11@e2chat.va4mk.mongodb.net/olx-clone?retryWrites=true&w=majority`),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

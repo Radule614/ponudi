@@ -1,5 +1,5 @@
-import { User } from "../user.entity";
+import { User, UserDocument } from "../user.schema";
 
 export interface ReqWithUser extends Request {
-    user: User
+    user: UserDocument
 }

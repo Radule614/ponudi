@@ -1,44 +1,47 @@
-import { Column, Entity, ObjectIdColumn, ObjectID } from "typeorm";
+
+import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
+import mongoose from "mongoose"
 import { UserRole } from "./enums/user-role.enum";
 
+export type UserDocument = User & Document
 
-
-@Entity()
+@Schema()
 export class User {
-    @ObjectIdColumn()
-    id: ObjectID
-    @Column({
+    @Prop({
         default: ""
     })
     name: string
-    @Column({
+    @Prop({
         default: ""
     })
     surname: string
-    @Column({
+    @Prop({
         unique: true
     })
     username: string
-    @Column({
+    @Prop({
         default: ""
     })
     password: string
-    @Column({
+    @Prop({
         unique: true
     })
     email: string
-    @Column({
+    @Prop({
         default: ""
     })
     description: string
-    @Column({
+    @Prop({
         default: ""
     })
     profileUrl: string
-    @Column({
+    @Prop({
         default: [UserRole.USER],
         nullable: false
     })
     roles: Array<UserRole> = [UserRole.USER]
 
 }
+
+
+export const UserSchema = SchemaFactory.createForClass(User)

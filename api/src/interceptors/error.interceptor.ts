@@ -11,6 +11,7 @@ export class ErrorInterceptor implements NestInterceptor {
             .handle()
             .pipe(
                 catchError(error => {
+                    console.log(error)
                     if (error instanceof HttpException) throw error
                     throw new MongoException(error.message, error.code)
                 })

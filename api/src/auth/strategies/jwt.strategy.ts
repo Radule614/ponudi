@@ -18,6 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate({ username }: ITokenPayload) {
-        return await this.userService.findByUsername({ username })
+        let result = await this.userService.findByUsername(username)
+        return result
     }
 }
