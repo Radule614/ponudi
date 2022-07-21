@@ -35,4 +35,12 @@
   input.ng-dirty + label{
     transform: translateY(-25px) translateX(-12px);
   }
+  &.custom-error {
+    input {
+      border:2px solid var(--error-primary);
+      & + label{
+        color: var(--error-primary);
+      }
+    }
+  }
 }

@@ -3,7 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/store";
-import { login, loginFailed, setLoading } from "src/app/store/auth/auth.actions";
+import { login, loginFailed, setLoading, loginClear} from "src/app/store/auth/auth.actions";
 
 @Component({
   selector: 'app-login',
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy{
   constructor(private store: Store<AppState>){}
 
   ngOnInit(): void {
+    this.store.dispatch(loginClear())
     let sub = this.store.select('auth').subscribe(state => {
       this.loading = state.loading;
       this.errorMessage = state.loginError;

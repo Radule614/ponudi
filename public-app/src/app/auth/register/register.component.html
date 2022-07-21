@@ -17,10 +17,10 @@
   </div>
   <div class="form-group double">
     <div>
-      <custom-input [form]="form" controlName="password" placeholder="password" type="password"></custom-input>
+      <custom-input [form]="form" controlName="password" placeholder="password" type="password" [error]="passwordMatchError"></custom-input>
     </div>
     <div>
-      <custom-input [form]="form" controlName="passwordConfirm" placeholder="confirm password" type="password"></custom-input>
+      <custom-input [form]="form" controlName="passwordConfirm" placeholder="confirm password" type="password" [error]="passwordMatchError"></custom-input>
     </div>
   </div>
   <div class="form-group gender-block">

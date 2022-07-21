@@ -11,6 +11,7 @@ export class CustomInputComponent {
   @Input() public controlName: string;
   @Input() public type: string;
   @Input() public placeholder: string;
+  @Input() public error: boolean;
 
   empty: boolean = true;
   focused: boolean = false;
