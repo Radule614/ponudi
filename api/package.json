@@ -40,8 +40,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "run-script-webpack-plugin": "^0.1.1",
-    "rxjs": "^7.5.5",
-    "typeorm": "^0.3.7"
+    "rxjs": "^7.5.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
