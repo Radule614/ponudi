@@ -1,0 +1,18 @@
+
+<header>
+  <div class="logo">
+    <img src="assets/rooster-logo.png" alt="img">
+    <span>ponudi</span>
+  </div>
+  <div class="inner">
+    <div class="right">
+      <div class="account-group">
+        <div class="info">
+          {{loggedUser?.username}}
+        </div>
+        <button *ngIf="!!loggedUser" class="button-primary" (click)="logout()">Izloguj se</button>
+        <button *ngIf="!loggedUser" class="button-primary" routerLink="/auth">Uloguj se</button>
+      </div>
+    </div>
+  </div>
+</header>

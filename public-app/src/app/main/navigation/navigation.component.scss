@@ -1,5 +1,8 @@
 nav{
+  padding: 30px 15px 50px 15px;
+  color: var(--light-primary);
   .link-wrapper{
+    margin-bottom: 3px;
     &:first-child{
       margin-top: 0px;
     }
@@ -10,6 +13,7 @@ nav{
       display: block;
       color:var(--light-primary);
       transition: background-color 0.13s ease;
+      border-radius: 10px;
       span{
         display: inline-block;
       }
@@ -24,8 +28,19 @@ nav{
         background-color: rgba(var(--active-primary-rgb), $alpha: 0.20);
       }
       &.active-link{
-        background-color: var(--active-primary);
+        background-image: linear-gradient(to right, var(--active-secondary), var(--active-primary));
       }
     }
+    &.divider{
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(var(--light-primary-rgb), 0.15);
+      margin-bottom: 20px;
+    }
+  }
+  .caption{
+    text-transform: uppercase;
+    font-size: 14px;
+    padding-bottom:12px;
+    color: rgba(var(--light-primary-rgb), 0.65);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from './store';
 import { checkAuth } from './store/auth/auth.actions';
@@ -12,10 +11,9 @@ import { checkAuth } from './store/auth/auth.actions';
 export class AppComponent implements OnInit {
   title = 'rooster';
 
-  constructor(private store: Store<AppState>, private router: Router){}
+  constructor(private store: Store<AppState>){}
 
   ngOnInit(): void {
-    // console.log(this.router.config);
     this.store.dispatch(checkAuth());
   }
 }

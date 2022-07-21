@@ -9,7 +9,7 @@
   </div>
 
   <div class="transition-block" [@transitionBlock]="state">
-    <button (click)="switchState()" class="button-primary">
+    <button (click)="switchState()" class="button-primary dark gradient">
       <div *ngIf="state=='register'" class="inner login-text">sign in</div>
       <div *ngIf="state=='login'" class="inner register-text">sign up</div>
     </button>

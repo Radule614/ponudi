@@ -12,12 +12,12 @@ import { Component, OnInit } from '@angular/core';
       transition('register => login', [
         group([
           query('.register-text', [
-            style({ opacity: 0, transform: 'translateX(-100px)' }),
+            style({ opacity: 0, transform: 'translateX(100px)' }),
             animate(500, style({ opacity: 1, transform: 'none' }))
           ]),
           query('.login-text', [
             style({opacity: 1, transform: 'none'}),
-            animate(500, style({ opacity: 0, transform: 'translateX(100px)' })),
+            animate(500, style({ opacity: 0, transform: 'translateX(-100px)' })),
           ]),
           animate(1000, keyframes([
             style({ transform: 'scaleX(1.2) translateX(500px)',   offset: 0.35 }),
@@ -29,12 +29,12 @@ import { Component, OnInit } from '@angular/core';
       transition('login => register', [
         group([
           query('.login-text', [
-            style({ opacity: 0, transform: 'translateX(100px)' }),
+            style({ opacity: 0, transform: 'translateX(-100px)' }),
             animate(600, style({ opacity: 1, transform: 'none' }))
           ]),
           query('.register-text', [
             style({ opacity: 1, transform: 'none' }),
-            animate(600, style({ opacity: 0, transform: 'translateX(-100px)' })),
+            animate(600, style({ opacity: 0, transform: 'translateX(100px)' })),
           ]),
           animate(1000, keyframes([
             style({ transform: 'scaleX(1.25) translateX(200px)',  offset: 0.35 }),
