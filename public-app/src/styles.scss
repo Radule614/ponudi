@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap';
+
+@import "style/fonts";
+@import "style/variables";
+
+body{
+  font-family: Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark-primary);
+}
+
+.nohighlight {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input{
+  background-color: var(--light-primary);
+}
+
+.button-primary{
+  position: relative;
+  transition: outline-width 0.15s;
+  display:block;
+  outline: none;
+  background-color: var(--active-primary);
+  border: none;
+  padding: 6px 36px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 50px;
+  &::before{
+    content: "";
+    position: absolute;
+    border-radius: 50px;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    width: 100%;
+    height: 100%;
+  }
+  &:active:hover{
+    outline: 12px solid rgba(var(--active-primary-rgb), 0.2);
+    &:hover::before{
+      outline: none;
+    }
+  }
+  &:hover::before{
+    outline: 8px solid rgba(gray, 0.08);
+  }
+}
