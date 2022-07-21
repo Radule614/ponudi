@@ -6,12 +6,14 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose'
+import { ProductModule } from './products/product.module';
 
 
 @Module({
   imports: [
     UsersModule,
     AuthModule,
+    ProductModule,
     ConfigModule.forRoot({
       isGlobal: true
     }),
