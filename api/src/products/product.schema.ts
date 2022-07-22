@@ -55,6 +55,11 @@ export class Product {
         default: []
     })
     pictures: Array<string>
+
+    @Prop({
+        type: mongoose.Schema.Types.ObjectId
+    })
+    categoryId: string
 }
 
 
