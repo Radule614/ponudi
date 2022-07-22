@@ -11,6 +11,9 @@
   </div>
   <div class="caption">kategorije</div>
   <div class="category-nav">
+    <app-nav-category-list [categories]="categoryList" [mainNav]="true"></app-nav-category-list>
+  </div>
+  <!-- <div class="category-nav">
     <div *ngFor="let cat of categoryList" class="link-wrapper">
       <a [routerLink]="cat.path" routerLinkActive="active-link">
         <span *ngIf="cat.icon" class="icon">
@@ -19,5 +22,5 @@
         <span class="text">{{cat.name}}</span>
       </a>
     </div>
-  </div>
+  </div> -->
 </nav>

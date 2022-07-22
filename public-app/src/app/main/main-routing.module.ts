@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: 'home',           component: HomeComponent,         data: { nav: { value: 'početna',          icon: 'house'                   } } },
       { path: 'explore',        component: ExploreComponent,      data: { nav: { value: 'popularno',        icon: 'eye'                     } } },
       { path: 'shops',          component: ShopsComponent,        data: { nav: { value: 'shopovi',          icon: 'shop',     divider: true } } },
-      { path: 'category/:name', component: CategoryComponent                                                                                    },
+      { path: 'category/:id',   component: CategoryComponent                                                                                    },
       { path: 'not-found',      component: PageNotFoundComponent                                                                                },
       { path: '',               redirectTo: '/home',              pathMatch: 'full'                                                             },
       { path: '**',             redirectTo: '/not-found'                                                                                        }

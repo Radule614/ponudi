@@ -8,13 +8,13 @@ import { Subscription } from "rxjs";
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit, OnDestroy {
-  categoryName: string = "";
+  categoryId: string = "";
   subs: Subscription[] = [];
   constructor(private route: ActivatedRoute){}
 
   ngOnInit(): void {
     let sub = this.route.params.subscribe( data => {
-      this.categoryName = data['name'];
+      this.categoryId = data['id'];
     })
     this.subs.push(sub);
   }
