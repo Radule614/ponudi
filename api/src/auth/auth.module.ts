@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { User, UserSchema } from "src/users/user.schema";
 import { UsersModule } from "src/users/user.module";
 import { UserService } from "src/users/user.service";

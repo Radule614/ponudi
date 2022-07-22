@@ -6,7 +6,6 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { Roles } from "src/auth/role.decorator";
 import { UserRole } from "./enums/user-role.enum";
 import { RolesGuard } from "src/auth/guards/role.guard";
-import { ObjectID } from "typeorm";
 import { ReqWithUser } from "./interfaces/request-with-user.interface";
 import { AuthGuard } from "@nestjs/passport";
 
