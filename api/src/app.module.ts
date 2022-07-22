@@ -6,6 +6,7 @@ import { UsersModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose'
 import { ProductModule } from './products/product.module';
+import { CategoriesModule } from './categories/category.module';
 
 
 @Module({
@@ -13,6 +14,7 @@ import { ProductModule } from './products/product.module';
     UsersModule,
     AuthModule,
     ProductModule,
+    CategoriesModule,
     ConfigModule.forRoot({
       isGlobal: true
     }),
