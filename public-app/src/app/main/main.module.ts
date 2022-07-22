@@ -7,7 +7,6 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 
 import { MainRoutingModule } from "./main-routing.module";
 import { MainComponent } from "./main.component";
-import { NavigationComponent } from "./navigation/navigation.component";
 import { HeaderComponent } from "./header/header.component";
 import { CategoryComponent } from "./pages/category/category.component";
 import { AccountComponent } from "./pages/account/account.component";
@@ -19,18 +18,12 @@ import { ProfileComponent } from "./pages/profile/profile.component";
 import { ShopsComponent } from "./pages/shops/shops.component";
 import { ArticleListComponent } from "./article-list/article-list.component";
 import { ArticleItemComponent } from "./article-list/article-item/article-item.component";
-import { NavCategoryListComponent } from "./navigation/nav-category-list/nav-category-list.component";
-import { NavCategoryItemComponent } from "./navigation/nav-category-item/nav-category-item.component";
-import { NavCategoryExpanderComponent } from "./navigation/nav-category-expander/nav-category-expander.component";
+import { NavigationModule } from "./navigation/navigation.module";
 
 @NgModule({
   declarations: [
     MainComponent,
     HeaderComponent,
-    NavigationComponent,
-    NavCategoryListComponent,
-    NavCategoryItemComponent,
-    NavCategoryExpanderComponent,
     CategoryComponent,
     AccountComponent,
     DashboardComponent,
@@ -46,7 +39,8 @@ import { NavCategoryExpanderComponent } from "./navigation/nav-category-expander
     CommonModule, 
     RouterModule, 
     FontAwesomeModule,
-    MainRoutingModule
+    MainRoutingModule,
+    NavigationModule
   ],
   exports: [MainComponent]
 })
