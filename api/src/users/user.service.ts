@@ -1,6 +1,4 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
 import { RegisterDTO } from "src/auth/dtos/register.dto";
 import { UserRole } from "./enums/user-role.enum";
 import { IUserRepository } from "./interfaces/user-repository.interface";

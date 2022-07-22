@@ -1,7 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from "@nestjs/common";
 import { Response } from "express";
 import { MongoException } from "src/exceptions/mongo.exception";
-import { MongoError } from "typeorm";
 
 interface IResp {
     message: string,
