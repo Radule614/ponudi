@@ -1,8 +1,8 @@
 <div class="link-wrapper" [ngClass]="{'main-nav': mainNav }">
-  <a [routerLink]="category.path" routerLinkActive="active-link">
-    <span class="icon" *ngIf="category.icon && mainNav">
+  <a [routerLink]="'category/' + category.id" routerLinkActive="active-link">
+    <!-- <span class="icon" *ngIf="category.icon && mainNav">
       <fa-icon   [icon]="['fas', category.icon]"></fa-icon>
-    </span>
+    </span> -->
     <span class="text">{{category.name}}</span>
   </a>
 </div>

@@ -1,6 +1,6 @@
-export interface Category {
+export class Category {
   name:       string;
-  path:       string;
+  id:         string;
   icon?:      any;
   children?:  Category[];
 }

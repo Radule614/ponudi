@@ -3,8 +3,8 @@ import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { AppState } from "src/app/store";
-import { register, registerClear, registerFailed, setLoading } from "src/app/store/auth/auth.actions";
-import { registerDTO } from "../auth.service";
+import * as fromAuth from "src/app/store/auth/auth.actions";
+import { registerDTO } from "../../services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit{
   constructor(private store: Store<AppState>){}
   
   ngOnInit(): void {
-    this.store.dispatch(registerClear())
+    this.store.dispatch(fromAuth.registerClear())
     let sub = this.store.select('auth').subscribe(state => {
       this.loading = state.loading;
       this.errorMessages = state.registerErrors;
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit{
   
   onSubmit(){
     if(this.form.status == 'VALID'){
-      this.store.dispatch(setLoading({loading: true}));
+      this.store.dispatch(fromAuth.setLoading({loading: true}));
       let data = {
         username: this.form.getRawValue().username,
         email: this.form.getRawValue().email,
@@ -55,13 +55,13 @@ export class RegisterComponent implements OnInit{
         password: this.form.getRawValue().password,
         gender: this.form.getRawValue().gender
       }
-      this.store.dispatch(register({ userData: data as registerDTO}))
+      this.store.dispatch(fromAuth.register({ userData: data as registerDTO}))
     }else{
       let messages: string[] = [];
       if(this.passwordMatchError) messages.push('password confirmation does not match');
       if(this.requiredError) messages.push('all input fields must contain data');
       if(this.emailError) messages.push('email is not valid');
-      this.store.dispatch(registerFailed({ messages: messages }));
+      this.store.dispatch(fromAuth.registerFailed({ messages: messages }));
     }
   }
 

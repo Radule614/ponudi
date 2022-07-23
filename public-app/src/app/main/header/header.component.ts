@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
-import User from "src/app/model/user.model";
+import { User } from "src/app/model/user.model";
 import { AppState } from "src/app/store";
-import { logout } from "src/app/store/auth/auth.actions";
-import { selectUser } from "src/app/store/auth/auth.selectors";
+import * as fromAuth from "src/app/store/auth/auth.actions";
+import * as authSelectors from "src/app/store/auth/auth.selectors";
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,7 @@ export class HeaderComponent {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void { 
-    let sub = this.store.select(selectUser).subscribe(user => {
+    let sub = this.store.select(authSelectors.selectUser).subscribe(user => {
       this.loggedUser = user;
       console.log(user);
     });
@@ -30,6 +30,6 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.store.dispatch(logout());
+    this.store.dispatch(fromAuth.logout());
   }
 }
