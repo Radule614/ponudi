@@ -1,9 +1,10 @@
 export class Article {
-  category: string;
+  title: string;
   cost: number | null;
-  location: any | null;
-  details: any[];
-  description: string | null;
+  category?: string;
+  location?: any | null;
+  details?: any[];
+  description?: string | null;
 
   constructor() {}
 }

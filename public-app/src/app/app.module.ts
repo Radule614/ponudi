@@ -12,9 +12,8 @@ import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { AuthModule } from './auth/auth.module';
 import { reducers } from './store/index';
-import { AuthEffects } from './store/auth/auth.effects';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
-import { CategoryEffects } from './store/category/category.effects';
+import { effects } from './store/index';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,7 @@ import { CategoryEffects } from './store/category/category.effects';
     AppRoutingModule,
     NgbModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, CategoryEffects]),
+    EffectsModule.forRoot(effects),
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
