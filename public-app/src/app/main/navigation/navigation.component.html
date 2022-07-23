@@ -11,13 +11,6 @@
   </div>
   <div class="caption">kategorije</div>
   <div class="category-nav">
-    <div *ngFor="let cat of categoryList" class="link-wrapper">
-      <a [routerLink]="cat.path" routerLinkActive="active-link">
-        <span *ngIf="cat.icon" class="icon">
-          <fa-icon [icon]="['fas', cat.icon]"></fa-icon>
-        </span>
-        <span class="text">{{cat.name}}</span>
-      </a>
-    </div>
+    <app-nav-category-list [categories]="categoryList" [mainNav]="true"></app-nav-category-list>
   </div>
 </nav>

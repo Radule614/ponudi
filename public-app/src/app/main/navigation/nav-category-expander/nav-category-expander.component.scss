@@ -1,0 +1,9 @@
+.link-wrapper{
+  & > .expander{
+    cursor: pointer;
+  }
+  .children-list{
+    padding-top: 3px;
+    overflow: hidden;
+  }
+}

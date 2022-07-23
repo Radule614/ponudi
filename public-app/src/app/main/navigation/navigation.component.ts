@@ -1,32 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
-
-export interface Category {
-  name:   string;
-  path:   string;
-  icon?:  any;
-}
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/store';
+import * as categorySelectors from 'src/app/store/category/category.selectors';
+import { Category } from '../../model/category.model';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./shared-styles.scss', './navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
   navRoutes: Route[];
-  categoryList: Category[] = [
-    { name: 'vozila',       path: 'category/vozila',      icon: 'car' },
-    { name: 'nekretnine',   path: 'category/nekretnine',  icon: 'building' },
-    { name: 'računari',     path: 'category/racunari',    icon: 'computer' },
-    { name: 'saksije',      path: 'category/saksije',     icon: 'box-archive' },
-    { name: 'ostalo',       path: 'category/ostalo',      icon: 'box-open' }
-  ];
+  categoryList: Category[];
+  subs: Subscription[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store<AppState>) {
     let mainRoute = this.router.config.filter(route => route.path == '')[0];
     this.navRoutes = mainRoute.children!.filter(route => route.data && route.data['nav']);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let sub = this.store.select(categorySelectors.selectAll).subscribe(data => {
+      this.categoryList = data;
+    });
+    this.subs.push(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(sub => { sub.unsubscribe() });
+  }
 
 }

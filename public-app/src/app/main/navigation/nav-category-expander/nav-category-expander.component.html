@@ -1,0 +1,16 @@
+<div class="link-wrapper" [ngClass]="{ 'main-nav': mainNav }">
+  <div class="expander" (click)="expanded=!expanded" [ngClass]="{ 'active-lisnk': expanded }">
+    <!-- <span class="icon" *ngIf="category.icon && mainNav">
+      <fa-icon   [icon]="['fas', category.icon]"></fa-icon>
+    </span> -->
+    <span class="text">{{category.name}}</span>
+    <span class="btn-expand">
+      <fa-icon *ngIf="expanded" [icon]="['fas', 'angle-down']"></fa-icon>
+      <fa-icon *ngIf="!expanded" [icon]="['fas', 'angle-left']"></fa-icon>
+    </span>
+  </div>
+  
+  <div *ngIf="category.children && category.children.length != 0 && expanded" class="children-list" @expand>
+    <app-nav-category-list [categories]="category.children"></app-nav-category-list>
+  </div>
+</div>

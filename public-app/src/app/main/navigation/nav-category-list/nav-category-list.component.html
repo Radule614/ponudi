@@ -1,0 +1,13 @@
+
+<div class="category-group" [ngClass]="{'main-nav': mainNav }">
+  <div *ngFor="let cat of categories">
+
+    <div *ngIf="!cat.children || cat.children.length == 0">
+      <app-nav-category-item [category]="cat" [mainNav]="mainNav"></app-nav-category-item>
+    </div>
+    
+    <div *ngIf="cat.children && cat.children.length != 0">
+      <app-nav-category-expander [category]="cat" [mainNav]="mainNav"></app-nav-category-expander>
+    </div>
+  </div>
+</div>

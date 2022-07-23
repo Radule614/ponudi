@@ -13,7 +13,8 @@ import { MainModule } from './main/main.module';
 import { AuthModule } from './auth/auth.module';
 import { reducers } from './store/index';
 import { AuthEffects } from './store/auth/auth.effects';
-import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { CategoryEffects } from './store/category/category.effects';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     AppRoutingModule,
     NgbModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, CategoryEffects]),
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
