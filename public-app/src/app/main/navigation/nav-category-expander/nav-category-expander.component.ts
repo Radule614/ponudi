@@ -1,4 +1,4 @@
-import { animate, style, transition, trigger } from "@angular/animations";
+import { animate, state, style, transition, trigger } from "@angular/animations";
 import { Component, Input } from "@angular/core";
 import { Category } from "src/app/model/category.model";
 
@@ -7,7 +7,7 @@ import { Category } from "src/app/model/category.model";
   templateUrl: './nav-category-expander.component.html',
   styleUrls: ['../shared-styles.scss', './nav-category-expander.component.scss'],
   animations: [
-    trigger('expand', [
+    trigger('expandBlock', [
       transition(':enter', [
         style({ height: 0}),
         animate('250ms ease-out', style({ height: '*' }))
@@ -16,6 +16,11 @@ import { Category } from "src/app/model/category.model";
         style({ height: '*'}),
         animate('250ms ease-out', style({ height: 0 }))
       ])
+    ]),
+    trigger('expandButton', [
+      state('true',   style({ transform: 'rotateZ(-90deg)' })),
+      state('false',  style({ transform: 'rotateZ(0deg)' })),
+      transition('true <=> false', animate('250ms ease-out'))
     ])
   ]
 })

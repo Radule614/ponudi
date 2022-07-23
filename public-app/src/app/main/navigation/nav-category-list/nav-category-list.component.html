@@ -1,5 +1,5 @@
 
-<div class="category-group" [ngClass]="{'main-nav': mainNav }">
+<div class="category-group nohighlight" [ngClass]="{'main-nav': mainNav }">
   <div *ngFor="let cat of categories">
 
     <div *ngIf="!cat.children || cat.children.length == 0">
