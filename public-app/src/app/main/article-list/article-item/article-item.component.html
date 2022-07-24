@@ -1,3 +1,13 @@
-<div>
-  {{article.title}}
+<div class="article-item">
+  <div class="image"></div>
+  <div class="content">
+    <div class="title">{{article.title}}</div>
+    <div class="details">detalji</div>
+    <div class="footer">
+      <div class="icon">
+        <fa-icon [icon]="['fas', 'clock-rotate-left']"></fa-icon>
+      </div>
+      <div>prije 50 sekundi</div>
+    </div>
+  </div>
 </div>
