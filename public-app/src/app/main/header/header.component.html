@@ -1,5 +1,8 @@
 
 <header>
+  <button type="button" class="btn-menu">
+    <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+  </button>
   <div class="logo">
     <img src="assets/rooster-logo.png" alt="img">
     <span>ponudi</span>
@@ -10,8 +13,8 @@
         <div class="info">
           {{loggedUser?.username}}
         </div>
-        <button *ngIf="!!loggedUser" class="button-primary" (click)="logout()">Izloguj se</button>
-        <button *ngIf="!loggedUser" class="button-primary" routerLink="/auth">Uloguj se</button>
+        <button *ngIf="!!loggedUser" class="button-primary inverse" (click)="logout()">Izloguj se</button>
+        <button *ngIf="!loggedUser" class="button-primary inverse" routerLink="/auth">Uloguj se</button>
       </div>
     </div>
   </div>

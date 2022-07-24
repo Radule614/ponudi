@@ -19,6 +19,8 @@ import { ShopsComponent } from "./pages/shops/shops.component";
 import { ArticleListComponent } from "./article-list/article-list.component";
 import { ArticleItemComponent } from "./article-list/article-item/article-item.component";
 import { NavigationModule } from "./navigation/navigation.module";
+import { FilterBlockComponent } from "./filter-block/filter-block.component";
+import { CategoryFilterComponent } from "./pages/category/category-filter.component.html/category-filter.component";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { NavigationModule } from "./navigation/navigation.module";
     ProfileComponent,
     ShopsComponent,
     ArticleListComponent,
-    ArticleItemComponent
+    ArticleItemComponent,
+    CategoryFilterComponent,
+    FilterBlockComponent
   ],
   imports: [
     CommonModule, 

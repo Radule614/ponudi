@@ -1,8 +1,20 @@
 <div class="wrapper">
-  <div class="sidebar">
-    filters
+  <div class="panel">
+    <button type="button" class="btn-expand" (click)="filtersExpanded=!filtersExpanded">
+      <div class="text">filters</div>
+      <div class="icon" [@expandButton]="filtersExpanded">
+        <fa-icon [icon]="['fas', 'angle-left']"></fa-icon>
+      </div>
+    </button>
   </div>
+  
   <div class="content">
-    <app-article-list></app-article-list>
+    <app-article-list [categoryId]="categoryId" [articles]="articles"></app-article-list>
+  </div>
+  
+  <div *ngIf="filtersExpanded" class="filter-block" @expandBlock>
+    <div class="inner">
+      <app-category-filter></app-category-filter>
+    </div>
   </div>
 </div>

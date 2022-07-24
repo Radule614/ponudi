@@ -23,7 +23,7 @@
     cursor: text;
     padding:0px 5px;
     margin: 20px 0px;
-    background-color: var(--light-primary);
+    background-color: var(--secondary);
     transition: transform 0.1s ease-out, opacity 0.1s ease-out;
     &.animate{
       transform: translateY(-25px) translateX(-12px);

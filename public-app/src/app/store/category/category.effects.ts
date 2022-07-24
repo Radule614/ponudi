@@ -15,7 +15,7 @@ export class CategoryEffects {
         }),
         catchError(error => {
           console.log(error.error.message);
-          return of(CategoryActions.fetchAllError());
+          return of(CategoryActions.fetchAllFailed());
         })
       )
     })

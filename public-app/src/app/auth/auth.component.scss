@@ -2,7 +2,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: var(--dark-secondary);
+  background-color: var(--secondary-variant);
 }
 .auth-block{
   width: 1100px;
@@ -15,7 +15,7 @@
   bottom:0px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
   overflow: hidden;
-  background-color: var(--light-primary);
+  background-color: var(--secondary);
   & > * {
     position: relative;
   }
@@ -25,7 +25,7 @@
     position:absolute;
     top:0px;
     left:0px;
-    background-color: var(--dark-primary);
+    background-color: var(--primary);
     transform-origin: center;
     overflow: hidden;
     button{
@@ -47,7 +47,7 @@
   .message-block{
     width: 400px;
     position: absolute;
-    color:var(--light-primary);
+    color:var(--secondary);
     font-size: 16px;
     text-align: center;
     padding: 200px 40px 0px 40px;

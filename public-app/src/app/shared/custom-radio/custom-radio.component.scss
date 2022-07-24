@@ -22,7 +22,7 @@
     position: relative;
     border:2px solid var(--active-primary);
     margin-right: 15px;
-    outline-color:var(--light-primary);
+    outline-color:var(--secondary);
     transition: outline-width 0.15s;
     &::before{
       content: "";

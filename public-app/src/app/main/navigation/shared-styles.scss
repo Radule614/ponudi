@@ -7,10 +7,9 @@
   & > a,
   & > .expander{
     padding:10px 18px 10px 12px;
-    color: var(--active-primary);
     font-size: 18px;
-    color:var(--light-primary);
-    transition: background-color 0.13s ease;
+    color: var(--text-primary);
+    transition: background-color 0.13s ease, color 0.13 ease;
     border-radius: 10px;
     align-items: center;
     text-decoration: none;
@@ -27,15 +26,16 @@
       flex:1;
     }
     &:hover{
-      background-color: rgba(var(--active-primary-rgb), $alpha: 0.20);
+      color:var(--active-primary);
     }
     &.active-link{
-      background-image: linear-gradient(to right, var(--active-secondary), var(--active-primary));
+      color: var(--secondary);
+      background-color: var(--active-primary);
     }
   }
   &.divider{
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(var(--light-primary-rgb), 0.15);
+    border-bottom: 1px solid var(--active-primary);
     margin-bottom: 20px;
   }
   &:not(.main-nav){
