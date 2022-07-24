@@ -1,4 +1,5 @@
 import { CallHandler, ExecutionContext, HttpException, Injectable, NestInterceptor } from "@nestjs/common";
+import { MongooseError } from "mongoose";
 import { catchError, Observable } from "rxjs";
 import { MongoException } from "src/exceptions/mongo.exception";
 

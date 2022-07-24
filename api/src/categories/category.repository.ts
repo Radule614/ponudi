@@ -13,7 +13,7 @@ export class CategoryRepository implements ICategoryRepository {
         @InjectModel('Category') private CategoryModel: Model<CategoryDocument>
     ) { }
 
-    async create(category: CreateCategoryDTO): Promise<CategoryDocument> {
+    public async create(category: CreateCategoryDTO): Promise<CategoryDocument> {
         let newCategory = new this.CategoryModel(category)
         let createdCategory = await newCategory.save()
         let children: ObjectId = createdCategory.id
@@ -27,14 +27,15 @@ export class CategoryRepository implements ICategoryRepository {
         return createdCategory;
     }
 
-    async findAll(): Promise<CategoryDocument[]> {
+    public async findAll(): Promise<CategoryDocument[]> {
         let parentCategories: CategoryDocument[] = await this.CategoryModel.find({ parent: null }).exec()
         return parentCategories
     }
 
-    async findAllPopulated(): Promise<SubcategoriesDTO[]> {
+    public async findAllPopulated(): Promise<SubcategoriesDTO[]> {
         let parentCategories: any[] = await this.findAll()
         let categoriesTree: SubcategoriesDTO[] = []
+
         for (let category of parentCategories) {
             let categoryTree: SubcategoriesDTO[] = await this.deepPopulateChildren(category.children)
             let categoryDto: SubcategoriesDTO = this.createDtoFromDocument(category, category._id)

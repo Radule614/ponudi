@@ -29,6 +29,10 @@ export class MongoErrorFilter implements ExceptionFilter {
                 message: "Entity already exists!",
                 status: 400
             }
+            case 66: return {
+                message: "Object Id can't be altered!",
+                status: 400
+            }
 
             default: return {
                 message: "Bad request!",

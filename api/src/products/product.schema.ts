@@ -59,7 +59,7 @@ export class Product {
     @Prop({
         type: mongoose.Schema.Types.ObjectId
     })
-    categoryId: string
+    category: string
 }
 
 

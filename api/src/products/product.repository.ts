@@ -1,7 +1,9 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { HttpException, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { NoResourceException } from "src/exceptions/no-resource.exception";
 import { CreateProductDTO } from "./dtos/create-product.dto";
+import { UpdateProductDTO } from "./dtos/update-product.dto";
 import { IProductRepository } from "./interfaces/product-repository.interface";
 import { Product, ProductDocument } from "./product.schema";
 
@@ -11,15 +13,34 @@ import { Product, ProductDocument } from "./product.schema";
 export class ProductRepository implements IProductRepository {
     constructor(@InjectModel('Product') private readonly ProductModel: Model<ProductDocument>) { }
 
-    create(product: CreateProductDTO): Promise<ProductDocument> {
+    public create(product: CreateProductDTO): Promise<ProductDocument> {
         const newProduct = new this.ProductModel(product)
         return newProduct.save()
     }
-    findAll(): Promise<ProductDocument[]> {
+
+    public findAll(): Promise<ProductDocument[]> {
         return this.ProductModel.find().exec()
     }
-    delete(id: string) {
-        this.ProductModel.findByIdAndDelete(id)
+
+    public delete(id: string) {
+        this.ProductModel.findByIdAndDelete(id).exec()
+    }
+
+    public findAllByCategory(categoryId: string): Promise<ProductDocument[]> {
+        return this.ProductModel.find({
+            category: categoryId
+        }, "-__v").exec()
+    }
+
+    public findOne(id: string): Promise<ProductDocument> {
+        return this.ProductModel
+            .findById(id, "-__v")
+            .orFail(new NoResourceException())
+            .exec()
+    }
+
+    public updateOne(id: string, newProduct: UpdateProductDTO): Promise<ProductDocument> {
+        return this.ProductModel.findOneAndUpdate({ _id: id }, { ...newProduct }, { new: true }).exec()
     }
 
 }
