@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 
 
@@ -7,13 +7,19 @@ export class CreateProductDTO {
     public content: string
 
     @IsNotEmpty()
+    @IsNumber()
     public price: number
 
     @IsNotEmpty()
     public owner: string
 
+    @IsNotEmpty()
+    public category: string
+
     public description?: string
 
     public pictures?: Array<string>
+
+    public currency?: string
 
 }
