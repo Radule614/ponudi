@@ -21,6 +21,8 @@ import { ArticleItemComponent } from "./article-list/article-item/article-item.c
 import { NavigationModule } from "./navigation/navigation.module";
 import { FilterBlockComponent } from "./filter-block/filter-block.component";
 import { CategoryFilterComponent } from "./pages/category/category-filter.component.html/category-filter.component";
+import { ArticleComponent } from "./pages/article/article.component";
+import { CrudModule } from "./pages/crud/crud.module";
 
 @NgModule({
   declarations: [
@@ -37,14 +39,17 @@ import { CategoryFilterComponent } from "./pages/category/category-filter.compon
     ArticleListComponent,
     ArticleItemComponent,
     CategoryFilterComponent,
-    FilterBlockComponent
+    FilterBlockComponent,
+    ArticleComponent,
+    
   ],
   imports: [
     CommonModule, 
     RouterModule, 
     FontAwesomeModule,
+    CrudModule,
+    NavigationModule,
     MainRoutingModule,
-    NavigationModule
   ],
   exports: [MainComponent]
 })

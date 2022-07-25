@@ -3,6 +3,7 @@
   background-color: var(--secondary);
   overflow: hidden;
   border-radius: 5px;
+  position: relative;
   .image{
     background-image: url("../../../../assets/image_placeholder.jpg");
     background-size: cover;
@@ -32,6 +33,51 @@
       .icon{
         flex:1;
       }
+    }
+  }
+
+  &:hover{
+    display: block;
+    .user-overlay{
+      display: block;
+    }
+  }
+  .user-overlay{
+    position:absolute;
+    top:0px;
+    left:0px;
+    height: 40px;
+    width: 100%;
+    display: none;
+    .background{
+      position:absolute;
+      top:0px;
+      left:0px;
+      height: 100%;
+      width: 100%;
+      opacity: 0.75;
+      background-color: var(--secondary);
+    }
+    .user-panel{
+      display: flex;
+      position: relative;
+      font-size: 22px;
+      justify-content: center;
+      & > button{
+        line-height: 40px;
+        cursor: pointer;
+        padding: 0px 10px;
+        background-color: transparent;
+        border: 0px;
+        &:hover{
+          // background-color: var(--active-primary);
+          color: var(--active-primary);
+        }
+      }
+      // .btn-delete{
+      //   height: 40px;
+      //   width: 40px;
+      // }
     }
   }
 }

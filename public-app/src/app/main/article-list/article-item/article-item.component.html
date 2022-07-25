@@ -1,7 +1,21 @@
 <div class="article-item">
+  <div *ngIf="editable" class="user-overlay">
+    <div class="background"></div>
+    <div class="user-panel">
+      <button class="btn-edit">
+        <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+      </button>
+      <button class="btn-share">
+        <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
+      </button>
+      <button class="btn-delete">
+        <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+      </button>
+    </div>
+  </div>
   <div class="image"></div>
   <div class="content">
-    <div class="title">{{article.title}}</div>
+    <div class="title">{{article.content}}</div>
     <div class="details">detalji</div>
     <div class="footer">
       <div class="icon">

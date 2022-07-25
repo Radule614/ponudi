@@ -1,0 +1,13 @@
+<h3>Kreiranje artikla</h3>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <custom-input class="control" [form]="form" controlName="content" placeholder="naslov"></custom-input>
+  </div>
+  <div>
+    <div class="form-group">
+      <custom-input class="control" [form]="form" controlName="price" placeholder="cijena" type="number"></custom-input>
+      <div class="grid-placeholder"></div>
+    </div>
+  </div>
+
+</form>

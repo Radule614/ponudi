@@ -15,7 +15,35 @@ export class ArticleEffects {
         }),
         catchError(error => {
           console.log(error.error.message);
-          return of(ArticleActions.fetchAllFailed());
+          return of(ArticleActions.fetchFailed());
+        })
+      )
+    })
+  ));
+  fetchAllByUser = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.fetchAllByUser),
+    switchMap(_ => {
+      return this.articleService.fetchUserArticles().pipe(
+        map(data => {
+          return ArticleActions.setAll({articles: data});
+        }),
+        catchError(error => {
+          console.log(error.error.message);
+          return of(ArticleActions.fetchFailed());
+        })
+      )
+    })
+  ));
+  fetchArticle = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.fetchArticle),
+    switchMap(action => {
+      return this.articleService.fetchArticleData(action.id).pipe(
+        map(data => {
+          return ArticleActions.setArticle({article: data});
+        }),
+        catchError(error => {
+          console.log(error.error.message);
+          return of(ArticleActions.fetchFailed());
         })
       )
     })

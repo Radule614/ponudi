@@ -7,9 +7,9 @@ import { Article } from "src/app/model/article.model";
   styleUrls: ['./article-list.component.scss']
 })
 export class ArticleListComponent implements OnInit {
-  @Input() categoryId: string = "";
   @Input() articles: Article[];
-
+  @Input() editable: boolean = false;
+  
   constructor(){}
 
   ngOnInit(): void {

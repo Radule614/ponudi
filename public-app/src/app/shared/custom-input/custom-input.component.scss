@@ -5,7 +5,6 @@
     padding:12px 20px;
     outline: none;
     border:2px solid var(--active-primary);
-    overflow:visible;
     border-radius: 5px;
     &.ng-invalid.ng-dirty{
       border:2px solid var(--error-primary);

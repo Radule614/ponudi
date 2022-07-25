@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
@@ -11,7 +11,7 @@ import { registerDTO } from "../../services/auth.service";
   templateUrl: './register.component.html',
   styleUrls: ['../shared-styles.scss', './register.component.scss']
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit, OnDestroy{
   form: UntypedFormGroup;
   errorMessages: string[] = [];
   loading: boolean = false;

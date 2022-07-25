@@ -28,7 +28,7 @@ input{
   display:block;
   background-color: var(--active-primary);
   border: none;
-  padding: 6px 36px;
+  padding: 6px 26px;
   color: var(--secondary);
   font-size: 16px;
   border-radius: 50px;
@@ -44,7 +44,6 @@ input{
     height: 100%;
   }
   &.inverse{
-    //color:var(--secondary-variant);
     color: var(--primary);
     background-color: var(--secondary-variant);
   }
@@ -65,19 +64,17 @@ input{
       outline: 8px solid rgba(var(--secondary-variant-rgb), 0.1);
     }
   }
+  &.dangerous {
+    background-color: var(--error-primary);
+    &:active:hover{
+      outline: 12px solid rgba(var(--error-primary-rgb), 0.2);
+    }
+    &:hover::before{
+      outline: 8px solid rgba(var(--error-primary-rgb), 0.1);
+    }
+  }
 }
 
-.custom-scroll{
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-  &::-webkit-scrollbar-track {
-    background: var(--primary-variant); 
-  }
-  &::-webkit-scrollbar-thumb {
-    background: var(--active-primary); 
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: var(--active-secondary); 
-  } 
+.page{
+  padding:25px;
 }
