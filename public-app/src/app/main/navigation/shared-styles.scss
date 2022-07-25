@@ -4,8 +4,7 @@
   &:first-child{
     margin-top: 0px;
   }
-  & > a,
-  & > .expander{
+  a{
     padding:10px 18px 10px 12px;
     font-size: 18px;
     color: var(--text-primary);
@@ -39,8 +38,7 @@
     margin-bottom: 20px;
   }
   &:not(.main-nav){
-    a,
-    .expander {
+    a {
       .text{
         padding-left: 4px;
       }
