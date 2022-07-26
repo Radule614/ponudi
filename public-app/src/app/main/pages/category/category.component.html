@@ -8,8 +8,8 @@
     </button>
   </div>
   
-  <div class="content">
-    <app-article-list [categoryId]="categoryId" [articles]="articles"></app-article-list>
+  <div class="content page">
+    <app-article-list [articles]="articles"></app-article-list>
   </div>
   
   <div *ngIf="filtersExpanded" class="filter-block" @expandBlock>

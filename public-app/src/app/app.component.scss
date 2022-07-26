@@ -1,0 +1,20 @@
+.loader{
+  position: fixed;
+  top:0px;
+  left:0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .background{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+  }
+}

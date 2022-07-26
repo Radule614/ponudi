@@ -5,17 +5,21 @@ import { AuthEffects } from "./auth/auth.effects";
 import { authReducer, AuthState } from "./auth/auth.reducer";
 import { CategoryEffects } from "./category/category.effects";
 import { categoryReducer, CategoryState } from "./category/category.reducer";
+import { GeneralEffects } from "./general/general.effects";
+import { generalReducer, GeneralState } from "./general/general.reducer";
 
 export interface AppState {
+  general: GeneralState,
   auth: AuthState,
   category: CategoryState,
   article: ArticleState
 }
 
 export const reducers: ActionReducerMap<AppState, any> = {
+  general: generalReducer,
   auth: authReducer,
   category: categoryReducer,
   article: articleReducer
 };
 
-export const effects = [AuthEffects, CategoryEffects, ArticleEffects]
+export const effects = [GeneralEffects, AuthEffects, CategoryEffects, ArticleEffects]

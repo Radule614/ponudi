@@ -7,9 +7,9 @@ import { UntypedFormGroup } from "@angular/forms";
   styleUrls: ['./custom-radio.component.scss']
 })
 export class CustomRadioComponent implements AfterViewInit{
-  @Input() public form: UntypedFormGroup;
-  @Input() public controlName: string;
-  @Input() public value: string;
+  @Input() form: UntypedFormGroup;
+  @Input() controlName: string;
+  @Input() value: string;
   
   @ViewChild('inputEl') inputEl: ElementRef;
   

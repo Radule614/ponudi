@@ -1,0 +1,10 @@
+.box-control{
+  textarea{
+    min-height: 150px;
+    max-height: 350px;
+  }
+  label{
+    bottom: auto;
+    top: -4px;
+  }
+}

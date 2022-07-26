@@ -1,0 +1,32 @@
+button{
+  width: 100%;
+  border:none;
+  text-align: left;
+  padding:10px 30px 10px 15px;
+  background-color: var(--secondary);
+  position: relative;
+  border-radius: 10px;
+  &:hover{
+    color: var(--active-primary);
+  }
+  .icon{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top:0px;
+    right:8px;
+    height: 100%;
+  }
+  &.selected{
+    &:not(.expandable){
+      background-color: var(--active-primary);
+      color: var(--secondary);
+      &:hover{
+        color: var(--secondary);
+      }
+    }
+    &.expandable{
+      color: var(--primary);
+    }
+  }
+}

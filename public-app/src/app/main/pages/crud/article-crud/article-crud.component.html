@@ -1,0 +1,22 @@
+<h3>Kreiranje artikla</h3>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="grid">
+    <custom-input class="control" [form]="form" controlName="content" placeholder="naslov"></custom-input>
+    <div class="form-group">
+      <custom-input   class="control" [form]="form" controlName="price"     placeholder="cijena" type="number"></custom-input>
+      <custom-select  class="control" [form]="form" controlName="currency"  placeholder="valuta" [options]="currencies"></custom-select>
+    </div>
+    <div class="full">
+      <custom-textarea [form]="form" controlName="description" placeholder="detalji"></custom-textarea>
+    </div>
+  </div>
+  
+  <h6>Odabiri kategoriju</h6>
+  <app-category-selector (categorySelectedEvent)="categorySelectedHandler($event)"></app-category-selector>
+  <div class="error-block">
+    <div *ngFor="let msg of errorMessages">{{msg}}</div>
+  </div>
+  <div class="button-group">
+    <button class="button-primary">Kreiraj</button>
+  </div>
+</form>

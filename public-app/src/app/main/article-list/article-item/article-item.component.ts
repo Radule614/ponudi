@@ -8,6 +8,7 @@ import { Article } from "src/app/model/article.model";
 })
 export class ArticleItemComponent implements OnInit{
   @Input() article: Article;
+  @Input() editable: boolean = false;
 
   constructor(){}
 
