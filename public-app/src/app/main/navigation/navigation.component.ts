@@ -3,7 +3,7 @@ import { Route, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/store';
-import * as categorySelectors from 'src/app/store/category/category.selectors';
+import * as CategorySelectors from 'src/app/store/category/category.selectors';
 import { Category } from '../../model/category.model';
 
 @Component({
@@ -22,7 +22,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let sub = this.store.select(categorySelectors.selectAll).subscribe(data => {
+    let sub = this.store.select(CategorySelectors.selectAll).subscribe(data => {
       this.categoryList = data;
     });
     this.subs.push(sub);

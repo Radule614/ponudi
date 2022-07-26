@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { Article } from "../model/article.model";
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,19 +13,6 @@ export class ArticleService {
   constructor(private http: HttpClient) {}
 
   fetchArticles(id: string): Observable<any> {
-
-    // const mockData: Article[] = [
-    //   { content: 'article_00', price: 200 },
-    //   { content: 'article_01', price: 300 },
-    //   { content: 'article_02', price: 400 },
-    //   { content: 'article_03', price: 600 },
-    //   { content: 'article_04', price: 100 },
-    //   { content: 'article_05', price: 700 },
-    //   { content: 'article_06', price: 200 },
-    //   { content: 'article_07', price: 600 },
-    //   { content: 'article_08', price: 300 },
-    // ];
-
     return this.http.get(`http://localhost:8000/products/category/${id}`);
   }
 
@@ -48,6 +37,7 @@ export class ArticleService {
   }
 
   postArticle(article: Article){
-    return of();
+    console.log(article.price);
+    return this.http.post(`http://localhost:8000/products`, article);
   }
 }

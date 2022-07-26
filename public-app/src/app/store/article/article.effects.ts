@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, tap, map, of, switchMap } from "rxjs";
 import { ArticleService } from "src/app/services/article.service";
 import * as ArticleActions from './article.actions';
 
@@ -25,7 +26,7 @@ export class ArticleEffects {
     switchMap(_ => {
       return this.articleService.fetchUserArticles().pipe(
         map(data => {
-          return ArticleActions.setAll({articles: data});
+          return ArticleActions.setAllByUser({articles: data});
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -49,5 +50,27 @@ export class ArticleEffects {
     })
   ));
 
-  constructor(private actions$: Actions, private articleService: ArticleService){}
+  createArticle = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.createArticle),
+    switchMap(action => {
+      return this.articleService.postArticle(action.article).pipe(
+        map(_ => {
+          return ArticleActions.createArticleSuccess();
+        }),
+        catchError(error => {
+          console.log(error.error.message);
+          return of(ArticleActions.createArticleFailed({ messages: error.error.message }));
+        })
+      )
+    })
+  ));
+
+  createArticleSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.createArticleSuccess),
+    tap(_ => {
+      this.router.navigate(['/dashboard']);
+    })
+  ), { dispatch: false });
+
+  constructor(private actions$: Actions, private articleService: ArticleService, private router: Router){}
 }

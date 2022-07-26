@@ -9,6 +9,7 @@ import { CrudComponent } from "./crud.component";
 import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/app/shared/shared.module";
+import { CategorySelectorModule } from "../../category-selector/category-selector.module";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SharedModule } from "src/app/shared/shared.module";
     RouterModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    CategorySelectorModule
   ]
 })
 export class CrudModule {

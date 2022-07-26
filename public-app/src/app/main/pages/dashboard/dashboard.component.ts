@@ -22,7 +22,7 @@ export class DashboardComponent{
   ngOnInit(): void {
     this.store.dispatch(FromArticle.fetchAllByUser())
     
-    let sub = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
+    let sub = this.store.select(ArticleSelectors.selectAllByUser).subscribe(data => {
       this.articles = data;
       console.log(data);
     })

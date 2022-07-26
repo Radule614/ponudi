@@ -18,7 +18,5 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(fromAuth.checkAuth());
     this.store.dispatch(fromCategory.fetchAll());
-
-    console.log(this.router.config);
   }
 }

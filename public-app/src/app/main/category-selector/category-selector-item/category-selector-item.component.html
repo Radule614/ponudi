@@ -1,0 +1,11 @@
+<button type="button" (click)="itemSelectedEvent()" [ngClass]="{'selected': selected, 'expandable': isExpandable}">
+  <div>
+    {{category.name}}
+  </div>
+  <div *ngIf="isExpandable" class="icon">
+    <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
+  </div>
+  <div *ngIf="selected && !isExpandable" class="icon">
+    <fa-icon [icon]="['fas', 'check']"></fa-icon>
+  </div>
+</button>

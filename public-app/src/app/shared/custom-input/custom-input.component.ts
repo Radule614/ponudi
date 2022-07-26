@@ -4,14 +4,14 @@ import { UntypedFormGroup } from "@angular/forms";
 @Component({
   selector: 'custom-input',
   templateUrl: './custom-input.component.html',
-  styleUrls: ['./custom-input.component.scss']
+  styleUrls: ['../shared-styles.scss', './custom-input.component.scss']
 })
 export class CustomInputComponent {
-  @Input() public form: UntypedFormGroup;
-  @Input() public controlName: string;
-  @Input() public type: string;
-  @Input() public placeholder: string;
-  @Input() public error: boolean;
+  @Input() form: UntypedFormGroup;
+  @Input() controlName: string;
+  @Input() type: string;
+  @Input() placeholder: string;
+  @Input() error: boolean;
 
   empty: boolean = true;
   focused: boolean = false;

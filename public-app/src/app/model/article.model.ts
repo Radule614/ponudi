@@ -1,6 +1,6 @@
 export class Article {
   content: string;
-  price?: number | null;
+  price: number;
   owner?: string | null;
   description?: string | null;
   pictures?: any[];
