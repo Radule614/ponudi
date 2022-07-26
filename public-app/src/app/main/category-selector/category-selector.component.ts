@@ -24,7 +24,6 @@ export class CategorySelector {
   ngOnInit(): void {
     let sub = this.store.select(CategorySelectors.selectAll).subscribe(data => {
       this.categoryList = data;
-      console.log(data);
     });
     this.subs.push(sub);
   }

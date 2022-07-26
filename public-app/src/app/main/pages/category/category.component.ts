@@ -54,7 +54,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
     
     sub = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
       this.articles = data;
-      console.log(data);
     })
     this.subs.push(sub);
   }

@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { reducers } from './store/index';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { effects } from './store/index';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { effects } from './store/index';
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
+    SharedModule,
     AuthModule,
     MainModule
   ],

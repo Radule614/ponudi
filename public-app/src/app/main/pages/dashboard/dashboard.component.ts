@@ -24,7 +24,6 @@ export class DashboardComponent{
     
     let sub = this.store.select(ArticleSelectors.selectAllByUser).subscribe(data => {
       this.articles = data;
-      console.log(data);
     })
     this.subs.push(sub);
   }

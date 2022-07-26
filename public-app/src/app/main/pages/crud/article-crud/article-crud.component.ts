@@ -6,6 +6,7 @@ import { Article } from "src/app/model/article.model";
 import { Category } from "src/app/model/category.model";
 import { User } from "src/app/model/user.model";
 import { AppState } from "src/app/store";
+import * as FromGeneral from "src/app/store/general/general.actions";
 import * as FromArticle from "src/app/store/article/article.actions";
 import * as ArticleSelectors from "src/app/store/article/article.selectors";
 import * as AuthSelectors from "src/app/store/auth/auth.selectors";
@@ -63,7 +64,7 @@ export class ArticleCrudComponent implements OnInit, OnDestroy{
     if(this.loggedUser == null || !this.loggedUser._id) return;
     if(this.form.status == 'VALID' && !this.categoryError){
       this.store.dispatch(FromArticle.clearErrors())
-      //this.store.dispatch(fromAuth.setLoading({loading: true}));
+      this.store.dispatch(FromGeneral.activateLoading());
       
       let data: Article = this.form.getRawValue();
       data.owner = this.loggedUser._id;

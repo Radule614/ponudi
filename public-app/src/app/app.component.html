@@ -1,2 +1,7 @@
 
 <router-outlet></router-outlet>
+
+<div *ngIf="appLoading" class="loader">
+  <div class="background"></div>
+  <spinner></spinner>
+</div>

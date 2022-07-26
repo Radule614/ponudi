@@ -37,7 +37,6 @@ export class ArticleService {
   }
 
   postArticle(article: Article){
-    console.log(article.price);
     return this.http.post(`http://localhost:8000/products`, article);
   }
 }
