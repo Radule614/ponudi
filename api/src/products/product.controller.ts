@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Req, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Query, Req, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Request } from "express";
 import { RolesGuard } from "src/auth/guards/role.guard";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { Roles } from "src/auth/role.decorator";
@@ -29,8 +30,8 @@ export class ProductController {
     }
 
     @Get('/category/:id')
-    async getProductsByCategory(@Param('id') categoryId: string) {
-        return await this.productService.findAllByCategory(categoryId)
+    async getProductsByCategory(@Param('id') categoryId: string, @Query() query) {
+        return await this.productService.findAllByCategory(categoryId, query)
     }
 
     @Get('/:id')

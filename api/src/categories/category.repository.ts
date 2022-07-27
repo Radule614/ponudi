@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, ObjectId } from "mongoose";
+import mongoose, { Model, ObjectId } from "mongoose";
 import { Category, CategoryDocument } from "./category.schema";
 import { CreateCategoryDTO } from "./dtos/create-category.dto";
 import { SubcategoriesDTO } from "./dtos/subcategories.dto";
@@ -12,6 +12,34 @@ export class CategoryRepository implements ICategoryRepository {
     constructor(
         @InjectModel('Category') private CategoryModel: Model<CategoryDocument>
     ) { }
+
+    public async findAllSubcategories(categoryId: string): Promise<Object[]> {
+        return this.CategoryModel.aggregate([
+            {
+                $graphLookup: {
+                    from: "categories",
+                    startWith: "$parent",
+                    connectFromField: "parent",
+                    connectToField: "_id",
+                    as: "reportingHierarchy"
+                }
+            },
+            {
+                $unwind: "$reportingHierarchy"
+            },
+            {
+                $match: {
+                    "reportingHierarchy._id": new mongoose.Types.ObjectId(categoryId)
+                }
+            },
+            {
+                $project: {
+                    _id: 1
+                }
+            }
+
+        ]).exec()
+    }
 
     public async create(category: CreateCategoryDTO): Promise<CategoryDocument> {
         let newCategory = new this.CategoryModel(category)
@@ -66,5 +94,4 @@ export class CategoryRepository implements ICategoryRepository {
             id
         }
     }
-
 }

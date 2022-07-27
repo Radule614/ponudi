@@ -25,4 +25,9 @@ export class CategoryService {
     async populateAllCategories() {
         return await this.categoryRepository.findAllPopulated()
     }
+
+    async findAllSubcategories(categoryId: string): Promise<string[]> {
+        let subcategories: Object[] = await this.categoryRepository.findAllSubcategories(categoryId)
+        return subcategories.map((subcategory: { _id: string; }) => subcategory._id)
+    }
 }

@@ -13,6 +13,12 @@ import { Product, ProductDocument } from "./product.schema";
 export class ProductRepository implements IProductRepository {
     constructor(@InjectModel('Product') private readonly ProductModel: Model<ProductDocument>) { }
 
+    public async countAllByCategories(categories: string[]): Promise<number> {
+        return await this.ProductModel.count({
+            category: { $in: categories }
+        }).exec()
+    }
+
     public create(product: CreateProductDTO): Promise<ProductDocument> {
         const newProduct = new this.ProductModel(product)
         return newProduct.save()
@@ -26,10 +32,17 @@ export class ProductRepository implements IProductRepository {
         this.ProductModel.findByIdAndDelete(id).exec()
     }
 
-    public findAllByCategory(categoryId: string): Promise<ProductDocument[]> {
+
+    public findAllByCategory(categoryId: string): any {
         return this.ProductModel.find({
             category: categoryId
-        }, "-__v").exec()
+        }, "-__v")
+    }
+
+    public findAllByCategories(categories: string[]) {
+        return this.ProductModel.find({
+            category: { $in: categories }
+        }, "-__v")
     }
 
     public findOne(id: string): Promise<ProductDocument> {
@@ -41,6 +54,11 @@ export class ProductRepository implements IProductRepository {
 
     public updateOne(id: string, newProduct: UpdateProductDTO): Promise<ProductDocument> {
         return this.ProductModel.findOneAndUpdate({ _id: id }, { ...newProduct }, { new: true }).exec()
+    }
+
+
+    public async countAll(): Promise<number> {
+        return await this.ProductModel.countDocuments()
     }
 
 }
