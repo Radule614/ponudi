@@ -14,6 +14,6 @@ import { CategoryService } from "./category.service";
         provide: 'ICategoryRepository',
         useClass: CategoryRepository
     }],
-    exports: [],
+    exports: [CategoryService],
 })
 export class CategoriesModule { }

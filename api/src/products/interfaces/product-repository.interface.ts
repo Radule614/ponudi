@@ -8,5 +8,8 @@ export interface IProductRepository {
     findOne(id: string): Promise<ProductDocument>
     delete(id: string)
     updateOne(id: string, newProduct: UpdateProductDTO): Promise<ProductDocument>
-    findAllByCategory(categoryId: string): Promise<ProductDocument[]>
+    findAllByCategory(categoryId: string): any
+    findAllByCategories(categories: string[]): any
+    countAll(): Promise<number>
+    countAllByCategories(categories: string[]): Promise<number>
 }
