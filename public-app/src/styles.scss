@@ -9,6 +9,10 @@ body{
   overflow-x: hidden;
 }
 
+body.modal-open{
+  overflow: hidden;
+}
+
 .nohighlight {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -77,4 +81,18 @@ input{
 
 .page{
   padding:25px;
+}
+
+.modal-content{
+  border:none !important;
+}
+
+.mdb-backdrop{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top:0px;
+  left:0px;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 200;
 }

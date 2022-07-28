@@ -14,11 +14,6 @@ export const selectArticle = createSelector(
   (state: ArticleState) => state.article
 );
 
-export const selectAllByUser = createSelector(
-  articleFeature,
-  (state: ArticleState) => state.userArticles
-);
-
 export const selectErrors = createSelector(
   articleFeature,
   (state: ArticleState) => state.errors

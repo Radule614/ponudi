@@ -1,0 +1,12 @@
+.button-panel{
+  display: flex;
+  border-bottom: 1px solid var(--primary);
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  & > button{
+    margin-left: 20px;
+    &:first-child{
+      margin-left: 0px;
+    }
+  }
+}

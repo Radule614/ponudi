@@ -14,7 +14,7 @@
           {{loggedUser?.username}}
         </div>
         <button *ngIf="!!loggedUser" class="button-primary inverse" (click)="logout()">Izloguj se</button>
-        <button *ngIf="!loggedUser" class="button-primary inverse" routerLink="/auth">Uloguj se</button>
+        <button *ngIf="!loggedUser" class="button-primary inverse" (click)="openAuth()">Uloguj se</button>
       </div>
     </div>
   </div>

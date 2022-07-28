@@ -6,6 +6,7 @@ import { CustomRadioComponent } from './custom-radio/custom-radio.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { CustomSelectComponent } from './custom-select/custom-select.component';
 import { CustomTextareaComponent } from './custom-textarea/custom-textarea.component';
+import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { CustomTextareaComponent } from './custom-textarea/custom-textarea.compo
     CustomRadioComponent,
     CustomSelectComponent,
     CustomTextareaComponent,
+    UnsubscribeComponent,
     SpinnerComponent
   ],
   imports: [
@@ -24,6 +26,7 @@ import { CustomTextareaComponent } from './custom-textarea/custom-textarea.compo
     CustomRadioComponent,
     CustomSelectComponent,
     CustomTextareaComponent,
+    UnsubscribeComponent,
     SpinnerComponent
   ]
 })

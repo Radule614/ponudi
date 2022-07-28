@@ -5,53 +5,41 @@ import { FaIconLibrary, FontAwesomeModule } from "@fortawesome/angular-fontaweso
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 
-import { MainRoutingModule } from "./main-routing.module";
-import { MainComponent } from "./main.component";
-import { HeaderComponent } from "./header/header.component";
-import { CategoryComponent } from "./pages/category/category.component";
-import { AccountComponent } from "./pages/account/account.component";
-import { DashboardComponent } from "./pages/dashboard/dashboard.component";
-import { ExploreComponent } from "./pages/explore/explore.component";
-import { HomeComponent } from "./pages/home/home.component";
-import { PageNotFoundComponent } from "./pages/page-not-found/page-not-found.component";
-import { ProfileComponent } from "./pages/profile/profile.component";
-import { ShopsComponent } from "./pages/shops/shops.component";
-import { ArticleListComponent } from "./article-list/article-list.component";
-import { ArticleItemComponent } from "./article-list/article-item/article-item.component";
 import { NavigationModule } from "./navigation/navigation.module";
+import { SharedModule } from "../shared/shared.module";
+import { CategorySelectorModule } from "./category-selector/category-selector.module";
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { FilterBlockComponent } from "./filter-block/filter-block.component";
-import { CategoryFilterComponent } from "./pages/category/category-filter.component.html/category-filter.component";
-import { ArticleComponent } from "./pages/article/article.component";
-import { CrudModule } from "./pages/crud/crud.module";
+import { ArticleListComponent } from "./article-list/article-list.component";
+import { HeaderComponent } from "./header/header.component";
+import { ArticleItemComponent } from "./article-list/article-item/article-item.component";
 
 @NgModule({
   declarations: [
-    MainComponent,
-    HeaderComponent,
-    CategoryComponent,
-    AccountComponent,
-    DashboardComponent,
-    ExploreComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-    ProfileComponent,
-    ShopsComponent,
-    ArticleListComponent,
-    ArticleItemComponent,
-    CategoryFilterComponent,
     FilterBlockComponent,
-    ArticleComponent,
-    
+    ArticleItemComponent,
+    ArticleListComponent,
+    FilterBlockComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule, 
     RouterModule, 
     FontAwesomeModule,
-    CrudModule,
     NavigationModule,
-    MainRoutingModule,
+    SharedModule,
+    CategorySelectorModule,
+    MdbModalModule
   ],
-  exports: [MainComponent]
+  exports: [
+    CommonModule, 
+    FontAwesomeModule,
+    CategorySelectorModule,
+    NavigationModule,
+    HeaderComponent,
+    ArticleListComponent,
+    FilterBlockComponent
+  ]
 })
 export class MainModule {
   constructor(library: FaIconLibrary){

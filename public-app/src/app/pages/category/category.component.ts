@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Subscription } from "rxjs";
 import { Article } from "src/app/model/article.model";
 import { AppState } from "src/app/store";
-import * as ArticleSelectors from '../../../store/article/article.selectors';
-import * as FromArticle from '../../../store/article/article.actions';
+import * as ArticleSelectors from 'src/app/store/article/article.selectors';
+import * as FromArticle from 'src/app/store/article/article.actions';
 import { animate, group, query, state, style, transition, trigger } from "@angular/animations";
+import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 
 @Component({
   selector: 'app-category',
@@ -36,29 +36,21 @@ import { animate, group, query, state, style, transition, trigger } from "@angul
     ])
   ]
 })
-export class CategoryComponent implements OnInit, OnDestroy {
+export class CategoryComponent extends UnsubscribeComponent implements OnInit {
   categoryId: string = "";
-  subs: Subscription[] = [];
-
   articles: Article[] = [];
   filtersExpanded: boolean = false;
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>){}
+  constructor(private route: ActivatedRoute, private store: Store<AppState>){ super() }
 
   ngOnInit(): void {
-    let sub = this.route.params.subscribe(data => {
+    this.addToSubs = this.route.params.subscribe(data => {
       this.categoryId = data['id'];
       this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId }))
     })
-    this.subs.push(sub);
-    
-    sub = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
+    this.addToSubs = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
+      console.log(data);
       this.articles = data;
     })
-    this.subs.push(sub);
-  }
-  
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => { sub.unsubscribe() });
   }
 }

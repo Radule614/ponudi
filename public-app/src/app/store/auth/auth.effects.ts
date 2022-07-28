@@ -28,7 +28,6 @@ export class AuthEffects {
     ofType(AuthActions.loginSuccess),
     map((action) => {
       localStorage.setItem("token", action.token);
-      this.router.navigate(['/']);
       return AuthActions.fetchUser();
     })
   ));
@@ -37,6 +36,7 @@ export class AuthEffects {
     ofType(AuthActions.logout),
     tap(_ => {
       localStorage.removeItem('token');
+      this.router.navigate(['/']);
     })
   ), { dispatch: false });
 

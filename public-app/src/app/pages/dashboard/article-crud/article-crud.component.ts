@@ -10,19 +10,19 @@ import * as FromGeneral from "src/app/store/general/general.actions";
 import * as FromArticle from "src/app/store/article/article.actions";
 import * as ArticleSelectors from "src/app/store/article/article.selectors";
 import * as AuthSelectors from "src/app/store/auth/auth.selectors";
+import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 
 @Component({
   selector: 'app-article-crud',
   templateUrl: './article-crud.component.html',
   styleUrls: ['./article-crud.component.scss']
 })
-export class ArticleCrudComponent implements OnInit, OnDestroy{
+export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit{
   form: UntypedFormGroup;
   errorMessages: string[] = [];
   loading: boolean = false;
   loggedUser: User | null = null;
 
-  subs: Subscription[] = [];
   selectedCategory: Category | null = null;
 
   currencies: Object[] = [
@@ -30,29 +30,21 @@ export class ArticleCrudComponent implements OnInit, OnDestroy{
     { name: 'EUR', value: 'EUR' }
   ]
 
-  constructor(private store: Store<AppState>){}
+  constructor(private store: Store<AppState>){ super() }
 
   ngOnInit(): void {
     this.store.dispatch(FromArticle.clearErrors())
-    let sub = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => {
+    this.addToSubs = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => {
       this.errorMessages = errors;
     });
-    this.subs.push(sub);
-    sub = this.store.select(AuthSelectors.selectUser).subscribe(user => {
+    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => {
         this.loggedUser = user;
     });
-    this.subs.push(sub);
     this.form = new UntypedFormGroup({
       'content':      new UntypedFormControl(null, Validators.required),
       'price':        new UntypedFormControl(null, Validators.required),
       'description':  new UntypedFormControl(null),
       'currency':     new UntypedFormControl(null)
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => {
-      sub.unsubscribe();
     });
   }
 

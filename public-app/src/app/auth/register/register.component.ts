@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { Subscription } from "rxjs";
+import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { AppState } from "src/app/store";
 import * as fromAuth from "src/app/store/auth/auth.actions";
 import { registerDTO } from "../../services/auth.service";
@@ -11,22 +11,19 @@ import { registerDTO } from "../../services/auth.service";
   templateUrl: './register.component.html',
   styleUrls: ['../shared-styles.scss', './register.component.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy{
+export class RegisterComponent extends UnsubscribeComponent implements OnInit{
   form: UntypedFormGroup;
   errorMessages: string[] = [];
   loading: boolean = false;
 
-  subs: Subscription[] = [];
-
-  constructor(private store: Store<AppState>){}
+  constructor(private store: Store<AppState>){ super() }
   
   ngOnInit(): void {
     this.store.dispatch(fromAuth.registerClear())
-    let sub = this.store.select('auth').subscribe(state => {
+    this.addToSubs = this.store.select('auth').subscribe(state => {
       this.loading = state.loading;
       this.errorMessages = state.registerErrors;
     });
-    this.subs.push(sub);
     this.form = new UntypedFormGroup({
       'username':         new UntypedFormControl(null, [Validators.required, Validators.maxLength(20)]),
       'email':            new UntypedFormControl(null, [Validators.required, Validators.email]),
@@ -36,12 +33,6 @@ export class RegisterComponent implements OnInit, OnDestroy{
       'passwordConfirm':  new UntypedFormControl(null, [Validators.required]),
       'gender':           new UntypedFormControl(null, [Validators.required]),
     }, [RegisterComponent.MatchValidator('password', 'passwordConfirm')]);
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => {
-      sub.unsubscribe();
-    });
   }
   
   onSubmit(){

@@ -1,5 +1,14 @@
 
-<router-outlet></router-outlet>
+<app-header></app-header>
+<div class="main">
+  <div class="sidebar">
+    <app-navigation></app-navigation>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
 
 <div *ngIf="appLoading" class="loader">
   <div class="background"></div>
