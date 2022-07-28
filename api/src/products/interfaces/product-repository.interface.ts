@@ -12,4 +12,5 @@ export interface IProductRepository {
     findAllByCategories(categories: string[]): any
     countAll(): Promise<number>
     countAllByCategories(categories: string[]): Promise<number>
+    findAllByUser(userId: string): Promise<ProductDocument[]>
 }

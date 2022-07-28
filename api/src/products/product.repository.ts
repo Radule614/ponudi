@@ -13,6 +13,12 @@ import { Product, ProductDocument } from "./product.schema";
 export class ProductRepository implements IProductRepository {
     constructor(@InjectModel('Product') private readonly ProductModel: Model<ProductDocument>) { }
 
+    findAllByUser(userId: string): Promise<ProductDocument[]> {
+        return this.ProductModel.find({
+            owner: userId
+        }).exec()
+    }
+
     public async countAllByCategories(categories: string[]): Promise<number> {
         return await this.ProductModel.count({
             category: { $in: categories }

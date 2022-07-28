@@ -30,7 +30,6 @@ export class Category {
         type: Array<string>,
         default: []
     })
-
     additionalFields: Array<string> = []
 
 }
