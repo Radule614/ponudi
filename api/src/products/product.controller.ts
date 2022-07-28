@@ -60,9 +60,13 @@ export class ProductController {
         return await this.productService.deleteOne(id)
     }
 
-
     @Get('/temporary/test')
     async testFilters(@Query() query) {
         return query
+    }
+
+    @Get('/user/:id')
+    async getProductsByUser(@Param('id') userId: string) {
+        return await this.productService.findProductsByUser(userId)
     }
 }

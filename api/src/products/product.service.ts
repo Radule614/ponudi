@@ -43,6 +43,10 @@ export class ProductService {
         }
     }
 
+    public async findProductsByUser(userId: string) {
+        return await this.productRepository.findAllByUser(userId)
+    }
+
     public async findOne(id: string) {
         return await this.productRepository.findOne(id)
     }

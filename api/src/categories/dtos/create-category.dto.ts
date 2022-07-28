@@ -8,4 +8,5 @@ export class CreateCategoryDTO {
     parent: string
     children: Array<string>
     icon: string
+    additionalFields: Array<string>
 }
