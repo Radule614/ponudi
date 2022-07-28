@@ -95,6 +95,7 @@ export class CategoryRepository implements ICategoryRepository {
         return {
             name: document.name,
             icon: document.icon,
+            additionalFields: document.additionalFields,
             id
         }
     }
