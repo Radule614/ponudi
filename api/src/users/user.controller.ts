@@ -31,7 +31,6 @@ export class UserController {
     async findOne(@Req() request: ReqWithUser) {
         let { user } = request
         user.password = undefined
-        user.roles = undefined
         return user
     }
 
