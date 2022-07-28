@@ -15,7 +15,7 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchArticles(action.id).pipe(
         map(data => {
-          return ArticleActions.setAll({articles: data});
+          return ArticleActions.setAll({articles: data.data, page: data.page, count: data.count});
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -29,7 +29,7 @@ export class ArticleEffects {
     switchMap(_ => {
       return this.articleService.fetchUserArticles().pipe(
         map(data => {
-          return ArticleActions.setAllByUser({articles: data});
+          return ArticleActions.setAll({articles: data, page: -1, count: -1});
         }),
         catchError(error => {
           console.log(error.error.message);

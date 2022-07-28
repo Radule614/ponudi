@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
+import { environment } from "src/environments/environment";
 import { Article } from "../model/article.model";
 
 
@@ -13,7 +14,7 @@ export class ArticleService {
   constructor(private http: HttpClient) {}
 
   fetchArticles(id: string): Observable<any> {
-    return this.http.get(`http://localhost:8000/products/category/${id}`);
+    return this.http.get(`${environment.apiUrl}/products/category/${id}`);
   }
 
   fetchUserArticles(): Observable<any> {
@@ -37,6 +38,6 @@ export class ArticleService {
   }
 
   postArticle(article: Article){
-    return this.http.post(`http://localhost:8000/products`, article);
+    return this.http.post(`${environment.apiUrl}/products`, article);
   }
 }

@@ -1,35 +1,40 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Subscription } from "rxjs";
 import { User } from "src/app/model/user.model";
+import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { AppState } from "src/app/store";
 import * as fromAuth from "src/app/store/auth/auth.actions";
 import * as authSelectors from "src/app/store/auth/auth.selectors";
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { AuthComponent } from "src/app/auth/auth.component";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent extends UnsubscribeComponent implements OnInit {
   loggedUser: User | null = null;
-  subs: Subscription[] = [];
+  modalRef: MdbModalRef<AuthComponent> | null = null;
   
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private modalService: MdbModalService) { super() }
 
   ngOnInit(): void { 
-    let sub = this.store.select(authSelectors.selectUser).subscribe(user => {
+    this.addToSubs = this.store.select(authSelectors.selectUser).subscribe(user => {
       this.loggedUser = user;
-      console.log(user);
+      if(this.loggedUser != null){
+        this.modalRef?.close();
+      }
     });
-    this.subs.push(sub);
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => { sub.unsubscribe() });
   }
 
   logout(): void {
     this.store.dispatch(fromAuth.logout());
+  }
+
+  openAuth() {
+    this.modalRef = this.modalService.open(AuthComponent, {
+      modalClass: 'modal-xl modal-fullscreen-xl-down modal-dialog-centered'
+    });
   }
 }

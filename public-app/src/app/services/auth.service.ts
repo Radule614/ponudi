@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { exhaustMap, Observable, of, take } from "rxjs";
+import { environment } from "src/environments/environment";
 import { AppState } from "../store";
 import { isLogged } from "../store/auth/auth.selectors";
 
@@ -27,7 +28,7 @@ export class AuthService{
   constructor(private http: HttpClient, private store: Store<AppState>){}
 
   loginUser(data: loginDTO): Observable<any>{
-    return this.http.post('http://localhost:8000/auth/login', data);
+    return this.http.post(`${environment.apiUrl}/auth/login`, data);
   }
 
   fetchUserData(): Observable<any>{
@@ -35,7 +36,7 @@ export class AuthService{
       take(1),
       exhaustMap(userLogged => {
         if(userLogged){
-          return this.http.get('http://localhost:8000/users/me');
+          return this.http.get(`${environment.apiUrl}/users/me`);
         }
         return of();
       })
@@ -43,6 +44,6 @@ export class AuthService{
   }
 
   registerUser(data: registerDTO): Observable<any> {
-    return this.http.post('http://localhost:8000/auth/register', data);
+    return this.http.post(`${environment.apiUrl}/auth/register`, data);
   }
 }

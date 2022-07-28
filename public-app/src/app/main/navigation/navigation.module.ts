@@ -1,8 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FaIconLibrary, FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NavCategoryItemComponent } from "./nav-category-item/nav-category-item.component";
 import { NavCategoryListComponent } from "./nav-category-list/nav-category-list.component";
 import { NavigationComponent } from "./navigation.component";
@@ -23,9 +21,4 @@ import { RouterModule } from "@angular/router";
     NavigationComponent
   ]
 })
-export class NavigationModule {
-  constructor(library: FaIconLibrary) {
-    library.addIconPacks(fas);
-    library.addIconPacks(far);
-  }
-}
+export class NavigationModule {}

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Subscription } from "rxjs";
 import { Category } from "src/app/model/category.model";
+import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { AppState } from "src/app/store";
 import * as CategorySelectors from 'src/app/store/category/category.selectors';
 
@@ -10,26 +10,20 @@ import * as CategorySelectors from 'src/app/store/category/category.selectors';
   templateUrl: './category-selector.component.html',
   styleUrls: ['./category-selector.component.scss']
 })
-export class CategorySelector {
+export class CategorySelectorComponent extends UnsubscribeComponent implements OnInit{
   categoryList: Category[] = [];
-  subs: Subscription[] = [];
   path: Category[] = [];
   selectedCategory: Category | null;
 
   @Output() pathChangedEvent: EventEmitter<Category[]> = new EventEmitter();
   @Output() categorySelectedEvent: EventEmitter<Category> = new EventEmitter();
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { super() }
 
   ngOnInit(): void {
-    let sub = this.store.select(CategorySelectors.selectAll).subscribe(data => {
+    this.addToSubs = this.store.select(CategorySelectors.selectAll).subscribe(data => {
       this.categoryList = data;
     });
-    this.subs.push(sub);
-  }
-
-  ngOnDestroy(): void {
-    this.subs.forEach(sub => { sub.unsubscribe() });
   }
 
   pathChangedHandler(){

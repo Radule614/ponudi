@@ -1,5 +1,6 @@
 import { animate, group, keyframes, query, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-auth',
@@ -83,7 +84,7 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
   state = 'login';
 
-  constructor() { }
+  constructor(public modalRef: MdbModalRef<AuthComponent>) { }
   ngOnInit(): void {}
 
   switchState(){
