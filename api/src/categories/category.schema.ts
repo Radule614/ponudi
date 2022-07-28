@@ -26,6 +26,14 @@ export class Category {
 
     @Prop()
     icon: string
+    @Prop({
+        type: Array<string>,
+        default: []
+    })
+
+    additionalFields: Array<string> = []
+
 }
+
 
 export const CategorySchema = SchemaFactory.createForClass(Category)

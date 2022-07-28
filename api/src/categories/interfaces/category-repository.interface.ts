@@ -7,4 +7,5 @@ export interface ICategoryRepository {
     findAll(): Promise<CategoryDocument[]>
     findAllPopulated(): Promise<SubcategoriesDTO[]>
     findAllSubcategories(categoryId: string): Promise<Object[]>
+    findById(categoryId: string): Promise<CategoryDocument>
 }

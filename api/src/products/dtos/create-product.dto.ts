@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsObject } from "class-validator";
 
 
 
@@ -21,5 +21,8 @@ export class CreateProductDTO {
     public pictures?: Array<string>
 
     public currency?: string
+
+    @IsObject()
+    public additionalFields: Object = {}
 
 }

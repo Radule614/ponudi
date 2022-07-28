@@ -60,6 +60,12 @@ export class Product {
         type: mongoose.Schema.Types.ObjectId
     })
     category: string
+
+    @Prop({
+        type: Object,
+        default: {}
+    })
+    additionalFields: Object = {}
 }
 
 

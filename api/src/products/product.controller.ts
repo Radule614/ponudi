@@ -59,4 +59,10 @@ export class ProductController {
         if (product.owner.toString() != userObj._id.toString()) throw new ForbiddenException()
         return await this.productService.deleteOne(id)
     }
+
+
+    @Get('/temporary/test')
+    async testFilters(@Query() query) {
+        return query
+    }
 }
