@@ -86,6 +86,10 @@ export class CategoryRepository implements ICategoryRepository {
         return resultArray
     }
 
+    public async findById(categoryId: string): Promise<CategoryDocument> {
+        return this.CategoryModel.findById(categoryId).exec()
+    }
+
 
     private createDtoFromDocument(document: Category, id: any): SubcategoriesDTO {
         return {

@@ -18,6 +18,10 @@ export class CategoryService {
         return newCategory
     }
 
+    async findById(categoryId: string) {
+        return await this.categoryRepository.findById(categoryId)
+    }
+
     async findAllParentCategories() {
         return await this.categoryRepository.findAll()
     }
