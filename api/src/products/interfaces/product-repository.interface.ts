@@ -6,11 +6,11 @@ export interface IProductRepository {
     create(product: CreateProductDTO): Promise<ProductDocument>
     findAll(): Promise<ProductDocument[]>
     findOne(id: string): Promise<ProductDocument>
-    delete(id: string)
+    delete(id: string): void
     updateOne(id: string, newProduct: UpdateProductDTO): Promise<ProductDocument>
     findAllByCategory(categoryId: string): any
     findAllByCategories(categories: string[]): any
     countAll(): Promise<number>
     countAllByCategories(categories: string[]): Promise<number>
-    findAllByUser(userId: string): Promise<ProductDocument[]>
+    findAllByUser(userId: string)
 }
