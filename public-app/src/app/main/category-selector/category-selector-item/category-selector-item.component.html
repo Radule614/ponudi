@@ -1,11 +1,18 @@
-<button type="button" (click)="itemSelectedEvent()" [ngClass]="{'selected': selected, 'expandable': isExpandable}">
-  <div>
-    {{category.name}}
+<button type="button" (click)="itemSelectedEvent()" [ngClass]="{'selected': selected, 'expandable': isExpandable, 'new-item': isNewItem}">
+  <div *ngIf="!isNewItem">
+    <div>{{category.name}}</div>
+    <div *ngIf="isExpandable" class="icon">
+      <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
+    </div>
+    <div *ngIf="selected && !isExpandable" class="icon">
+      <fa-icon [icon]="['fas', 'check']"></fa-icon>
+    </div>
   </div>
-  <div *ngIf="isExpandable" class="icon">
-    <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
-  </div>
-  <div *ngIf="selected && !isExpandable" class="icon">
-    <fa-icon [icon]="['fas', 'check']"></fa-icon>
+  <div *ngIf="isNewItem">
+    <div>lokacija</div>
+    <div class="icon">
+      <fa-icon *ngIf="!selected" [icon]="['fas', 'plus']"></fa-icon>
+      <fa-icon *ngIf="selected" [icon]="['fas', 'check']"></fa-icon>
+    </div>
   </div>
 </button>

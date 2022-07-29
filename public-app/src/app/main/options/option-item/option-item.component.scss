@@ -1,0 +1,42 @@
+.option{
+  position: relative;
+  padding:5px 50px 5px 15px;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 1px solid var(--text-primary);
+  color: var(--text-primary);
+  transition: border 0.2s ease;
+  .icon{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top:0px;
+    right:6px;
+    bottom:0px;
+    margin:auto;
+    height: 15px;
+    font-size: 22px;
+    border:0px;
+    padding:0px;
+    background-color: transparent;
+    color: var(--text-primary);
+    line-height: 20px;
+    transition: color 0.2s ease;
+  }
+  &.editable{
+    &:hover{
+      border: 1px solid var(--active-primary);
+    }
+    .icon:hover{
+      color: var(--active-primary);
+    }
+  } 
+  &:not(.editable){
+    .icon{
+      cursor:not-allowed;
+      opacity: 0.3;
+    }
+  }
+}

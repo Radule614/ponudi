@@ -6,6 +6,8 @@ button{
   background-color: var(--secondary);
   position: relative;
   border-radius: 10px;
+  color:var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
   &:hover{
     color: var(--active-primary);
   }
@@ -26,7 +28,21 @@ button{
       }
     }
     &.expandable{
-      color: var(--primary);
+      color: var(--active-primary);
+    }
+  }
+  &.new-item{
+    border: 1px solid var(--text-primary);
+    padding-right: 45px;
+    font-style: italic;
+    .icon{
+      font-size: 16px;
+    }
+    &:hover{
+      border: 1px solid var(--active-primary);
+    }
+    &.selected{
+      border: 1px solid var(--active-primary);
     }
   }
 }

@@ -7,17 +7,17 @@ import { AppState } from "../store";
 import { isLogged } from "../store/auth/auth.selectors";
 
 export interface loginDTO {
-  username: string,
-  password: string
+  username: string;
+  password: string;
 }
 
 export interface registerDTO {
-  username: string,
-  email: string,
-  password: string,
-  name: string,
-  surname: string,
-  gender
+  username: string;
+  email: string;
+  password: string;
+  name: string;
+  surname: string;
+  gender: string;
 }
 
 @Injectable({

@@ -13,6 +13,9 @@ import { FilterBlockComponent } from "./filter-block/filter-block.component";
 import { ArticleListComponent } from "./article-list/article-list.component";
 import { HeaderComponent } from "./header/header.component";
 import { ArticleItemComponent } from "./article-list/article-item/article-item.component";
+import { OptionsModule } from "./options/options.module";
+
+export const allIconNames: any = [];
 
 @NgModule({
   declarations: [
@@ -20,7 +23,7 @@ import { ArticleItemComponent } from "./article-list/article-item/article-item.c
     ArticleItemComponent,
     ArticleListComponent,
     FilterBlockComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     CommonModule, 
@@ -29,7 +32,8 @@ import { ArticleItemComponent } from "./article-list/article-item/article-item.c
     NavigationModule,
     SharedModule,
     CategorySelectorModule,
-    MdbModalModule
+    MdbModalModule,
+    OptionsModule
   ],
   exports: [
     CommonModule, 
@@ -38,12 +42,16 @@ import { ArticleItemComponent } from "./article-list/article-item/article-item.c
     NavigationModule,
     HeaderComponent,
     ArticleListComponent,
-    FilterBlockComponent
+    FilterBlockComponent,
+    OptionsModule
   ]
 })
 export class MainModule {
   constructor(library: FaIconLibrary){
     library.addIconPacks(fas);
     library.addIconPacks(far);
+    for(let icon in fas){
+      allIconNames.push(fas[icon].iconName)
+    }
   }
 }

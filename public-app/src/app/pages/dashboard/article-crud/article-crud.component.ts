@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { Subscription } from "rxjs";
 import { Article } from "src/app/model/article.model";
 import { Category } from "src/app/model/category.model";
 import { User } from "src/app/model/user.model";

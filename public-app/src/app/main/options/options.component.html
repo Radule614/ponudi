@@ -1,0 +1,4 @@
+<div class="options">
+  <app-option-item *ngFor="let option of static"  [option]="option" [editable]="false"></app-option-item>
+  <app-option-item *ngFor="let option of dynamic" [option]="option" [editable]="true" (deleteEvent)="deleteHandler(option)"></app-option-item>
+</div>

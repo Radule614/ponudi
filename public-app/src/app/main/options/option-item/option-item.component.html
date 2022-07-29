@@ -1,0 +1,6 @@
+<div class="option" [ngClass]="{'editable': editable}">
+  <div>{{option}}</div>
+  <button class="icon" [disabled]="!editable" (click)="deleteEvent.emit()">
+    <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon>
+  </button>
+</div>

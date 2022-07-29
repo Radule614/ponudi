@@ -6,6 +6,7 @@ export class Article {
   pictures?: any[];
   category?: string | null;
   current?: string | null;
+  additionalFields?: string[];
 
   constructor() {}
 }

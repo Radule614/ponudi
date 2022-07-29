@@ -4,6 +4,9 @@
       <!-- <span class="icon" *ngIf="category.icon && mainNav">
         <fa-icon   [icon]="['fas', category.icon]"></fa-icon>
       </span> -->
+      <span class="icon" *ngIf="category.icon">
+        <fa-icon   [icon]="['fas', category.icon]"></fa-icon>
+      </span>
       <span class="text">{{category.name}}</span>
     </a>
     <button type="button" *ngIf="isExpandable" class="btn-expand" (click)="expanded=!expanded">
