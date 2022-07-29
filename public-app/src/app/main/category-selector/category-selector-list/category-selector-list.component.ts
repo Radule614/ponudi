@@ -9,15 +9,18 @@ export class CategorySelectorList {
   @Input() categories: Category[] = [];
   @Input() depth: number = 0;
   @Input() path: Category[] = [];
+  @Input() creation: boolean = false;
   @Output() pathChanged: EventEmitter<any> = new EventEmitter();
-  
-  selectedCategory: Category | null = null;
-  
+
+  pathChangedHandler(){
+    this.pathChanged.emit();
+  }
+
   categorySelectedEvent(category: Category){
-    if(this.selectedCategory != category){
-      this.selectedCategory = category;
-      for(let i = 0; i < this.path.length - this.depth; i++){
-        this.path.pop()
+    if(this.path[this.depth] != category){
+      let size = this.path.length;
+      for(let i = 0; i < size - this.depth; i++){
+        this.path.pop();
       }
       this.path[this.depth] = category;
       this.pathChanged.emit();

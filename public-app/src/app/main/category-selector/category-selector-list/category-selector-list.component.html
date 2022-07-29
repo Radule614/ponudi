@@ -2,17 +2,17 @@
   <div class="list">
     <app-category-selector-item *ngFor="let category of categories" 
                                 [category]="category" 
-                                [selected]="selectedCategory==category" 
+                                [selected]="path[depth]==category" 
                                 (itemSelected)="categorySelectedEvent(category)"
     >
     </app-category-selector-item>
   </div>
-  <div class="divider" *ngIf="selectedCategory && selectedCategory.children && selectedCategory.children.length != 0"></div>
-  <app-category-selector-list *ngIf="selectedCategory && selectedCategory.children && selectedCategory.children.length != 0" 
-                              [categories]="selectedCategory.children"
+  <app-category-selector-list *ngIf="path[depth] && path[depth].children && path[depth].children.length != 0" 
+                              [categories]="path[depth].children"
                               [depth]="depth+1"
                               [path]="path"
-                              (pathChanged)="pathChanged.emit()"
+                              (pathChanged)="pathChangedHandler()"
+                              [creation]="creation"
   >
   </app-category-selector-list>
 </div>

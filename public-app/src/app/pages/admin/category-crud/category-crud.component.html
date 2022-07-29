@@ -1,1 +1,42 @@
-123
+<h3>Kreiranje kategorije</h3>
+
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <div class="form-block">
+    <custom-input class="control" [form]="categoryForm" controlName="name" placeholder="naziv"></custom-input>
+  </div>
+  <div class="form-block">
+    <custom-select class="control" [form]="categoryForm" controlName="icon" placeholder="ikonica" [options]="allIconNames"></custom-select>
+  </div>
+  
+  <h6>Odaberi lokaciju</h6>
+  <div class="category-selector">
+    <app-category-selector class="category-selector" (pathChangedEvent)="pathChangedHandler($event)" [creation]="true"></app-category-selector>
+  </div>
+  <h6>Opcije</h6>
+  <div class="options">
+    <app-options [static]="inheritedOptions" [dynamic]="newOptions"></app-options>
+  </div>
+
+
+  <button *ngIf="!optionFormActive" class="btn-toggle-option-form" (click)="optionFormActive=true">
+    <!-- <fa-icon [icon]="['fas', 'circle-plus']"></fa-icon> -->
+    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+  </button>
+  <form *ngIf="optionFormActive" [formGroup]="optionForm" (ngSubmit)="onOptionSubmit()" class="option-form">
+    <h6>Dodaj novu opciju</h6>
+    <div class="form-block">
+      <custom-input [form]="optionForm" placeholder="naziv opcije" controlName="option"></custom-input>
+    </div>
+    <div class="form-block button-group">
+      <button type="button" class="button-primary dark" (click)="optionFormActive=false">Odustani</button>
+      <button class="button-primary">Dodaj opciju</button>
+    </div>
+  </form>
+
+  <div class="error-block">
+    <div *ngFor="let msg of errorMessages">{{msg}}</div>
+  </div>
+  <div class="button-group">
+    <button class="button-primary">Kreiraj kategoriju</button>
+  </div>
+</form>

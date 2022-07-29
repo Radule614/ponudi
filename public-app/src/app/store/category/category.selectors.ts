@@ -8,3 +8,8 @@ export const selectAll = createSelector(
   categoryFeature,
   (state: CategoryState) => state.categories
 );
+
+export const selectErrors = createSelector(
+  categoryFeature,
+  (state: CategoryState) => state.errors
+);

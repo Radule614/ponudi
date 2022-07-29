@@ -1,6 +1,6 @@
 <div class="box-control" [formGroup]="form">
   <select [formControlName]="controlName" [name]="controlName">
-    <option *ngFor="let option of options" [value]="option['name']">{{option['value']}}</option>
+    <option *ngFor="let option of options" [value]="option['name'] || option">{{option['value'] || option}}</option>
   </select>
   <label>{{placeholder}}</label>
 </div>

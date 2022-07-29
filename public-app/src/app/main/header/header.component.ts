@@ -21,6 +21,7 @@ export class HeaderComponent extends UnsubscribeComponent implements OnInit {
 
   ngOnInit(): void { 
     this.addToSubs = this.store.select(authSelectors.selectUser).subscribe(user => {
+      console.log(user);
       this.loggedUser = user;
       if(this.loggedUser != null){
         this.modalRef?.close();

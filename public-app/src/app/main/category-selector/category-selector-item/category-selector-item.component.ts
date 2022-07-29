@@ -17,4 +17,8 @@ export class CategorySelectorItem {
   get isExpandable(){
     return this.category.children && this.category.children.length != 0;
   }
+
+  get isNewItem(){
+    return this.category.id == 'new';
+  }
 }
