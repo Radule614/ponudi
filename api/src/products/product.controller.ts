@@ -66,7 +66,7 @@ export class ProductController {
     }
 
     @Get('/user/:id')
-    async getProductsByUser(@Param('id') userId: string) {
-        return await this.productService.findProductsByUser(userId)
+    async getProductsByUser(@Param('id') userId: string, @Query() queryParams) {
+        return await this.productService.findProductsByUser(userId, queryParams)
     }
 }
