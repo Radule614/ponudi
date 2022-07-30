@@ -13,7 +13,7 @@ import * as GeneralSelectors from './store/general/general.selectors';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends UnsubscribeComponent implements OnInit {
-  title = 'rooster';
+  title = 'Ponudi';
   appLoading: boolean = false;
 
   constructor(private store: Store<AppState>){ super() }

@@ -10,6 +10,9 @@ button{
   transition: background-color 0.2s ease, color 0.2s ease;
   &:hover{
     color: var(--active-primary);
+    .icon{
+      visibility: visible;
+    }
   }
   .icon{
     position: absolute;
@@ -18,8 +21,12 @@ button{
     top:0px;
     right:8px;
     height: 100%;
+    visibility: hidden;
   }
   &.selected{
+    .icon{
+      visibility: visible;
+    }
     &:not(.expandable){
       background-color: var(--active-primary);
       color: var(--secondary);
@@ -35,6 +42,9 @@ button{
     border: 1px solid var(--text-primary);
     padding-right: 45px;
     font-style: italic;
+    .icon{
+      visibility: visible;
+    }
     .icon{
       font-size: 16px;
     }

@@ -21,8 +21,12 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   errorMessages: string[] = [];
   loading: boolean = false;
   loggedUser: User | null = null;
-
+  
   selectedCategory: Category | null = null;
+  categoryPath: Category[] = [];
+  
+  options: string[] = [];
+  optionsForm: UntypedFormGroup;
 
   currencies: Object[] = [
     { name: 'BAM', value: 'BAM' },
@@ -45,10 +49,37 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
       'description':  new UntypedFormControl(null),
       'currency':     new UntypedFormControl(null)
     });
+    this.optionsForm = new UntypedFormGroup({});
+  }
+  categoryPathHandler(event: Category[]){
+    this.clearOptionsForm();
+    this.options.length = 0;
+    this.categoryPath = event;
+    this.selectedCategory = null;
+
+    if(this.categoryPath.length==0) return;
+    this.selectedCategory = event[event.length - 1];
+    if(this.categoryError) return;
+    for(let cat of event){
+      if(cat.additionalFields){
+        for(let field of cat.additionalFields){
+          this.options.push(field);
+        }
+      }
+    }
+    this.setOptionsForm();
   }
 
-  categorySelectedHandler(event: Category){
-    this.selectedCategory = event;
+  clearOptionsForm(){
+    for(let option of this.options){
+      this.optionsForm.removeControl(option);
+    }
+  }
+
+  setOptionsForm(){
+    for(let option of this.options){
+      this.optionsForm.addControl(option, new UntypedFormControl(null));
+    }
   }
 
   onSubmit(){
@@ -61,6 +92,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
       data.owner = this.loggedUser._id;
       data.category = this.selectedCategory?.id;
       data.price = + data.price;
+      data.additionalFields = this.optionsForm.getRawValue();
       this.store.dispatch(FromArticle.createArticle({ article: data }))
     }else{
       let messages: string[] = [];

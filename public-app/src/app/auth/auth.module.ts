@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { SharedModule } from "../shared/shared.module";
+import { MatRadioModule } from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SharedModule } from "../shared/shared.module";
     CommonModule, 
     RouterModule, 
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatRadioModule
   ]
 })
 export class AuthModule {}

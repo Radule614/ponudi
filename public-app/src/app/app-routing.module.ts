@@ -16,18 +16,18 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ShopsComponent } from './pages/shops/shops.component';
 
 const routes: Routes = [
-  { path: 'admin',          component: AdminComponent,        data: { nav: { value: 'administrator',    icon: 'user-gear',  logged: true, divider: true } }, canActivate: [AuthGuard], children: [
+  { path: 'admin',          component: AdminComponent,        data: { nav: { value: 'administrator',    icon: 'user-gear',  roles: ['admin'], divider: true } }, canActivate: [AuthGuard], children: [
     { path: '',             component: AdminMainComponent                       },
     { path: 'category',     component: CategoryCrudComponent                    },
   ] },
-  { path: 'dashboard',      component: DashboardComponent,    data: { nav: { value: 'kontrolna tabla',  icon: 'clipboard',  logged: true                } }, canActivate: [AuthGuard], children: [
+  { path: 'dashboard',      component: DashboardComponent,    data: { nav: { value: 'kontrolna tabla',  icon: 'clipboard',  roles: ['user']                 } }, canActivate: [AuthGuard], children: [
     { path: '',             component: DashboardMainComponent                   },
     { path: 'article',      component: ArticleCrudComponent                     },
   ] },
-  { path: 'account',        component: AccountComponent,      data: { nav: { value: 'korisnički nalog', icon: 'user',       logged: true, divider: true } }, canActivate: [AuthGuard] },
-  { path: 'home',           component: HomeComponent,         data: { nav: { value: 'početna',          icon: 'house'                                   } } },
-  { path: 'explore',        component: ExploreComponent,      data: { nav: { value: 'popularno',        icon: 'eye'                                     } } },
-  { path: 'shops',          component: ShopsComponent,        data: { nav: { value: 'shopovi',          icon: 'shop',       divider: true               } } },
+  { path: 'account',        component: AccountComponent,      data: { nav: { value: 'korisnički nalog', icon: 'user',       roles: ['user'], divider: true  } }, canActivate: [AuthGuard] },
+  { path: 'home',           component: HomeComponent,         data: { nav: { value: 'početna',          icon: 'house'                                       } } },
+  { path: 'explore',        component: ExploreComponent,      data: { nav: { value: 'popularno',        icon: 'eye'                                         } } },
+  { path: 'shops',          component: ShopsComponent,        data: { nav: { value: 'shopovi',          icon: 'shop',       divider: true                   } } },
   { path: 'category/:id',   component: CategoryComponent                        },
   { path: 'article/:id',    component: ArticleComponent                         },
   { path: 'not-found',      component: PageNotFoundComponent                    },
