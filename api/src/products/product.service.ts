@@ -2,6 +2,7 @@ import { Inject, Injectable, Req } from "@nestjs/common";
 import { Request } from "express";
 import { Category, CategoryDocument } from "src/categories/category.schema";
 import { CategoryService } from "src/categories/category.service";
+import { FilterService } from "src/filters/filter.service";
 import { FeatureBuilder } from "src/utils/feature-builder";
 import { IFeatureBuilder } from "src/utils/feature-builder.interface";
 import { CreateProductDTO } from "./dtos/create-product.dto";
@@ -14,6 +15,7 @@ export class ProductService {
 
     constructor(
         @Inject('IProductRepository') private productRepository: IProductRepository,
+        private readonly filterService: FilterService,
         private readonly categoryService: CategoryService
     ) { }
 
@@ -28,6 +30,10 @@ export class ProductService {
     public async findAllByCategory(categoryId: string, queryParams: any) {
         let categories: string[] = await this.categoryService.findAllSubcategories(categoryId)
         categories.push(categoryId)
+
+        let filters = await this.filterService.findFiltersForCategory(categoryId)
+        console.log(filters)
+
         let query = this.productRepository.findAllByCategories(categories)
         let featureBuilder: IFeatureBuilder = new FeatureBuilder(query, queryParams)
         return await featureBuilder.generateResponseFromOperations()
