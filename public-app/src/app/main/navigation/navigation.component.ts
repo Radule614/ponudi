@@ -19,11 +19,19 @@ export class NavigationComponent extends UnsubscribeComponent implements OnInit 
   constructor(private router: Router, private store: Store<AppState>) { super() }
 
   ngOnInit(): void {
-    this.addToSubs = this.store.select(AuthSelectors.isLogged).subscribe(isLogged => {
+    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => {
       this.navRoutes = this.router.config!.filter(route => {
         if(route.data && route.data['nav']){
-          let req = route.data['nav']['logged'];
-          if(req != undefined) return req == isLogged;
+          let roles = route.data['nav']['roles'];
+          if(roles != undefined) {
+            if(user){
+              for(let role of roles){
+                if(user.roles?.includes(role)) return true;
+              }
+              return false;
+            }
+            return false;
+          }
           return  true;
         }
         return false;

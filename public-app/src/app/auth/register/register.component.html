@@ -24,15 +24,23 @@
     </div>
   </div>
   <div class="form-group gender-block">
-    <custom-radio [form]="form" controlName="gender" value="male"></custom-radio>
-    <custom-radio [form]="form" controlName="gender" value="female"></custom-radio>
+    <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    formControlName="gender">
+    <mat-radio-button class="btn-radio" value="male">
+      muško
+    </mat-radio-button>
+    <mat-radio-button class="btn-radio" value="female">
+      žensko
+    </mat-radio-button>
+   </mat-radio-group>
   </div>
 
   <div class="error-block">
     <div *ngFor="let msg of errorMessages">{{msg}}</div>
   </div>
 
-  <button class="button-primary">sign up</button>
+  <button mat-raised-button>sign up</button>
 </form>
 
 <div class="loader" *ngIf="loading">

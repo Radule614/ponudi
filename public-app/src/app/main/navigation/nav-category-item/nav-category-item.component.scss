@@ -9,25 +9,27 @@
     a{
       display: flex;
       flex:1;
-      &.active-link + button{
-        color: var(--secondary);
-        background-color: var(--active-primary);
-        border-radius: 0px 10px 10px 0px;
-        &:hover{
+      &.active-link{
+        background-color: var(--primary);
+        & + button{
           background-color: var(--primary);
+          border-radius: 0px 10px 10px 0px;
+          color: #fff;
+          &:hover{
+            background-color: var(--primary-2);
+            color: #fff;
+          }
         }
       }
     }
     .btn-expand{
-      background-color: var(--secondary-variant);
+      background-color: var(--background-2);
       border: 0px;
       padding:0px 18px;
       position: relative;
       border-radius: 10px;
-
       &:hover{
-        color: var(--primary);
-        background-color: rgba(var(--active-primary-rgb), 0.1);
+        color: var(--primary-2);
       }
     }
   }

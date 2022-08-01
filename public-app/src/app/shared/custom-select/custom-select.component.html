@@ -1,6 +1,8 @@
-<div class="box-control" [formGroup]="form">
-  <select [formControlName]="controlName" [name]="controlName">
-    <option *ngFor="let option of options" [value]="option['name'] || option">{{option['value'] || option}}</option>
-  </select>
-  <label>{{placeholder}}</label>
+<div [formGroup]="form">
+  <mat-form-field appearance="fill" class="mat-form-field">
+    <mat-label>{{placeholder}}</mat-label>
+    <mat-select [formControlName]="controlName">
+      <mat-option *ngFor="let option of options" [value]="option['name'] || option">{{option['value'] || option}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>

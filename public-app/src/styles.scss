@@ -1,11 +1,10 @@
-@import '~bootstrap/scss/bootstrap';
+@use "style/variables" as vars;
 
+@import '~bootstrap/scss/bootstrap';
 @import "style/fonts";
-@import "style/variables";
 
 body{
   font-family: Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--text-primary);
   overflow-x: hidden;
 }
 
@@ -22,69 +21,8 @@ body.modal-open{
   user-select: none;
 }
 
-input{
-  background-color: var(--secondary);
-}
-
-.button-primary{
-  position: relative;
-  transition: outline-width 0.15s;
-  display:block;
-  background-color: var(--active-primary);
-  border: none;
-  padding: 6px 26px;
-  color: var(--secondary);
-  font-size: 16px;
-  border-radius: 50px;
-  &::before{
-    content: "";
-    position: absolute;
-    border-radius: 50px;
-    top:0px;
-    left:0px;
-    right:0px;
-    bottom:0px;
-    width: 100%;
-    height: 100%;
-  }
-  &:active:hover{
-    outline: 12px solid rgba(var(--active-primary-rgb), 0.2);
-    &:hover::before{
-      outline: none;
-    }
-  }
-  &:hover::before{
-    outline: 8px solid rgba(gray, 0.08);
-  }
-  &.inverse{
-    color: var(--primary);
-    background-color: var(--secondary-variant);
-    &:active:hover{
-      outline: 12px solid rgba(var(--secondary-rgb), 0.2);
-    }
-    &:hover::before{
-      outline: 8px solid rgba(var(--secondary-variant-rgb), 0.1);
-    }
-  }
-  &.dark{
-    color: var(--secondary);
-    background-color: var(--text-primary);
-    &:active:hover{
-      outline: 12px solid rgba(var(--text-primary-rgb), 0.2);
-    }
-    &:hover::before{
-      outline: 8px solid rgba(gray, 0.1);
-    }
-  }
-  &.dangerous {
-    background-color: var(--error-primary);
-    &:active:hover{
-      outline: 12px solid rgba(var(--error-primary-rgb), 0.2);
-    }
-    &:hover::before{
-      outline: 8px solid rgba(var(--error-primary-rgb), 0.1);
-    }
-  }
+button{
+  color:var(--foreground);
 }
 
 .page{
@@ -124,5 +62,5 @@ h6{
 }
 .error-block{
   margin-top: 20px;
-  color: var(--error-primary);
+  color: var(--error);
 }

@@ -9,6 +9,11 @@ export const isLogged = createSelector(
   (state: AuthState) => !!state.token
 );
 
+export const userRoles = createSelector(
+  authFeature,
+  (state: AuthState) => state.user?.roles
+)
+
 export const selectUser = createSelector(
   authFeature,
   (state: AuthState) => state.user

@@ -12,11 +12,18 @@
   </div>
   
   <h6>Odaberi kategoriju</h6>
-  <app-category-selector (categorySelectedEvent)="categorySelectedHandler($event)"></app-category-selector>
+  <div class="select-category">
+    <app-category-selector (pathChangedEvent)="categoryPathHandler($event)"></app-category-selector>
+  </div>
+
+  <form class="grid options-block" [formGroup]="optionsForm">
+    <custom-input *ngFor="let option of options" class="control" [form]="optionsForm" [controlName]="option" [placeholder]="option"></custom-input>
+  </form>
+  
   <div class="error-block">
     <div *ngFor="let msg of errorMessages">{{msg}}</div>
   </div>
   <div class="button-group">
-    <button class="button-primary">Kreiraj</button>
+    <button mat-raised-button color="primary">Kreiraj</button>
   </div>
 </form>

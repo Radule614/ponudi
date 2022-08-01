@@ -7,9 +7,20 @@
   left:0px;
   right:0px;
   bottom:0px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  background-color: var(--secondary);
+  backdrop-filter: blur(16px);
+  //background-color: #fff;
+  border-radius: 30px;
+  &::before{
+    content: "";
+    inset:0px;
+    background-color: #fff;
+    opacity: 0.1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
   & > * {
     position: relative;
   }
@@ -19,13 +30,20 @@
     position:absolute;
     top:0px;
     left:0px;
-    background-color: var(--primary);
     transform-origin: center;
     overflow: hidden;
+    &::before{
+      content: "";
+      position: absolute;
+      inset:0px;
+      background-color: var(--primary);
+      opacity: 0.75;
+    }
     button{
       margin: 390px auto 0px auto;
       position: relative;
       height: 52px;
+      display: block;
       .inner{
         position: absolute;
         display: block;
@@ -34,18 +52,18 @@
         right:0px;
         bottom:0px;
         margin:auto;
-        height: 26px;
+        height: 34px;
       }
     }
   }
   .message-block{
     width: 400px;
     position: absolute;
-    color:var(--secondary);
     font-size: 16px;
     text-align: center;
     padding: 200px 40px 0px 40px;
     top:0px;
+    color: #fff;
     h3{
       padding-bottom: 30px;
     }
@@ -58,8 +76,6 @@
     position: absolute;
     top:0px;
     height: 100%;
-    color: var(--active-primary);
-
     &.register-block{
       right:0px;
     }

@@ -2,20 +2,20 @@
   display: flex;
   min-height: 2000px;
   position: relative;
-  background-color: var(--secondary);
-  color: var(--text-primary);
+  //background-color: var(--secondary);
+  //color: var(--text-primary);
   margin-left: var(--main-sidebar-width);
   margin-top: var(--header-height);
   .sidebar{
     z-index: 100;
-    background-color: var(--secondary-variant);
+    background-color: var(--background-2);
     position: fixed;
     top:var(--header-height);
     left:0px;
     bottom: 0px;
     width: var(--main-sidebar-width);
     overflow-y: auto;
-    border-right: 1px solid #DBDBDB;
+    border-right: 1px solid var(--background-4);
   }
   .content{
     flex: 1;

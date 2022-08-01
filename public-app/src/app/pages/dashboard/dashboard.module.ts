@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatSelectModule } from "@angular/material/select";
 import { RouterModule } from "@angular/router";
 import { MainModule } from "src/app/main/main.module";
 import { SharedModule } from "src/app/shared/shared.module";
@@ -17,7 +19,9 @@ import { DashboardComponent } from "./dashboard.component";
     MainModule,
     ReactiveFormsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    MatButtonModule,
+    MatSelectModule
   ]
 })
 export class DashboardModule {}

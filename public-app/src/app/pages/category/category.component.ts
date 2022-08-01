@@ -49,7 +49,7 @@ export class CategoryComponent extends UnsubscribeComponent implements OnInit {
       this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId }))
     })
     this.addToSubs = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
-      //console.log(data);
+      console.log(data);
       this.articles = data;
     })
   }
