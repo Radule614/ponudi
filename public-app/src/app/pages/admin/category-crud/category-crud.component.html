@@ -18,8 +18,7 @@
   </div>
 
 
-  <button *ngIf="!optionFormActive" class="btn-toggle-option-form" (click)="optionFormActive=true">
-    <!-- <fa-icon [icon]="['fas', 'circle-plus']"></fa-icon> -->
+  <button *ngIf="!optionFormActive" mat-raised-button (click)="optionFormActive=true">
     <fa-icon [icon]="['fas', 'plus']"></fa-icon>
   </button>
   <form *ngIf="optionFormActive" [formGroup]="optionForm" (ngSubmit)="onOptionSubmit()" class="option-form">
@@ -28,8 +27,8 @@
       <custom-input [form]="optionForm" placeholder="naziv opcije" controlName="option"></custom-input>
     </div>
     <div class="form-block button-group">
-      <button type="button" class="button-primary dark" (click)="optionFormActive=false">Odustani</button>
-      <button class="button-primary">Dodaj opciju</button>
+      <button type="button" mat-raised-button (click)="optionFormActive=false">Odustani</button>
+      <button class="button-primary" mat-raised-button color="primary">Dodaj opciju</button>
     </div>
   </form>
 
@@ -37,6 +36,6 @@
     <div *ngFor="let msg of errorMessages">{{msg}}</div>
   </div>
   <div class="button-group">
-    <button class="button-primary">Kreiraj kategoriju</button>
+    <button mat-raised-button color="primary">Kreiraj kategoriju</button>
   </div>
 </form>

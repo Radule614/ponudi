@@ -1,38 +1,21 @@
 .option{
   position: relative;
-  padding:5px 50px 5px 15px;
-  background-color: var(--secondary);
+  padding:0px 0px 0px 15px;
+  background-color: var(--background-2);
   border-radius: 10px;
   margin-right: 5px;
   margin-bottom: 5px;
-  border: 1px solid var(--text-primary);
-  color: var(--text-primary);
+  border: 1px solid var(--background-4);
   transition: border 0.2s ease;
-  .icon{
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top:0px;
-    right:6px;
-    bottom:0px;
-    margin:auto;
-    height: 15px;
-    font-size: 22px;
-    border:0px;
-    padding:0px;
-    background-color: transparent;
-    color: var(--text-primary);
-    line-height: 20px;
-    transition: color 0.2s ease;
+  align-items: center;
+  display: flex;
+  .text{
+    flex: 1;
   }
-  &.editable{
-    &:hover{
-      border: 1px solid var(--active-primary);
-    }
-    .icon:hover{
-      color: var(--active-primary);
-    }
-  } 
+  .icon{
+    font-size: 22px;
+    margin-left: 20px;
+  }
   &:not(.editable){
     .icon{
       cursor:not-allowed;

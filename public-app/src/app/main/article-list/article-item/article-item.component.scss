@@ -1,6 +1,6 @@
 .article-item{
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
-  background-color: var(--secondary);
+  background-color: var(--background-2);
   overflow: hidden;
   border-radius: 5px;
   position: relative;
@@ -16,12 +16,12 @@
       padding: 0px 5px;
     }
     .title{
-      border-bottom: 1px solid rgba(var(--text-primary-rgb), 0.3);
+      border-bottom: 1px solid var(--background-4);
       margin-bottom: 5px;
     }
     .details{
       font-size: 14px;
-      border-bottom: 1px solid rgba(var(--text-primary-rgb), 0.3);
+      border-bottom: 1px solid var(--background-4);
       margin-bottom: 5px;
       padding-top: 40px;
       padding-bottom: 40px;
@@ -29,7 +29,7 @@
     .footer{
       font-size: 13px;
       display: flex;
-      color:var(--primary);
+      color:var(--secondary);
       .icon{
         flex:1;
       }
@@ -56,7 +56,7 @@
       height: 100%;
       width: 100%;
       opacity: 0.75;
-      background-color: var(--secondary);
+      background-color: var(--background-2);
     }
     .user-panel{
       display: flex;
@@ -70,14 +70,9 @@
         background-color: transparent;
         border: 0px;
         &:hover{
-          // background-color: var(--active-primary);
-          color: var(--active-primary);
+          color: var(--primary);
         }
       }
-      // .btn-delete{
-      //   height: 40px;
-      //   width: 40px;
-      // }
     }
   }
 }

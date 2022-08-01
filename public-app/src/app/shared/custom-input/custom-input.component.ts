@@ -4,7 +4,7 @@ import { UntypedFormGroup } from "@angular/forms";
 @Component({
   selector: 'custom-input',
   templateUrl: './custom-input.component.html',
-  styleUrls: ['../shared-styles.scss', './custom-input.component.scss']
+  styleUrls: ['./custom-input.component.scss']
 })
 export class CustomInputComponent {
   @Input() form: UntypedFormGroup;

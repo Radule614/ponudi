@@ -1,8 +1,7 @@
 .wrapper {
   position: relative;
   .panel {
-    color:var(--text-primary);
-    background-color: var(--secondary);
+    background-color: var(--background-3);
     box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.06);
     position: fixed;
     top: var(--header-height);
@@ -16,11 +15,10 @@
       border: none;
       height: 50px;
       font-size: 16px;
-      background-color: var(--secondary);
+      background-color: var(--background-3);
       padding: 0px 20px;
-      color:var(--text-primary);
       &:hover{
-        color: var(--active-primary);
+        color: var(--primary);
       }
       display: flex;
       align-items: center;
@@ -50,7 +48,7 @@
       height: 100%;
       top:0px;
       left:0px;
-      background-color: var(--secondary);
+      background-color: var(--background-2);
       opacity: 0.88;
     }
   }

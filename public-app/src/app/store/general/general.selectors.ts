@@ -4,7 +4,5 @@ import { GeneralState } from "./general.reducer";
 
 const articleFeature = (state: AppState) => state.general;
 
-export const selectLoading = createSelector(
-  articleFeature,
-  (state: GeneralState) => state.loading
-);
+export const selectLoading    = createSelector(articleFeature, (state: GeneralState) => state.loading);
+export const selectDarkTheme  = createSelector(articleFeature, (state: GeneralState) => state.darkTheme);

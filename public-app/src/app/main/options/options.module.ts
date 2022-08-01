@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { OptionItemComponent } from "./option-item/option-item.component";
 import { OptionsComponent } from "./options.component";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { OptionsComponent } from "./options.component";
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatButtonModule
   ],
   exports: [
     OptionsComponent
