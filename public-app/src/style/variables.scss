@@ -42,10 +42,10 @@ $foreground-dark: mat.$dark-theme-foreground-palette;
 
   /* colors */
   
-  --primary:      #{map-get($primary,           A700)};
-  --primary-2:    #{map-get($primary,           A400)};
-  --secondary:    #{map-get($accent,            A700)};
-  --secondary-2:  #{map-get($accent,            A400)};
+  --primary:      #{map-get($primary,           500)};
+  --primary-2:    #{map-get($primary,           400)};
+  --secondary:    #{map-get($accent,            500)};
+  --secondary-2:  #{map-get($accent,            400)};
   --error:        #{map-get($warn,              A700)};
   --foreground:   #{map-get($foreground-light,  'text')};
   --foreground-2: #{map-get($foreground-light,  'icon')};

@@ -1,8 +1,8 @@
 import { createAction, props } from "@ngrx/store";
 import { Article } from "src/app/model/article.model";
 
-export const fetchAll             = createAction('[Article] Fetch All',               props<{ id: string }>());
-export const fetchAllByUser       = createAction('[Article] Fetch All By User');
+export const fetchAll             = createAction('[Article] Fetch All',               props<{ id: string, page: number }>());
+export const fetchAllByUser       = createAction('[Article] Fetch All By User',       props<{ userId: string, page: number }>());
 export const setAll               = createAction('[Article] Set All',                 props<{ articles: Article[], page: number, count: number }>());
 
 export const fetchArticle         = createAction('[Article] Fetch Article',           props<{ id: string }>());

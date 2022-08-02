@@ -10,18 +10,15 @@ import { SharedModule } from "../shared/shared.module";
 import { CategorySelectorModule } from "./category-selector/category-selector.module";
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { FilterBlockComponent } from "./filter-block/filter-block.component";
-import { ArticleListComponent } from "./article-list/article-list.component";
 import { HeaderComponent } from "./header/header.component";
-import { ArticleItemComponent } from "./article-list/article-item/article-item.component";
 import { OptionsModule } from "./options/options.module";
+import { ArticleListModule } from "./article-list/article-list.module";
 
 export const allIconNames: any = [];
 
 @NgModule({
   declarations: [
     FilterBlockComponent,
-    ArticleItemComponent,
-    ArticleListComponent,
     FilterBlockComponent,
     HeaderComponent,
   ],
@@ -33,7 +30,8 @@ export const allIconNames: any = [];
     SharedModule,
     CategorySelectorModule,
     MdbModalModule,
-    OptionsModule
+    OptionsModule,
+    ArticleListModule
   ],
   exports: [
     CommonModule, 
@@ -41,7 +39,7 @@ export const allIconNames: any = [];
     CategorySelectorModule,
     NavigationModule,
     HeaderComponent,
-    ArticleListComponent,
+    ArticleListModule,
     FilterBlockComponent,
     OptionsModule
   ]
