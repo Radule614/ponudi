@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Article } from "src/app/model/article.model";
+import { combineLatest } from "rxjs";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { AppState } from "src/app/store";
-import * as ArticleSelectors from 'src/app/store/article/article.selectors';
 import * as FromArticle from 'src/app/store/article/article.actions';
+import * as AuthSelectors from 'src/app/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-dashboard-main',
@@ -12,14 +13,13 @@ import * as FromArticle from 'src/app/store/article/article.actions';
   styleUrls: ['./dashboard-main.component.scss']
 })
 export class DashboardMainComponent extends UnsubscribeComponent implements OnInit {
-  articles: Article[] = [];
-
-  constructor(private store: Store<AppState>){ super() }
+  constructor(private store: Store<AppState>, private route: ActivatedRoute){ super() }
 
   ngOnInit(): void {
-    this.store.dispatch(FromArticle.fetchAllByUser())
-    this.addToSubs = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
-      this.articles = data;
-    })
+    this.addToSubs = combineLatest([this.route.queryParams, this.store.select(AuthSelectors.selectUser)]).subscribe(([params, user]) => {
+      if(user){
+        this.store.dispatch(FromArticle.fetchAllByUser({ userId: user._id, page: params['page'] }))
+      }
+    });
   }
 }

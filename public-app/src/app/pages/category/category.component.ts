@@ -3,10 +3,10 @@ import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Article } from "src/app/model/article.model";
 import { AppState } from "src/app/store";
-import * as ArticleSelectors from 'src/app/store/article/article.selectors';
 import * as FromArticle from 'src/app/store/article/article.actions';
 import { animate, group, query, state, style, transition, trigger } from "@angular/animations";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
+import { combineLatest, forkJoin } from "rxjs";
 
 @Component({
   selector: 'app-category',
@@ -38,19 +38,17 @@ import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.com
 })
 export class CategoryComponent extends UnsubscribeComponent implements OnInit {
   categoryId: string = "";
-  articles: Article[] = [];
+  page: number = -1;
   filtersExpanded: boolean = false;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>){ super() }
 
   ngOnInit(): void {
-    this.addToSubs = this.route.params.subscribe(data => {
-      this.categoryId = data['id'];
-      this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId }))
-    })
-    this.addToSubs = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
-      console.log(data);
-      this.articles = data;
-    })
+    this.addToSubs = combineLatest([this.route.params, this.route.queryParams]).subscribe(([params, queryParams]) => {
+      this.categoryId = params['id'];
+      this.page =       queryParams['page'];
+      this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId, page: this.page }))
+      
+    });
   }
 }

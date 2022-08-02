@@ -1,3 +1,8 @@
 <div class="article-list">
   <app-article-item *ngFor="let item of articles" [editable]="editable" [article]="item"></app-article-item>
 </div>
+<mat-paginator  [length]="count"
+                [pageIndex]="page"
+                [pageSize]="20"
+                (page)="pageEvent($event)">
+</mat-paginator>

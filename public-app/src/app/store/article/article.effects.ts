@@ -13,9 +13,9 @@ export class ArticleEffects {
   fetchAll = createEffect(() => this.actions$.pipe(
     ofType(ArticleActions.fetchAll),
     switchMap(action => {
-      return this.articleService.fetchArticles(action.id).pipe(
+      return this.articleService.fetchArticles(action.id, action.page).pipe(
         map(data => {
-          return ArticleActions.setAll({articles: data.data, page: data.page, count: data.count});
+          return ArticleActions.setAll({articles: data.data, page: action.page, count: data.count});
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -26,10 +26,10 @@ export class ArticleEffects {
   ));
   fetchAllByUser = createEffect(() => this.actions$.pipe(
     ofType(ArticleActions.fetchAllByUser),
-    switchMap(_ => {
-      return this.articleService.fetchUserArticles().pipe(
+    switchMap(action => {
+      return this.articleService.fetchUserArticles(action.userId, action.page).pipe(
         map(data => {
-          return ArticleActions.setAll({articles: data, page: -1, count: -1});
+          return ArticleActions.setAll({articles: data, page: action.page, count: -1});
         }),
         catchError(error => {
           console.log(error.error.message);

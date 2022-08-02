@@ -6,7 +6,11 @@ const articleFeature = (state: AppState) => state.article;
 
 export const selectAll = createSelector(
   articleFeature,
-  (state: ArticleState) => state.articles
+  (state: ArticleState) => ({
+    articles: state.articles,
+    count: state.count,
+    page: state.page
+  })
 );
 
 export const selectArticle = createSelector(

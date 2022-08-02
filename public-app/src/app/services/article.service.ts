@@ -1,9 +1,11 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Store } from "@ngrx/store";
+import { exhaustMap, Observable, of, take } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Article } from "../model/article.model";
-
+import { AppState } from "../store";
+import * as AuthSelectors from "src/app/store/auth/auth.selectors";
 
 
 @Injectable({
@@ -11,22 +13,20 @@ import { Article } from "../model/article.model";
 })
 export class ArticleService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store<AppState>) {}
 
-  fetchArticles(id: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/products/category/${id}`);
+  fetchArticles(id: string, page: number): Observable<any> {
+    if(!page || page <= 0) page = 1;
+    return this.http.get(`${environment.apiUrl}/products/category/${id}`, {
+      params: new HttpParams().set('page', page)
+    });
   }
 
-  fetchUserArticles(): Observable<any> {
-    
-    const mockData: Article[] = [
-      { content: 'user_article_00', price: 200 },
-      { content: 'user_article_01', price: 300 },
-      { content: 'user_article_02', price: 400 },
-      { content: 'user_article_03', price: 600 }
-    ];
-
-    return of(mockData);
+  fetchUserArticles(userId: string, page: number): Observable<any> {
+    if(!page || page <= 0) page = 1;
+    return this.http.get(`${environment.apiUrl}/products/user/${userId}`, {
+      params: new HttpParams().set('page', page)
+    });
   }
 
   fetchArticleData(id: string): Observable<any> {
