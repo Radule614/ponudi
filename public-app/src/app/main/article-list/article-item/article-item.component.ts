@@ -1,3 +1,4 @@
+import { ViewportScroller } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 import { Article } from "src/app/model/article.model";
 
@@ -10,7 +11,11 @@ export class ArticleItemComponent implements OnInit{
   @Input() article: Article;
   @Input() editable: boolean = false;
 
-  constructor(){}
+  constructor(private viewportScroller: ViewportScroller){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  btnDetailsClick(): void {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
 }

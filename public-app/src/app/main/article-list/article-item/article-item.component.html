@@ -15,7 +15,12 @@
   </div>
   <div class="image"></div>
   <div class="content">
-    <div class="title">{{article.content}}</div>
+    <div class="heading-block">
+      <div class="title">{{article.content}}</div>
+      <button type="button" mat-icon-button [routerLink]="['/article', article._id]" (click)="btnDetailsClick()">
+        <fa-icon [icon]="['fas', 'up-right-from-square']"></fa-icon>
+      </button>
+    </div>
     <div class="details">detalji</div>
     <div class="footer">
       <div class="icon">

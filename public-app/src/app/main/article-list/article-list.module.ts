@@ -5,6 +5,8 @@ import { ArticleListComponent } from "./article-list.component";
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CustomPaginatorIntl } from "./paginator-intl";
+import { RouterModule } from "@angular/router";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { CustomPaginatorIntl } from "./paginator-intl";
   imports: [
     CommonModule,
     MatPaginatorModule,
-    FontAwesomeModule
+    MatButtonModule,
+    FontAwesomeModule,
+    RouterModule
   ],
   exports: [ArticleListComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}],
