@@ -53,7 +53,7 @@ export class FeatureBuilder implements IFeatureBuilder {
 
         return {
             data: result,
-            count: result.length,
+            count,
             pages: this.calculatePages(count)
         }
     }
