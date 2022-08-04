@@ -10,6 +10,7 @@ import * as FromArticle from "src/app/store/article/article.actions";
 import * as ArticleSelectors from "src/app/store/article/article.selectors";
 import * as AuthSelectors from "src/app/store/auth/auth.selectors";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-article-crud',
@@ -17,6 +18,9 @@ import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.com
   styleUrls: ['./article-crud.component.scss']
 })
 export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit{
+  mode: string = 'add';
+  articleForEdit: Article | null;
+
   form: UntypedFormGroup;
   errorMessages: string[] = [];
   loading: boolean = false;
@@ -33,16 +37,22 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     { name: 'EUR', value: 'EUR' }
   ]
 
-  constructor(private store: Store<AppState>){ super() }
+  constructor(private store: Store<AppState>, private route: ActivatedRoute){ super() }
 
   ngOnInit(): void {
+    let articleId = this.route.snapshot.params['id'];
+    if(articleId){
+      this.mode = 'edit';
+      this.addToSubs = this.store.select(ArticleSelectors.selectArticle).subscribe(article => { this.articleForEdit = article })
+    }
+    this.addToSubs = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => { this.errorMessages = errors });
+    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => { this.loggedUser = user });
+    
     this.store.dispatch(FromArticle.clearErrors())
-    this.addToSubs = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => {
-      this.errorMessages = errors;
-    });
-    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => {
-        this.loggedUser = user;
-    });
+    this.initForms();
+  }
+
+  private initForms(): void {
     this.form = new UntypedFormGroup({
       'content':      new UntypedFormControl(null, Validators.required),
       'price':        new UntypedFormControl(null, Validators.required),
@@ -51,6 +61,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     });
     this.optionsForm = new UntypedFormGroup({});
   }
+
   categoryPathHandler(event: Category[]){
     this.clearOptionsForm();
     this.options.length = 0;
@@ -101,7 +112,6 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
       if(this.categoryError) messages.push('kategorija mora biti izabrana');
       this.store.dispatch(FromArticle.createArticleFailed({ messages: messages }));
     }
-    
   }
 
   get categoryError(){

@@ -7,8 +7,8 @@ export interface GeneralState {
 }
 
 const initialState: GeneralState = {
-  loading: false,
-  darkTheme: true
+  loading: true,
+  darkTheme: localStorage.getItem('darkTheme') == undefined || localStorage.getItem('darkTheme') == 'true'
 }
 
 export const generalReducer = createReducer(

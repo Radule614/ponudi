@@ -1,5 +1,6 @@
 import { ViewportScroller } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Article } from "src/app/model/article.model";
 
 @Component({
@@ -11,11 +12,15 @@ export class ArticleItemComponent implements OnInit{
   @Input() article: Article;
   @Input() editable: boolean = false;
 
-  constructor(private viewportScroller: ViewportScroller){}
+  constructor(private viewportScroller: ViewportScroller, private router: Router){}
 
   ngOnInit(): void { }
 
   btnDetailsClick(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
+  btnEditClick(): void {
+    this.router.navigate(['/dashboard/edit', this.article._id]);
   }
 }

@@ -1,4 +1,6 @@
-<h3>Kreiranje artikla</h3>
+<h3 *ngIf="mode=='add'">Kreiranje artikla</h3>
+<h3 *ngIf="mode=='edit'">Promjena artikla</h3>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="grid">
     <custom-input class="control" [form]="form" controlName="content" placeholder="naslov"></custom-input>
@@ -11,9 +13,11 @@
     </div>
   </div>
   
-  <h6>Odaberi kategoriju</h6>
-  <div class="select-category">
-    <app-category-selector (pathChangedEvent)="categoryPathHandler($event)"></app-category-selector>
+  <div *ngIf="mode=='add'">
+    <h6>Odaberi kategoriju</h6>
+    <div class="select-category">
+      <app-category-selector (pathChangedEvent)="categoryPathHandler($event)"></app-category-selector>
+    </div>
   </div>
 
   <form class="grid options-block" [formGroup]="optionsForm">

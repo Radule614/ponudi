@@ -40,13 +40,6 @@ export class AuthEffects {
     })
   ), { dispatch: false });
 
-  checkAuth$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActions.checkAuth),
-    map(_ => {
-      return AuthActions.fetchUser();
-    })
-  ));
-
   fetchUserData$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.fetchUser),
     switchMap(() => {

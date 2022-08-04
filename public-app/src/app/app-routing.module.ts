@@ -8,6 +8,7 @@ import { CategoryCrudComponent } from './pages/admin/category-crud/category-crud
 import { ArticleComponent } from './pages/article/article.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { ArticleCrudComponent } from './pages/dashboard/article-crud/article-crud.component';
+import { ArticleEditGuard } from './pages/dashboard/article-crud/article-edit.guard';
 import { DashboardMainComponent } from './pages/dashboard/dashboard-main/dashboard-main.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ExploreComponent } from './pages/explore/explore.component';
@@ -22,7 +23,8 @@ const routes: Routes = [
   ] },
   { path: 'dashboard',      component: DashboardComponent,    data: { nav: { value: 'kontrolna tabla',  icon: 'clipboard',  roles: ['user']                 } }, canActivate: [AuthGuard], children: [
     { path: '',             component: DashboardMainComponent                   },
-    { path: 'article',      component: ArticleCrudComponent                     },
+    { path: 'add',          component: ArticleCrudComponent                     },
+    { path: 'edit/:id',     component: ArticleCrudComponent,  canActivate: [ArticleEditGuard] }
   ] },
   { path: 'account',        component: AccountComponent,      data: { nav: { value: 'korisnički nalog', icon: 'user',       roles: ['user'], divider: true  } }, canActivate: [AuthGuard] },
   { path: 'home',           component: HomeComponent,         data: { nav: { value: 'početna',          icon: 'house'                                       } } },
