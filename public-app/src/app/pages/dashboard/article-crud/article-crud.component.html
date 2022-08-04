@@ -28,6 +28,8 @@
     <div *ngFor="let msg of errorMessages">{{msg}}</div>
   </div>
   <div class="button-group">
-    <button mat-raised-button color="primary">Kreiraj</button>
+    <button type="button" mat-raised-button (click)="cancel()">Odustani</button>
+    <button *ngIf="mode=='add'" mat-raised-button color="primary">Kreiraj</button>
+    <button *ngIf="mode=='edit'" mat-raised-button color="primary">Potvrdi</button>
   </div>
 </form>
