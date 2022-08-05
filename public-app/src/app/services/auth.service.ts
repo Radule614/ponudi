@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { exhaustMap, Observable, of, take } from "rxjs";
+import { exhaustMap, Observable, of, take, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AppState } from "../store";
 import { isLogged } from "../store/auth/auth.selectors";
@@ -38,7 +38,7 @@ export class AuthService{
         if(userLogged){
           return this.http.get(`${environment.apiUrl}/users/me`);
         }
-        return of();
+        return throwError(() => new Error('user not logged'));
       })
     )
   }

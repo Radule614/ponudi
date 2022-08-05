@@ -10,6 +10,11 @@ import * as FromArticle from "src/app/store/article/article.actions";
 import * as ArticleSelectors from "src/app/store/article/article.selectors";
 import * as AuthSelectors from "src/app/store/auth/auth.selectors";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CategoryService } from "src/app/services/category.service";
+import * as CategorySelectors from "src/app/store/category/category.selectors";
+import { ViewportScroller } from "@angular/common";
+import { combineLatest } from "rxjs";
 
 @Component({
   selector: 'app-article-crud',
@@ -17,6 +22,9 @@ import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.com
   styleUrls: ['./article-crud.component.scss']
 })
 export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit{
+  mode: string = 'add';
+  articleForEdit: Article | null;
+
   form: UntypedFormGroup;
   errorMessages: string[] = [];
   loading: boolean = false;
@@ -33,16 +41,20 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     { name: 'EUR', value: 'EUR' }
   ]
 
-  constructor(private store: Store<AppState>){ super() }
+  constructor(private store: Store<AppState>, 
+              private route: ActivatedRoute,
+              private router: Router,
+              private categoryService: CategoryService, 
+              private viewportScroller: ViewportScroller){ super() }
 
   ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0]);
     this.store.dispatch(FromArticle.clearErrors())
-    this.addToSubs = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => {
-      this.errorMessages = errors;
-    });
-    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => {
-        this.loggedUser = user;
-    });
+    this.initForms();
+    this.initSubs();
+  }
+
+  private initForms(): void {
     this.form = new UntypedFormGroup({
       'content':      new UntypedFormControl(null, Validators.required),
       'price':        new UntypedFormControl(null, Validators.required),
@@ -51,6 +63,73 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     });
     this.optionsForm = new UntypedFormGroup({});
   }
+
+  private initSubs(): void {
+    let articleId = this.route.snapshot.params['id'];
+    if(articleId){
+      this.mode = 'edit';
+      const article$ = this.store.select(ArticleSelectors.selectArticle);
+      const categories$ = this.store.select(CategorySelectors.selectAll);
+      this.addToSubs = combineLatest([article$, categories$]).subscribe(([article, categories]) => {
+        this.articleForEdit = article;
+        if(this.articleForEdit?.category){
+          this.categoryPath = this.categoryService.calculateCategoryPath(categories, this.articleForEdit.category);
+          console.log(this.categoryPath);
+          this.categoryPathHandler(this.categoryPath);
+          this.fillExistingData();
+        }
+      });
+    }
+    this.addToSubs = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => { this.errorMessages = errors });
+    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => { this.loggedUser = user });
+  }
+
+  private fillExistingData(): void{
+    const article = this.articleForEdit;
+    if(this.mode == 'edit' && article){
+      const controls = this.form.controls;
+      const fields = article.additionalFields;
+      const optionControls = this.optionsForm.controls;
+
+      controls['content'].setValue(article.content || '');
+      controls['price'].setValue(article.price || '');
+      controls['currency'].setValue(article.currency || '');
+      controls['description'].setValue(article.description || '');
+
+      for(let field in fields) {
+        const control = optionControls[field];
+        if(control != undefined) control.setValue(fields[field]);
+      }
+    }
+  }
+
+  onSubmit(){
+    if(this.loggedUser == null || !this.loggedUser._id) return;
+    if(this.form.status == 'VALID' && !this.categoryError){
+      this.store.dispatch(FromArticle.clearErrors())
+      this.store.dispatch(FromGeneral.activateLoading());
+      
+      let data: Article = this.form.getRawValue();
+      data.owner = this.loggedUser._id;
+      data.category = this.selectedCategory?.id;
+      data.price = + data.price;
+      data.additionalFields = this.optionsForm.getRawValue();
+
+      console.log(data);
+      if(this.mode=='edit'){
+        this.store.dispatch(FromArticle.editArticle({ id: this.articleForEdit!._id, article: data }))
+      }else{
+        this.store.dispatch(FromArticle.createArticle({ article: data }))
+      }
+    }else{
+      let messages: string[] = [];
+      if(this.form.controls['content'].hasError('required')) messages.push('naslov artikla je obavezan');
+      if(this.form.controls['price'].hasError('required')) messages.push('cijena je obavezna');
+      if(this.categoryError) messages.push('kategorija mora biti izabrana');
+      this.store.dispatch(FromArticle.articleError({ messages: messages }));
+    }
+  }
+
   categoryPathHandler(event: Category[]){
     this.clearOptionsForm();
     this.options.length = 0;
@@ -82,29 +161,13 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     }
   }
 
-  onSubmit(){
-    if(this.loggedUser == null || !this.loggedUser._id) return;
-    if(this.form.status == 'VALID' && !this.categoryError){
-      this.store.dispatch(FromArticle.clearErrors())
-      this.store.dispatch(FromGeneral.activateLoading());
-      
-      let data: Article = this.form.getRawValue();
-      data.owner = this.loggedUser._id;
-      data.category = this.selectedCategory?.id;
-      data.price = + data.price;
-      data.additionalFields = this.optionsForm.getRawValue();
-      this.store.dispatch(FromArticle.createArticle({ article: data }))
-    }else{
-      let messages: string[] = [];
-      if(this.form.controls['content'].hasError('required')) messages.push('naslov artikla je obavezan');
-      if(this.form.controls['price'].hasError('required')) messages.push('cijena je obavezna');
-      if(this.categoryError) messages.push('kategorija mora biti izabrana');
-      this.store.dispatch(FromArticle.createArticleFailed({ messages: messages }));
-    }
-    
+  cancel(): void{
+    this.clearOptionsForm();
+    this.router.navigate(['dashboard']);
   }
 
   get categoryError(){
+    if(this.mode=='edit') return false;
     if(!this.selectedCategory) return true;
     if(this.selectedCategory.children && this.selectedCategory.children.length != 0){
       return true;

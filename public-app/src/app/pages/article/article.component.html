@@ -1,3 +1,30 @@
-<div class="page">
-  {{article?.content}}
+<div class="page container">
+  <div class="breadcrumbs">breadcrumbs...</div>
+  <section class="info">
+    <div class="title">{{article?.content}}</div>
+    <div class="special-block">
+      <div class="special high">
+        <div class="special-header">Cijena</div>
+        <div class="special-body">{{article?.price}}&nbsp;{{article?.currency}}</div>
+      </div>
+      <div class="special">
+        <div class="special-header">Stanje</div>
+        <div class="special-body">Novo</div>
+      </div>
+      <div class="special">
+        <div class="special-header">Kolicina</div>
+        <div class="special-body">1</div>
+      </div>
+    </div>
+  </section>
+  <section class="gallery">galerija</section>
+  <section class="details">
+    <div class="field-grid" *ngIf="article && article.additionalFields">
+      <div class="field" *ngFor="let field of article.additionalFields | keyvalue">
+        <div class="name">{{field.key}}</div>
+        <div class="value">{{field.value}}</div>
+      </div>
+    </div>
+  </section>
+  <section class="comments">komentari</section>
 </div>

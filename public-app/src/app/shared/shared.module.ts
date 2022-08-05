@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MatSelectModule } from '@angular/material/select';
     CustomSelectComponent,
     CustomTextareaComponent,
     UnsubscribeComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ConfirmModalComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { MatSelectModule } from '@angular/material/select';
     CustomTextareaComponent,
     UnsubscribeComponent,
     SpinnerComponent,
-    MatButtonModule
+    MatButtonModule,
+    ConfirmModalComponent
   ]
 })
 export class SharedModule { }

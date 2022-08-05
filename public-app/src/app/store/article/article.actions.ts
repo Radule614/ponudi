@@ -10,6 +10,11 @@ export const setArticle           = createAction('[Article] Set Article',       
 export const fetchFailed          = createAction('[Article] Fetch Failed');
 
 export const createArticle        = createAction('[Article] Create Article',          props<{ article: Article }>());
-export const createArticleSuccess = createAction('[Article] Create Article Success');
-export const createArticleFailed  = createAction('[Article] Create Article Failed',   props<{ messages: string[] }>());
+export const editArticle          = createAction('[Article] Edit Article',            props<{ id: string, article: Article }>());
+export const deleteArticle        = createAction('[Article] Delete Article',          props<{ id: string, userId: string }>());
+
+export const articleSuccess       = createAction('[Article] Article Success');
+export const articleError         = createAction('[Article] Article Error',           props<{ messages: string[] }>());
 export const clearErrors          = createAction('[Article] Clear Errors');
+
+export const deleteSuccess        = createAction('[Article] Delete Success',          props<{ id: string, userId: string, }>());

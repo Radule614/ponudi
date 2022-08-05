@@ -1,11 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { exhaustMap, Observable, of, take } from "rxjs";
+import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Article } from "../model/article.model";
-import { AppState } from "../store";
-import * as AuthSelectors from "src/app/store/auth/auth.selectors";
 
 
 @Injectable({
@@ -13,7 +10,7 @@ import * as AuthSelectors from "src/app/store/auth/auth.selectors";
 })
 export class ArticleService {
 
-  constructor(private http: HttpClient, private store: Store<AppState>) {}
+  constructor(private http: HttpClient) {}
 
   fetchArticles(id: string, page: number): Observable<any> {
     if(!page || page <= 0) page = 1;
@@ -30,14 +27,18 @@ export class ArticleService {
   }
 
   fetchArticleData(id: string): Observable<any> {
-    const mockData: Article = { 
-      content: 'selected_article', 
-      price: 200 
-    };
-    return of(mockData);
+    return this.http.get(`${environment.apiUrl}/products/${id}`);
   }
 
   postArticle(article: Article){
     return this.http.post(`${environment.apiUrl}/products`, article);
+  }
+
+  patchArticle(id: string, article: Article){
+    return this.http.patch(`${environment.apiUrl}/products/${id}`, article);
+  }
+
+  deleteArticle(id: string){
+    return this.http.delete(`${environment.apiUrl}/products/${id}`);
   }
 }

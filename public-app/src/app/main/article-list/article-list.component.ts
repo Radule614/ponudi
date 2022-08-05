@@ -22,7 +22,7 @@ export class ArticleListComponent extends UnsubscribeComponent implements OnInit
 
   ngOnInit(): void {
     this.addToSubs = this.store.select(ArticleSelectors.selectAll).subscribe(data => {
-      this.articles = data.articles['data'] || data.articles;
+      this.articles = data.articles;
       this.page = data.page - 1;
       this.count = 100;
     });

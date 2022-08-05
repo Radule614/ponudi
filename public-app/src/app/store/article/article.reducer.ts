@@ -22,6 +22,6 @@ export const articleReducer = createReducer(
   initialState,
   on(ArticleActions.setAll,               (state, payload)  => ({...state, articles: payload.articles, page: payload.page, count: payload.count })),
   on(ArticleActions.setArticle,           (state, payload)  => ({...state, article: payload.article })),
-  on(ArticleActions.createArticleFailed,  (state, payload)  => ({...state, errors: payload.messages })),
+  on(ArticleActions.articleError,         (state, payload)  => ({...state, errors: payload.messages })),
   on(ArticleActions.clearErrors,          (state, _)        => ({...state, errors: [] }))
 );

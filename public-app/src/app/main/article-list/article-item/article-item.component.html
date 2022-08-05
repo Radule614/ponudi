@@ -2,20 +2,25 @@
   <div *ngIf="editable" class="user-overlay">
     <div class="background"></div>
     <div class="user-panel">
-      <button class="btn-edit">
+      <button class="btn-edit" (click)="btnEditClick()">
         <fa-icon [icon]="['fas', 'edit']"></fa-icon>
       </button>
       <button class="btn-share">
         <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
       </button>
-      <button class="btn-delete">
+      <button class="btn-delete" (click)="btnDeleteClick()">
         <fa-icon [icon]="['fas', 'trash']"></fa-icon>
       </button>
     </div>
   </div>
   <div class="image"></div>
   <div class="content">
-    <div class="title">{{article.content}}</div>
+    <div class="heading-block">
+      <div class="title">{{article.content}}</div>
+      <button type="button" mat-icon-button [routerLink]="['/article', article._id]" (click)="btnDetailsClick()" (auxclick)="btnDetailsClick()">
+        <fa-icon [icon]="['fas', 'up-right-from-square']"></fa-icon>
+      </button>
+    </div>
     <div class="details">detalji</div>
     <div class="footer">
       <div class="icon">

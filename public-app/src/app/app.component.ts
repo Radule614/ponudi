@@ -2,9 +2,8 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UnsubscribeComponent } from './shared/unsubscribe/unsubscribe.component';
 import { AppState } from './store';
-import * as FromAuth from './store/auth/auth.actions';
-import * as FromCategory from './store/category/category.actions';
 import * as GeneralSelectors from './store/general/general.selectors';
+import * as FromGeneral from './store/general/general.actions';
 
 
 @Component({
@@ -26,7 +25,7 @@ export class AppComponent extends UnsubscribeComponent implements OnInit {
       if(darkTheme) this.renderer.addClass(document.body, 'dark-theme');
       else          this.renderer.removeClass(document.body, 'dark-theme');
     });
-    this.store.dispatch(FromAuth.checkAuth());
-    this.store.dispatch(FromCategory.fetchAll());
+
+    this.store.dispatch(FromGeneral.loadApp());
   }
 }
