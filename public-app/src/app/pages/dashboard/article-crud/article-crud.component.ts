@@ -107,7 +107,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     if(this.loggedUser == null || !this.loggedUser._id) return;
     if(this.form.status == 'VALID' && !this.categoryError){
       this.store.dispatch(FromArticle.clearErrors())
-      //this.store.dispatch(FromGeneral.activateLoading());
+      this.store.dispatch(FromGeneral.activateLoading());
       
       let data: Article = this.form.getRawValue();
       data.owner = this.loggedUser._id;
@@ -116,13 +116,17 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
       data.additionalFields = this.optionsForm.getRawValue();
 
       console.log(data);
-      //this.store.dispatch(FromArticle.createArticle({ article: data }))
+      if(this.mode=='edit'){
+        this.store.dispatch(FromArticle.editArticle({ id: this.articleForEdit!._id, article: data }))
+      }else{
+        this.store.dispatch(FromArticle.createArticle({ article: data }))
+      }
     }else{
       let messages: string[] = [];
       if(this.form.controls['content'].hasError('required')) messages.push('naslov artikla je obavezan');
       if(this.form.controls['price'].hasError('required')) messages.push('cijena je obavezna');
       if(this.categoryError) messages.push('kategorija mora biti izabrana');
-      this.store.dispatch(FromArticle.createArticleFailed({ messages: messages }));
+      this.store.dispatch(FromArticle.articleError({ messages: messages }));
     }
   }
 

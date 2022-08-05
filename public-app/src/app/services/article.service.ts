@@ -33,4 +33,12 @@ export class ArticleService {
   postArticle(article: Article){
     return this.http.post(`${environment.apiUrl}/products`, article);
   }
+
+  patchArticle(id: string, article: Article){
+    return this.http.patch(`${environment.apiUrl}/products/${id}`, article);
+  }
+
+  deleteArticle(id: string){
+    return this.http.delete(`${environment.apiUrl}/products/${id}`);
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, tap, map, of, switchMap } from "rxjs";
@@ -29,7 +29,7 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchUserArticles(action.userId, action.page).pipe(
         map(data => {
-          return ArticleActions.setAll({articles: data, page: action.page, count: -1});
+          return ArticleActions.setAll({articles: data.data, page: action.page, count: -1});
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -58,23 +58,65 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.postArticle(action.article).pipe(
         map(_ => {
-          return ArticleActions.createArticleSuccess();
+          return ArticleActions.articleSuccess();
         }),
         catchError(error => {
           console.log(error.error.message);
-          return of(ArticleActions.createArticleFailed({ messages: error.error.message }));
+          return of(ArticleActions.articleError({ messages: error.error.message }));
         })
       )
     })
   ));
 
-  createArticleSuccess$ = createEffect(() => this.actions$.pipe(
-    ofType(ArticleActions.createArticleSuccess),
+  editArticle = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.editArticle),
+    switchMap(action => {
+      return this.articleService.patchArticle(action.id, action.article).pipe(
+        map(_ => {
+          return ArticleActions.articleSuccess();
+        }),
+        catchError(error => {
+          console.log(error.error.message);
+          return of(ArticleActions.articleError({ messages: error.error.message }));
+        })
+      )
+    })
+  ));
+
+  deleteArticle = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.deleteArticle),
+    switchMap(action => {
+      return this.articleService.deleteArticle(action.id).pipe(
+        map(_ => {
+          return ArticleActions.deleteSuccess({ id: action.id, userId: action.userId });
+        }),
+        catchError(error => {
+          console.log(error.error.message);
+          return of(ArticleActions.articleError({ messages: error.error.message }));
+        })
+      )
+    })
+  ));
+
+  articleSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.articleSuccess),
     tap(_ => {
       this.store.dispatch(GeneralActions.deactivateLoading());
       this.router.navigate(['/dashboard']);
     })
   ), { dispatch: false });
 
-  constructor(private actions$: Actions, private articleService: ArticleService, private router: Router, private store: Store<AppState>){}
+  deleteSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.deleteSuccess),
+    switchMap(action => { 
+      this.store.dispatch(GeneralActions.deactivateLoading());
+      return of(ArticleActions.fetchAllByUser({ userId: action.userId, page: this.route.snapshot.queryParams['page'] }));
+     })
+  ));
+
+  constructor(private actions$: Actions, 
+              private articleService: ArticleService, 
+              private router: Router, 
+              private store: Store<AppState>,
+              private route: ActivatedRoute){}
 }
