@@ -21,8 +21,8 @@ export class FeatureBuilder implements IFeatureBuilder {
         let { sort = 1, price } = this.params
 
         // this.query = this.filterByPrice(this.query, price)
-        this.query = this.query.sort({ createdAt: sort })
-        this.query = this.query.where('price').gte(price.from).lt(price.to)
+        // this.query = this.query.sort({ createdAt: sort })
+        // this.query = this.query.where('price').gte(price.from).lt(price.to)
         return this
     }
 
