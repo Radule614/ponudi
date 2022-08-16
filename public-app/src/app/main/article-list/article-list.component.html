@@ -6,3 +6,8 @@
                 [pageSize]="20"
                 (page)="pageEvent($event)">
 </mat-paginator>
+
+<div *ngIf="articlesLoading" class="loader">
+  <div class="background"></div>
+  <spinner></spinner>
+</div>

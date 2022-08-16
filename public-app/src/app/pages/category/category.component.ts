@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Article } from "src/app/model/article.model";
 import { AppState } from "src/app/store";
 import * as FromArticle from 'src/app/store/article/article.actions';
 import { animate, group, query, state, style, transition, trigger } from "@angular/animations";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
-import { combineLatest, forkJoin } from "rxjs";
+import { combineLatest } from "rxjs";
+import * as GeneralSelectors from 'src/app/store/general/general.selectors';
 
 @Component({
   selector: 'app-category',
@@ -14,6 +14,8 @@ import { combineLatest, forkJoin } from "rxjs";
   styleUrls: ['./category.component.scss'],
   animations: [
     trigger('expandBlock', [
+      state('true',   style({ left: '340px' })),
+      state('false',  style({ left: '0px' })),
       transition(':enter', [
         style({ height: 0}),
         animate('250ms ease-out', style({ height: '*' })),
@@ -27,12 +29,18 @@ import { combineLatest, forkJoin } from "rxjs";
             animate(200, style({ opacity: 0 })),
           ])
         ])
-      ])
+      ]),
+      transition('true <=> false', animate('250ms ease-in-out'))
     ]),
     trigger('expandButton', [
       state('true',   style({ transform: 'rotateZ(-90deg)' })),
       state('false',  style({ transform: 'rotateZ(0deg)' })),
       transition('true <=> false', animate('250ms ease-out'))
+    ]),
+    trigger('menuOpen', [
+      state('true',   style({ left: '340px' })),
+      state('false',  style({ left: '0px' })),
+      transition('true <=> false', animate('250ms ease-in-out'))
     ])
   ]
 })
@@ -40,6 +48,7 @@ export class CategoryComponent extends UnsubscribeComponent implements OnInit {
   categoryId: string = "";
   page: number = -1;
   filtersExpanded: boolean = false;
+  menuOpen: boolean = true;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>){ super() }
 
@@ -47,8 +56,9 @@ export class CategoryComponent extends UnsubscribeComponent implements OnInit {
     this.addToSubs = combineLatest([this.route.params, this.route.queryParams]).subscribe(([params, queryParams]) => {
       this.categoryId = params['id'];
       this.page =       queryParams['page'];
+      this.store.dispatch(FromArticle.activateLoading());
       this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId, page: this.page }))
-      
     });
+    this.store.select(GeneralSelectors.selectMenuOpen).subscribe(menuOpen => { this.menuOpen = menuOpen })
   }
 }

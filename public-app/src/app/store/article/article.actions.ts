@@ -18,3 +18,6 @@ export const articleError         = createAction('[Article] Article Error',     
 export const clearErrors          = createAction('[Article] Clear Errors');
 
 export const deleteSuccess        = createAction('[Article] Delete Success',          props<{ id: string, userId: string, }>());
+
+export const activateLoading      = createAction('[Article] Activate Loading');
+export const deactivateLoading    = createAction('[Article] Deactivate Loading');

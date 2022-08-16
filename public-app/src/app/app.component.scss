@@ -2,7 +2,6 @@
   display: flex;
   min-height: 2000px;
   position: relative;
-  margin-left: var(--main-sidebar-width);
   margin-top: var(--header-height);
   .sidebar{
     z-index: 100;
@@ -18,6 +17,7 @@
   .content{
     flex: 1;
     overflow-x: hidden;
+    margin-left: var(--main-sidebar-width);
   }
 }
 

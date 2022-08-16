@@ -19,9 +19,11 @@ export class HeaderComponent extends UnsubscribeComponent implements OnInit {
   loggedUser: User | null = null;
   modalRef: MdbModalRef<AuthComponent> | null = null;
   darkTheme: boolean;
+  menuOpen: boolean = true;
   constructor(private store: Store<AppState>, private modalService: MdbModalService) { super() }
 
   ngOnInit(): void { 
+    this.addToSubs = this.store.select(GeneralSelectors.selectMenuOpen).subscribe(menuOpen => { this.menuOpen = menuOpen });
     this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => {
       console.log(user);
       this.loggedUser = user;
@@ -29,9 +31,7 @@ export class HeaderComponent extends UnsubscribeComponent implements OnInit {
         this.modalRef?.close();
       }
     });
-    this.addToSubs = this.store.select(GeneralSelectors.selectDarkTheme).subscribe(darkTheme => {
-      this.darkTheme = darkTheme;
-    });
+    this.addToSubs = this.store.select(GeneralSelectors.selectDarkTheme).subscribe(darkTheme => { this.darkTheme = darkTheme });
   }
 
   logout(): void {
@@ -49,5 +49,8 @@ export class HeaderComponent extends UnsubscribeComponent implements OnInit {
     });
   }
 
-  
+  toggleMenu() {
+    localStorage.setItem('menuOpen', !this.menuOpen + '')
+    this.store.dispatch(FromGeneral.setMenu({menuOpen: !this.menuOpen }));
+  }
 }

@@ -70,11 +70,8 @@
       font-size: 22px;
       justify-content: center;
       & > button{
-        line-height: 40px;
-        cursor: pointer;
-        padding: 0px 10px;
-        background-color: transparent;
-        border: 0px;
+        line-height: 15px;
+        font-size: 17px;
         &:hover{
           color: var(--primary);
         }

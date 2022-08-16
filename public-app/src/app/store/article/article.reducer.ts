@@ -8,6 +8,7 @@ export interface ArticleState {
   count: number;
   article: Article | null;
   errors: string[];
+  loading: boolean;
 } 
 
 const initialState: ArticleState = {
@@ -15,7 +16,8 @@ const initialState: ArticleState = {
   page:-1,
   count: -1,
   article: null,
-  errors: []
+  errors: [],
+  loading: false
 }
 
 export const articleReducer = createReducer(
@@ -23,5 +25,7 @@ export const articleReducer = createReducer(
   on(ArticleActions.setAll,               (state, payload)  => ({...state, articles: payload.articles, page: payload.page, count: payload.count })),
   on(ArticleActions.setArticle,           (state, payload)  => ({...state, article: payload.article })),
   on(ArticleActions.articleError,         (state, payload)  => ({...state, errors: payload.messages })),
-  on(ArticleActions.clearErrors,          (state, _)        => ({...state, errors: [] }))
+  on(ArticleActions.clearErrors,          (state, _)        => ({...state, errors: [] })),
+  on(ArticleActions.activateLoading,      (state, _)        => ({...state, loading: true })),
+  on(ArticleActions.deactivateLoading,    (state, _)        => ({...state, loading: false }))
 );

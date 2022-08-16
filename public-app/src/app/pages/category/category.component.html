@@ -12,7 +12,7 @@
     <app-article-list></app-article-list>
   </div>
   
-  <div *ngIf="filtersExpanded" class="filter-block" @expandBlock>
+  <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="menuOpen">
     <div class="inner">
       <app-category-filter></app-category-filter>
     </div>

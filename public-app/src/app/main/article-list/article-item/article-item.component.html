@@ -2,13 +2,13 @@
   <div *ngIf="editable" class="user-overlay">
     <div class="background"></div>
     <div class="user-panel">
-      <button class="btn-edit" (click)="btnEditClick()">
+      <button mat-icon-button class="btn-edit" (click)="btnEditClick()">
         <fa-icon [icon]="['fas', 'edit']"></fa-icon>
       </button>
-      <button class="btn-share">
+      <button mat-icon-button class="btn-share">
         <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
       </button>
-      <button class="btn-delete" (click)="btnDeleteClick()">
+      <button mat-icon-button class="btn-delete" (click)="btnDeleteClick()">
         <fa-icon [icon]="['fas', 'trash']"></fa-icon>
       </button>
     </div>

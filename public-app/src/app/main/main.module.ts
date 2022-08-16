@@ -13,6 +13,7 @@ import { FilterBlockComponent } from "./filter-block/filter-block.component";
 import { HeaderComponent } from "./header/header.component";
 import { OptionsModule } from "./options/options.module";
 import { ArticleListModule } from "./article-list/article-list.module";
+import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 
 export const allIconNames: any = [];
 
@@ -21,6 +22,7 @@ export const allIconNames: any = [];
     FilterBlockComponent,
     FilterBlockComponent,
     HeaderComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     CommonModule, 
@@ -41,7 +43,8 @@ export const allIconNames: any = [];
     HeaderComponent,
     ArticleListModule,
     FilterBlockComponent,
-    OptionsModule
+    OptionsModule,
+    BreadcrumbsComponent
   ]
 })
 export class MainModule {

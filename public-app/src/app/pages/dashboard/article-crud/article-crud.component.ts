@@ -12,9 +12,7 @@ import * as AuthSelectors from "src/app/store/auth/auth.selectors";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CategoryService } from "src/app/services/category.service";
-import * as CategorySelectors from "src/app/store/category/category.selectors";
 import { ViewportScroller } from "@angular/common";
-import { combineLatest } from "rxjs";
 
 @Component({
   selector: 'app-article-crud',
@@ -68,16 +66,13 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     let articleId = this.route.snapshot.params['id'];
     if(articleId){
       this.mode = 'edit';
-      const article$ = this.store.select(ArticleSelectors.selectArticle);
-      const categories$ = this.store.select(CategorySelectors.selectAll);
-      this.addToSubs = combineLatest([article$, categories$]).subscribe(([article, categories]) => {
+      this.addToSubs = this.store.select(ArticleSelectors.selectArticle).subscribe(article => { 
         this.articleForEdit = article;
-        if(this.articleForEdit?.category){
-          this.categoryPath = this.categoryService.calculateCategoryPath(categories, this.articleForEdit.category);
-          console.log(this.categoryPath);
-          this.categoryPathHandler(this.categoryPath);
-          this.fillExistingData();
-        }
+        this.fillExistingData();
+       });
+      this.addToSubs = this.categoryService.getCurrentCategoryPath().subscribe(path => {
+        this.categoryPath = path;
+        this.categoryPathHandler(path);
       });
     }
     this.addToSubs = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => { this.errorMessages = errors });

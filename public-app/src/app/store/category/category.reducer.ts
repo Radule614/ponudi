@@ -14,7 +14,7 @@ const initialState: CategoryState = {
 
 export const categoryReducer = createReducer(
   initialState,
-  on(CategoryActions.setAll,                (state, payload)  => ({ ...state, categories: payload.categories })),
-  on(CategoryActions.createCategoryFailed,  (state, payload)  => ({ ...state, errors: payload.messages })),
+  on(CategoryActions.setAll,                (state, payload)  => ({...state, categories: payload.categories })),
+  on(CategoryActions.createCategoryFailed,  (state, payload)  => ({...state, errors: payload.messages })),
   on(CategoryActions.clearErrors,           (state, _)        => ({...state, errors: [] }))
 );
