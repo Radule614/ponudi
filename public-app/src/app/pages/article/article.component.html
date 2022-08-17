@@ -19,7 +19,9 @@
       </div>
     </div>
   </section>
-  <section class="gallery">galerija</section>
+  <section class="gallery">
+    <app-gallery [images]="images"></app-gallery>
+  </section>
   <section class="details">
     <div class="field-grid" *ngIf="article && article.additionalFields">
       <div class="field" *ngFor="let field of article.additionalFields | keyvalue">

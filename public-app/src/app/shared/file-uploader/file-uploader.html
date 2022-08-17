@@ -1,0 +1,5 @@
+<div class="file-uploader">
+  <input #imageInput hidden="true" type="file" (change)="imageInputChanged($event)" (click)="resetInput(this)" accept="image/*"/>
+  <button type="button" mat-flat-button color="primary" (click)="imageInput.click()">Izaberi sliku</button>
+  <div class="feedback">{{selectedFile?.name}}</div>
+</div>

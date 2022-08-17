@@ -1,0 +1,5 @@
+<div class="image" [ngClass]="{'editable': editable }" [style]="{ 'background-image': imagePath }">
+  <button *ngIf="editable" type="button" mat-mini-fab class="btn-delete" (click)="openDeleteModal()">
+    <fa-icon [icon]="['fas', 'xmark']"></fa-icon>
+  </button>
+</div>

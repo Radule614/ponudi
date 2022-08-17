@@ -13,6 +13,7 @@ import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.com
 import { ActivatedRoute, Router } from "@angular/router";
 import { CategoryService } from "src/app/services/category.service";
 import { ViewportScroller } from "@angular/common";
+import { Image } from "src/app/model/image.model";
 
 @Component({
   selector: 'app-article-crud',
@@ -38,6 +39,17 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     { name: 'BAM', value: 'BAM' },
     { name: 'EUR', value: 'EUR' }
   ]
+
+  //temp
+  images: Image[] = [
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' }
+  ];
+  //temp end
 
   constructor(private store: Store<AppState>, 
               private route: ActivatedRoute,
@@ -159,6 +171,11 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   cancel(): void{
     this.clearOptionsForm();
     this.router.navigate(['dashboard']);
+  }
+
+  fileSelectedHandler(file: File) {
+    console.log(file);
+    this.images.push({ url: URL.createObjectURL(file) });
   }
 
   get categoryError(){

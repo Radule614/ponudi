@@ -13,6 +13,14 @@
         <custom-textarea [form]="form" controlName="description" placeholder="detalji"></custom-textarea>
       </div>
     </div>
+
+    <div class="file-block">
+      <file-uploader (fileSelectedEvent)="fileSelectedHandler($event)"></file-uploader>
+    </div>
+
+    <div class="gallery">
+      <app-gallery [images]="images" [editable]="true"></app-gallery>
+    </div>
     
     <div *ngIf="mode=='add'">
       <h6>Odaberi kategoriju</h6>

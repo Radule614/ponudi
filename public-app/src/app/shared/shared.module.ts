@@ -12,6 +12,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { GalleryModule } from './gallery/gallery.module';
+import { FileUploaderComponent } from './file-uploader/file-uploader';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     CustomTextareaComponent,
     UnsubscribeComponent,
     SpinnerComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    FileUploaderComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +41,10 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     UnsubscribeComponent,
     SpinnerComponent,
     MatButtonModule,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    GalleryModule,
+    FileUploaderComponent
+
   ]
 })
 export class SharedModule { }

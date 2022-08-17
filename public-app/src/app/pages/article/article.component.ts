@@ -8,6 +8,7 @@ import { Store } from "@ngrx/store";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { CategoryService } from "src/app/services/category.service";
 import { Category } from "src/app/model/category.model";
+import { Image } from "src/app/model/image.model";
 
 @Component({
   selector: 'app-article',
@@ -18,6 +19,19 @@ export class ArticleComponent extends UnsubscribeComponent implements OnInit{
   article: Article | null;
   articleId: string;
   categoryPath: Category[];
+
+  //temp
+  images: Image[] = [
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' },
+    { url: 'image_placeholder.jpg' }
+  ];
+  //temp end
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>, private categoryService: CategoryService){ super() }
 
