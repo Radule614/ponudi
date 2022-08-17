@@ -9,11 +9,11 @@
     a{
       display: flex;
       flex:1;
+      transition: background-color 0.13s ease, color 0.13s ease;
       &.active-link{
         background-color: var(--primary);
         & + button{
           background-color: var(--primary);
-          border-radius: 0px 10px 10px 0px;
           color: #fff;
           &:hover{
             background-color: var(--primary-2);
@@ -27,7 +27,8 @@
       border: 0px;
       padding:0px 18px;
       position: relative;
-      border-radius: 10px;
+      border-radius: 0px 10px 10px 0px;
+      transition: background-color 0.13s ease, color 0.13s ease;
       &:hover{
         color: var(--primary-2);
       }

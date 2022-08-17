@@ -35,6 +35,7 @@ export class CategoryEffects {
         }),
         catchError(error => {
           console.log(error.error.message);
+          this.store.dispatch(GeneralActions.deactivateLoading());
           return of(CategoryActions.createCategoryFailed(error.error.message));
         })
       )

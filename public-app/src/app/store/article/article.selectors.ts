@@ -22,3 +22,8 @@ export const selectErrors = createSelector(
   articleFeature,
   (state: ArticleState) => state.errors
 );
+
+export const selectLoading = createSelector(
+  articleFeature,
+  (state: ArticleState) => state.loading
+);

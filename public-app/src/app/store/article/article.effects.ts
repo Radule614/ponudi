@@ -15,10 +15,12 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchArticles(action.id, action.page).pipe(
         map(data => {
+          this.store.dispatch(ArticleActions.deactivateLoading());
           return ArticleActions.setAll({articles: data.data, page: action.page, count: data.count});
         }),
         catchError(error => {
           console.log(error.error.message);
+          this.store.dispatch(ArticleActions.deactivateLoading());
           return of(ArticleActions.fetchFailed());
         })
       )
@@ -29,10 +31,12 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchUserArticles(action.userId, action.page).pipe(
         map(data => {
-          return ArticleActions.setAll({articles: data.data, page: action.page, count: -1});
+          this.store.dispatch(ArticleActions.deactivateLoading());
+          return ArticleActions.setAll({articles: data.data, page: action.page, count: data.count});
         }),
         catchError(error => {
           console.log(error.error.message);
+          this.store.dispatch(ArticleActions.deactivateLoading());
           return of(ArticleActions.fetchFailed());
         })
       )
@@ -43,10 +47,12 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchArticleData(action.id).pipe(
         map(data => {
+          this.store.dispatch(ArticleActions.deactivateLoading());
           return ArticleActions.setArticle({article: data});
         }),
         catchError(error => {
           console.log(error.error.message);
+          this.store.dispatch(ArticleActions.deactivateLoading());
           return of(ArticleActions.fetchFailed());
         })
       )

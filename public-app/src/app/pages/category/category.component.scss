@@ -11,6 +11,7 @@
     z-index: 90;
     opacity: 1;
     height: 50px;
+    transition: left 0.25s ease-in-out;
     button{
       top:0px;
       border: none;
@@ -39,6 +40,7 @@
     bottom:0px;
     right:0px;
     left:var(--main-sidebar-width);
+    transition: left 0.25s ease-in-out;
     .inner{
       position: relative;
     }
@@ -51,6 +53,14 @@
       left:0px;
       background-color: var(--background-2);
       opacity: 0.88;
+    }
+  }
+  &:not(.menu-open){
+    .panel{
+      left:0px;
+    }
+    .filter-block{
+      left:0px;
     }
   }
 }

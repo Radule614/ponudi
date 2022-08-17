@@ -1,6 +1,6 @@
 
 <header>
-  <button type="button" class="btn-menu">
+  <button mat-button type="button" class="btn-menu" (click)="toggleMenu()">
     <fa-icon [icon]="['fas', 'bars']"></fa-icon>
   </button>
   <div class="logo">
@@ -14,7 +14,7 @@
           {{loggedUser?.username}}
         </div>
         <div class="button-group">
-          <button type="button" mat-icon-button (click)="switchTheme()">
+          <button class="btn-theme" type="button" mat-icon-button (click)="switchTheme()">
             <div *ngIf="darkTheme">
               <fa-icon [icon]="['fas', 'sun']"></fa-icon>
             </div>

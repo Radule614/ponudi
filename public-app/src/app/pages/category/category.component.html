@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{ 'menu-open': menuOpen }">
   <div class="panel">
     <button type="button" class="btn-expand" (click)="filtersExpanded=!filtersExpanded">
       <div class="text">filteri</div>
@@ -12,7 +12,7 @@
     <app-article-list></app-article-list>
   </div>
   
-  <div *ngIf="filtersExpanded" class="filter-block" @expandBlock>
+  <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="menuOpen">
     <div class="inner">
       <app-category-filter></app-category-filter>
     </div>

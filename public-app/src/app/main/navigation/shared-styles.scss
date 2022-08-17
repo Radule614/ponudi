@@ -8,7 +8,7 @@
     padding:10px 18px 10px 12px;
     font-size: 18px;
     color: var(--foreground);
-    transition: background-color 0.13s ease, color 0.13 ease;
+    transition: background-color 0.13s ease, color 0.13s ease;
     border-radius: 10px;
     align-items: center;
     text-decoration: none;
@@ -28,7 +28,6 @@
       color: var(--primary-2);
     }
     &.active-link{
-      //color: var(--foreground);
       color: #fff;
       background-color: var(--primary);
     }
@@ -38,11 +37,4 @@
     border-bottom: 1px solid var(--primary);
     margin-bottom: 20px;
   }
-  // &:not(.main-nav){
-  //   a {
-  //     .text{
-  //       padding-left: 4px;
-  //     }
-  //   }
-  // }
 }

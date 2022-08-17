@@ -7,6 +7,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CustomPaginatorIntl } from "./paginator-intl";
 import { RouterModule } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MatButtonModule } from "@angular/material/button";
     MatPaginatorModule,
     MatButtonModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   exports: [ArticleListComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}],

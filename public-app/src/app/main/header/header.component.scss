@@ -14,13 +14,7 @@ header{
   .btn-menu{
     padding:0px 20px;
     font-size: 25px;
-    border:0px;
-    background-color: var(--primary);
     height: var(--header-height);
-    color: inherit;
-    &:hover{
-      background-color: var(--primary-2);
-    }
   }
   .logo{
     display: flex;
@@ -54,6 +48,10 @@ header{
         align-items: center;
         .info{
           margin-right: 30px;
+        }
+        .btn-theme{
+          font-size: 17px;
+          line-height: 15px;
         }
       }
     }

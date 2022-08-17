@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Category } from "src/app/model/category.model";
 import { CategoryDTO } from "src/app/services/category.service";
@@ -9,6 +9,7 @@ import * as CategorySelectors from "src/app/store/category/category.selectors";
 import * as FromCategory from "src/app/store/category/category.actions";
 import * as FromGeneral from "src/app/store/general/general.actions";
 import { allIconNames } from "src/app/main/main.module";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-category-crud',
@@ -27,7 +28,7 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
   newOptions: string[] = [];
   allIconNames: any[];
   
-  constructor(private store: Store<AppState>) { super() }
+  constructor(private store: Store<AppState>, private router: Router) { super() }
   ngOnInit(): void {
     this.addToSubs = this.store.select(CategorySelectors.selectErrors).subscribe(data => {
       this.errorMessages = data;
@@ -37,7 +38,7 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
       'icon': new UntypedFormControl(null)
     });
     this.optionForm = new UntypedFormGroup({
-      'option': new UntypedFormControl(null, [Validators.required, Validators.maxLength(20)])
+      'option': new UntypedFormControl(null, [Validators.required, Validators.maxLength(20), CategoryCrudComponent.OptionValidator(this.inheritedOptions, this.newOptions)])
     });
     this.allIconNames = allIconNames;
   }
@@ -54,6 +55,16 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
         for(let field of cat.additionalFields){
           this.inheritedOptions.push(field)
         }
+      }
+    }
+    this.clearExistingOptions();
+  }
+
+  clearExistingOptions(){
+    for(let inheritedOption of this.inheritedOptions){
+      let index = this.newOptions.indexOf(inheritedOption);
+      if(index != -1){
+        this.newOptions.splice(index);
       }
     }
   }
@@ -81,10 +92,20 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
 
   onOptionSubmit(){
     if(this.optionForm.valid){
-      this.newOptions.push(this.optionForm.getRawValue().option);
+      this.newOptions.push(this.optionForm.getRawValue().option.trim());
       this.optionForm.reset();
       this.optionFormActive = false;
     }
+  }
+
+  cancel(): void{
+    this.router.navigate(['admin']);
+  }
+
+  static OptionValidator(inheritedOptions: string[], newOptions: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return inheritedOptions.includes(control.value) || newOptions.includes(control.value) ? { exists: true } : null;
+    };
   }
 
   get categoryParent(){
@@ -96,5 +117,9 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
   get categoryError(){
     if(this.categoryPath.length == 0) return true;
     return false;
+  }
+
+  get selectedIcon(){
+    return this.categoryForm.controls['icon'].value;
   }
 }
