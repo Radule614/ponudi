@@ -14,8 +14,6 @@ import * as GeneralSelectors from 'src/app/store/general/general.selectors';
   styleUrls: ['./category.component.scss'],
   animations: [
     trigger('expandBlock', [
-      state('true',   style({ left: '340px' })),
-      state('false',  style({ left: '0px' })),
       transition(':enter', [
         style({ height: 0}),
         animate('250ms ease-out', style({ height: '*' })),
@@ -29,18 +27,12 @@ import * as GeneralSelectors from 'src/app/store/general/general.selectors';
             animate(200, style({ opacity: 0 })),
           ])
         ])
-      ]),
-      transition('true <=> false', animate('250ms ease-in-out'))
+      ])
     ]),
     trigger('expandButton', [
       state('true',   style({ transform: 'rotateZ(-90deg)' })),
       state('false',  style({ transform: 'rotateZ(0deg)' })),
       transition('true <=> false', animate('250ms ease-out'))
-    ]),
-    trigger('menuOpen', [
-      state('true',   style({ left: '340px' })),
-      state('false',  style({ left: '0px' })),
-      transition('true <=> false', animate('250ms ease-in-out'))
     ])
   ]
 })

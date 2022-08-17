@@ -1,35 +1,37 @@
-<h3 *ngIf="mode=='add'">Kreiranje artikla</h3>
-<h3 *ngIf="mode=='edit'">Promjena artikla</h3>
-
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="grid">
-    <custom-input class="control" [form]="form" controlName="content" placeholder="naslov"></custom-input>
-    <div class="form-group">
-      <custom-input   class="control" [form]="form" controlName="price"     placeholder="cijena" type="number"></custom-input>
-      <custom-select  class="control" [form]="form" controlName="currency"  placeholder="valuta" [options]="currencies"></custom-select>
-    </div>
-    <div class="full">
-      <custom-textarea [form]="form" controlName="description" placeholder="detalji"></custom-textarea>
-    </div>
-  </div>
+<div class="container">
+  <h3 *ngIf="mode=='add'">Kreiranje artikla</h3>
+  <h3 *ngIf="mode=='edit'">Promjena artikla</h3>
   
-  <div *ngIf="mode=='add'">
-    <h6>Odaberi kategoriju</h6>
-    <div class="select-category">
-      <app-category-selector (pathChangedEvent)="categoryPathHandler($event)"></app-category-selector>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+      <custom-input class="control" [form]="form" controlName="content" placeholder="naslov"></custom-input>
+      <div class="form-group">
+        <custom-input   class="control" [form]="form" controlName="price"     placeholder="cijena" type="number"></custom-input>
+        <custom-select  class="control" [form]="form" controlName="currency"  placeholder="valuta" [options]="currencies"></custom-select>
+      </div>
+      <div class="full">
+        <custom-textarea [form]="form" controlName="description" placeholder="detalji"></custom-textarea>
+      </div>
     </div>
-  </div>
-
-  <form class="grid options-block" [formGroup]="optionsForm">
-    <custom-input *ngFor="let option of options" class="control" [form]="optionsForm" [controlName]="option" [placeholder]="option"></custom-input>
+    
+    <div *ngIf="mode=='add'">
+      <h6>Odaberi kategoriju</h6>
+      <div class="select-category">
+        <app-category-selector (pathChangedEvent)="categoryPathHandler($event)"></app-category-selector>
+      </div>
+    </div>
+  
+    <form class="grid options-block" [formGroup]="optionsForm">
+      <custom-input *ngFor="let option of options" class="control" [form]="optionsForm" [controlName]="option" [placeholder]="option"></custom-input>
+    </form>
+    
+    <div class="error-block">
+      <div *ngFor="let msg of errorMessages">{{msg}}</div>
+    </div>
+    <div class="button-group">
+      <button type="button" mat-raised-button (click)="cancel()">Odustani</button>
+      <button *ngIf="mode=='add'" mat-raised-button color="primary">Kreiraj</button>
+      <button *ngIf="mode=='edit'" mat-raised-button color="primary">Potvrdi</button>
+    </div>
   </form>
-  
-  <div class="error-block">
-    <div *ngFor="let msg of errorMessages">{{msg}}</div>
-  </div>
-  <div class="button-group">
-    <button type="button" mat-raised-button (click)="cancel()">Odustani</button>
-    <button *ngIf="mode=='add'" mat-raised-button color="primary">Kreiraj</button>
-    <button *ngIf="mode=='edit'" mat-raised-button color="primary">Potvrdi</button>
-  </div>
-</form>
+</div>

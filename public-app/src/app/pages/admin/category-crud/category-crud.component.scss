@@ -6,10 +6,6 @@ h6{
   margin-top: 40px;
 }
 
-.form-block{
-  max-width: 400px;
-}
-
 .button-group{
   margin-top: 60px;
 }
@@ -27,8 +23,32 @@ h6{
     margin-bottom: 30px;
     margin-top: 20px;
   }
+  .form-block{
+    max-width: 500px;
+  }
   .button-group{
     margin-top: 30px;
     justify-content: right;
+  }
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 480px));
+  grid-gap: 0px 20px;
+  margin-bottom: 40px;
+  .icon-block{
+    display: flex;
+    .control{
+      width: 100%;
+    }
+    .icon{
+      width: 80px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
   }
 }

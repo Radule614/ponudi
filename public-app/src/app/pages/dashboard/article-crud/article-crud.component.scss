@@ -3,7 +3,7 @@ h3{
 }
 .grid{
   display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 450px));
+  grid-template-columns: repeat(2, minmax(200px, 480px));
   grid-gap: 0px 20px;
   margin-bottom: 40px;
   .form-group{

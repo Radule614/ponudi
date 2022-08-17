@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{ 'menu-open': menuOpen }">
   <div class="panel">
     <button type="button" class="btn-expand" (click)="filtersExpanded=!filtersExpanded">
       <div class="text">filteri</div>
