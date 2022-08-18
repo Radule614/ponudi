@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { GalleryModule } from './gallery/gallery.module';
 import { FileUploaderComponent } from './file-uploader/file-uploader';
+import { SafeHtmlPipe } from './pipes/SafeHtml.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader';
     UnsubscribeComponent,
     SpinnerComponent,
     ConfirmModalComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,
@@ -43,8 +45,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader';
     MatButtonModule,
     ConfirmModalComponent,
     GalleryModule,
-    FileUploaderComponent
-
+    FileUploaderComponent,
+    SafeHtmlPipe
   ]
 })
 export class SharedModule { }

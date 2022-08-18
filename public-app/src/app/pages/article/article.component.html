@@ -2,8 +2,8 @@
   <div class="breadcrumbs">
     <app-breadcrumbs></app-breadcrumbs>
   </div>
+  <h3>{{article?.content}}</h3>
   <section class="info">
-    <div class="title">{{article?.content}}</div>
     <div class="special-block">
       <div class="special high">
         <div class="special-header">Cijena</div>
@@ -29,6 +29,9 @@
         <div class="value">{{field.value}}</div>
       </div>
     </div>
+  </section>
+  <section class="description">
+    <div [innerHtml]="article?.description | safeHtml"></div>
   </section>
   <section class="comments">komentari</section>
 </div>

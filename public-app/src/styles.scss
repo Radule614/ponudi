@@ -92,3 +92,85 @@ h6{
 .container{
   max-width: 1000px;
 }
+
+.table{
+  color:inherit;
+}
+
+//ckeditor overrides
+.ck{
+  &.ck-editor__main > .ck-editor__editable{
+    background-color: var(--background-3)!important;
+    min-height: 200px;
+  }
+  .ck.ck-toolbar{
+    background-color: var(--background)!important;
+  }
+  .ck.ck-button .ck-button__label, a.ck.ck-button .ck-button__label,
+  .ck-reset_all :not(.ck-reset_all-excluded *), .ck.ck-reset_all{
+    color: var(--foreground)!important;
+  }
+  .ck-content .table table{
+    color: var(--foreground);
+  }
+  &.ck-editor__main > .ck-editor__editable:not(.ck-focused),
+  &.ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar, 
+  .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners{
+    border-color: var(--background-4)!important;
+  }
+  .ck.ck-balloon-panel{
+    //border-color: var(--background-4)!important;
+    background-color: var(--background)!important;
+    color: var(--foreground)!important;
+    input{
+      background-color: var(--background)!important;
+    }
+
+    .ck.ck-labeled-field-view>.ck.ck-labeled-field-view__input-wrapper>.ck.ck-label{
+      background-color: var(--background)!important;
+    }
+    .ck.ck-input-color>.ck.ck-dropdown>.ck.ck-button.ck-input-color__button.ck-disabled{
+      background-color: var(--background-3)!important;
+    }
+  }
+
+  &.ck-reset_all :not(.ck-reset_all-excluded *), 
+  &.ck-reset_all{
+    color: var(--foreground)!important;
+  }
+
+  .ck.ck-list{
+    background-color: var(--background)!important;
+  }
+  .ck.ck-button.ck-on, 
+  a.ck.ck-button.ck-on{
+    background-color: var(--background-2)!important;
+  }
+  .ck.ck-button.ck-on:not(.ck-disabled):hover, 
+  a.ck.ck-button.ck-on:not(.ck-disabled):hover{
+    background-color: var(--background-2)!important;
+  }
+  .ck.ck-button:not(.ck-disabled):hover, 
+  a.ck.ck-button:not(.ck-disabled):hover{
+    background-color: var(--background-2)!important;
+  }
+  .ck.ck-button:not(.ck-disabled):active, 
+  a.ck.ck-button:not(.ck-disabled):active{
+    background-color: var(--background-2)!important;
+  }
+  .ck.ck-dropdown__panel{
+    background-color: var(--background)!important;
+  }
+  .ck.ck-tooltip .ck-tooltip__text{
+    background-color: var(--background-2)!important;
+  }
+  .ck.ck-tooltip.ck-tooltip_s .ck-tooltip__text:after, 
+  .ck.ck-tooltip.ck-tooltip_se .ck-tooltip__text:after, 
+  .ck.ck-tooltip.ck-tooltip_sw .ck-tooltip__text:after{
+    border-color: transparent transparent var(--background-2) transparent !important;
+  }
+  .ck.ck-splitbutton.ck-splitbutton_open > .ck-button:not(.ck-on):not(.ck-disabled):not(:hover), 
+  .ck.ck-splitbutton:hover>.ck-button:not(.ck-on):not(.ck-disabled):not(:hover){
+    background-color: var(--background-2)!important;
+  }
+}

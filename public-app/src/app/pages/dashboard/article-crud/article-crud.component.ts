@@ -15,6 +15,8 @@ import { CategoryService } from "src/app/services/category.service";
 import { ViewportScroller } from "@angular/common";
 import { Image } from "src/app/model/image.model";
 
+import * as CustomRichtext from 'src/app/richtext/ckeditor.js';
+
 @Component({
   selector: 'app-article-crud',
   templateUrl: './article-crud.component.html',
@@ -39,6 +41,8 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     { name: 'BAM', value: 'BAM' },
     { name: 'EUR', value: 'EUR' }
   ]
+
+  public Editor = CustomRichtext.Editor;
 
   //temp
   images: Image[] = [

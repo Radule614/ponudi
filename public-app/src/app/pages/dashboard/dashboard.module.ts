@@ -8,6 +8,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { ArticleCrudComponent } from "./article-crud/article-crud.component";
 import { DashboardMainComponent } from "./dashboard-main/dashboard-main.component";
 import { DashboardComponent } from "./dashboard.component";
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DashboardComponent } from "./dashboard.component";
     SharedModule,
     RouterModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    CKEditorModule
   ]
 })
 export class DashboardModule {}
