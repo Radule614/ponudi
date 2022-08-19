@@ -5,7 +5,7 @@ h3{
   display: grid;
   grid-template-columns: repeat(2, minmax(200px, 480px));
   grid-gap: 0px 20px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   .form-group{
     display: flex;
     flex: 1;
@@ -29,4 +29,27 @@ h3{
 }
 .button-group{
   margin-top: 40px;
+}
+
+.file-block{
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.gallery{
+  margin-bottom: 40px;
+}
+
+.description{
+  margin-bottom: 30px;
+  h6{
+    margin-bottom: 20px;
+  }
+}
+
+.description-form{
+  .button-group{
+    margin-top: 20px;
+    justify-content: right;
+  }
 }

@@ -59,6 +59,5 @@ export class ArticleItemComponent extends UnsubscribeComponent implements OnInit
         this.store.dispatch(FromArticle.deleteArticle({ id: this.article._id, userId: this.user!._id}));
       }
     });
-    
   }
 }

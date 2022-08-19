@@ -1,0 +1,20 @@
+.image{
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+  position: relative;
+  border:1px solid var(--background-4);
+  .btn-delete{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 19px;
+    opacity: 0.2;
+    transition: opacity 0.2s ease-in-out;
+  }
+  &:hover{
+    .btn-delete{
+      opacity: 1;
+    }
+  }
+}

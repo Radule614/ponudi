@@ -7,6 +7,7 @@ import { animate, group, query, state, style, transition, trigger } from "@angul
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { combineLatest } from "rxjs";
 import * as GeneralSelectors from 'src/app/store/general/general.selectors';
+import { NavigationService } from "src/app/main/navigation/navigation.service";
 
 @Component({
   selector: 'app-category',
@@ -42,7 +43,7 @@ export class CategoryComponent extends UnsubscribeComponent implements OnInit {
   filtersExpanded: boolean = false;
   menuOpen: boolean = true;
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>){ super() }
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private navigationService: NavigationService){ super() }
 
   ngOnInit(): void {
     this.addToSubs = combineLatest([this.route.params, this.route.queryParams]).subscribe(([params, queryParams]) => {
@@ -50,6 +51,7 @@ export class CategoryComponent extends UnsubscribeComponent implements OnInit {
       this.page =       queryParams['page'];
       this.store.dispatch(FromArticle.activateLoading());
       this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId, page: this.page }))
+      this.navigationService.activeCategory$.next(this.categoryId);
     });
     this.store.select(GeneralSelectors.selectMenuOpen).subscribe(menuOpen => { this.menuOpen = menuOpen })
   }

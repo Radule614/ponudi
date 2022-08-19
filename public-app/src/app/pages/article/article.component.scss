@@ -1,62 +1,68 @@
+.page{
+  padding-bottom: 200px;
+}
+
+h3{
+  border-bottom: 1px solid var(--background-4);
+}
+
+h6{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--background-4);
+  padding-bottom: 5px;
+}
+
 section{
-  padding:20px;
-  background-color: var(--background-3);
-  margin-bottom: 5px;
-  border: 1px solid var(--background-4);
-  border-radius: 10px;
-}
-
-.info{
-  .title{
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-  .special{
-    background-color: var(--background-2);
-    display: inline-block;
-    padding: 6px 10px;
-    border: 1px solid var(--background-4);
-    border-radius: 10px;
-    margin-left: 15px;
-    &.high{
-      .special-body{
-        font-size: 20px;
-      }
-    }
-    &:first-child{
-      margin-left:0px;
-    }
-    .special-header{
-      border-bottom: 1px solid var(--background-4);
-      padding: 3px;
-    }
-    .special-body{
-      padding: 3px;
-      color: var(--secondary);
-      line-height: 30px;
-    }
-  }
-}
-
-.details{
-  .field-grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    grid-gap: 20px;
-    .field{
-      border: 1px solid var(--background-4);
+  margin-bottom: 10px;
+  &.info-section{
+    .special{
       background-color: var(--background-2);
-      padding: 12px 10px;
+      display: inline-block;
+      padding: 6px 10px;
+      border: 1px solid var(--background-4);
       border-radius: 10px;
-      display: flex;
-      & > div{
-        margin-left: 15px;
-        &:first-child{
-          margin-left:0px;
+      margin-left: 15px;
+      &.high{
+        .special-body{
+          font-size: 20px;
         }
       }
-      .name{
-        flex: 1;
+      &:first-child{
+        margin-left:0px;
+      }
+      .special-header{
+        border-bottom: 1px solid var(--background-4);
+        padding: 3px;
+      }
+      .special-body{
+        padding: 3px;
+        color: var(--secondary);
+        line-height: 30px;
+      }
+    }
+  }
+  
+  &.field-section{
+    .field-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-gap: 20px;
+      .field{
+        border: 1px solid var(--background-4);
+        background-color: var(--background);
+        border-radius: 10px;
+        display: flex;
+        .name{
+          flex: 1;
+          padding: 12px 10px;
+          border-right: 1px solid var(--background-4);
+        }
+        .value{
+          padding: 12px 10px;
+          background-color: var(--background-2);
+          border-radius: 0px 8px 8px 0px;
+        }
       }
     }
   }

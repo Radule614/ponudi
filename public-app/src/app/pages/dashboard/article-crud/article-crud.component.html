@@ -9,9 +9,32 @@
         <custom-input   class="control" [form]="form" controlName="price"     placeholder="cijena" type="number"></custom-input>
         <custom-select  class="control" [form]="form" controlName="currency"  placeholder="valuta" [options]="currencies"></custom-select>
       </div>
-      <div class="full">
-        <custom-textarea [form]="form" controlName="description" placeholder="detalji"></custom-textarea>
+    </div>
+
+    <div class="description">
+      <h6>Detalji</h6>
+      <div *ngIf="!descriptionEdit">
+        <div class="description-preview" [innerHtml]="form.getRawValue().description | safeHtml"></div>
+        <button type="button" mat-raised-button color="primary" (click)="openDescriptionEdit()">Izmjeni detalje</button>
       </div>
+      <div *ngIf="descriptionEdit" class="description-form">
+        <form [formGroup]="descriptionForm" (ngSubmit)="descriptionSubmit()">
+          <ckeditor [editor]="Editor" formControlName="description"></ckeditor>
+          <div class="button-group">
+            <button type="button" mat-raised-button (click)="descriptionEdit=false">Odustani</button>
+            <button mat-raised-button color="primary">Sačuvaj</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <h6>Galerija</h6>
+    <div class="file-block">
+      <file-uploader (fileSelectedEvent)="fileSelectedHandler($event)"></file-uploader>
+    </div>
+
+    <div class="gallery">
+      <app-gallery [images]="images" [editable]="true"></app-gallery>
     </div>
     
     <div *ngIf="mode=='add'">
