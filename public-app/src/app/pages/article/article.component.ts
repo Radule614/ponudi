@@ -9,6 +9,7 @@ import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.com
 import { CategoryService } from "src/app/services/category.service";
 import { Category } from "src/app/model/category.model";
 import { Image } from "src/app/model/image.model";
+import { Comment } from "src/app/model/comment.model";
 
 @Component({
   selector: 'app-article',
@@ -30,6 +31,14 @@ export class ArticleComponent extends UnsubscribeComponent implements OnInit{
     { url: 'image_placeholder.jpg' },
     { url: 'image_placeholder.jpg' },
     { url: 'image_placeholder.jpg' }
+  ];
+
+  comments: Comment[] = [
+    { user: 'rade', content: 'komentar 123', date: '19.8.2022'},
+    { user: 'rade2', content: 'komentar 123j k;sdajkdp sajd kpsa', date: '19.8.2022'},
+    { user: 'rade2', content: 'komentar [l[dsak aslpd kpq23 dsakl[d sak]]]', date: '19.8.2022'},
+    { user: 'rade3', content: 'komentar  pjlkdsap]kd sajml[ fd', date: '19.8.2022'},
+    { user: 'rade', content: 'komentar 1111111111111111111111', date: '19.8.2022'}
   ];
   //temp end
 

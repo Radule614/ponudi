@@ -37,6 +37,9 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   options: string[] = [];
   optionsForm: UntypedFormGroup;
 
+  descriptionEdit: boolean = false;
+  descriptionForm: UntypedFormGroup;
+
   currencies: Object[] = [
     { name: 'BAM', value: 'BAM' },
     { name: 'EUR', value: 'EUR' }
@@ -76,6 +79,9 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
       'currency':     new UntypedFormControl(null)
     });
     this.optionsForm = new UntypedFormGroup({});
+    this.descriptionForm = new UntypedFormGroup({
+      'description':  new UntypedFormControl(null),
+    })
   }
 
   private initSubs(): void {
@@ -180,6 +186,16 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   fileSelectedHandler(file: File) {
     console.log(file);
     this.images.push({ url: URL.createObjectURL(file) });
+  }
+
+  openDescriptionEdit(){
+    this.descriptionForm.controls['description'].setValue(this.form.getRawValue().description);
+    this.descriptionEdit = true;
+  }
+
+  descriptionSubmit(){
+    this.form.controls['description'].setValue(this.descriptionForm.getRawValue().description);
+    this.descriptionEdit = false;
   }
 
   get categoryError(){

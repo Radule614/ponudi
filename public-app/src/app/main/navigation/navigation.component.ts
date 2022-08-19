@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Route, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UnsubscribeComponent } from 'src/app/shared/unsubscribe/unsubscribe.component';
 import { AppState } from 'src/app/store';
 import * as CategorySelectors from 'src/app/store/category/category.selectors';
 import * as AuthSelectors from 'src/app/store/auth/auth.selectors';
 import { Category } from '../../model/category.model';
+import * as ArticleSelectors from 'src/app/store/article/article.selectors';
+import { combineLatest, of, switchMap } from 'rxjs';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-navigation',
@@ -16,7 +19,7 @@ export class NavigationComponent extends UnsubscribeComponent implements OnInit 
   navRoutes: Route[];
   categoryList: Category[];
 
-  constructor(private router: Router, private store: Store<AppState>) { super() }
+  constructor(private router: Router, private store: Store<AppState>, private categoryService: CategoryService) { super() }
 
   ngOnInit(): void {
     this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => {
@@ -39,7 +42,7 @@ export class NavigationComponent extends UnsubscribeComponent implements OnInit 
     });
     this.addToSubs = this.store.select(CategorySelectors.selectAll).subscribe(data => {
       this.categoryList = data;
+      
     });
   }
-
 }

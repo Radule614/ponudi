@@ -6,13 +6,13 @@
       </span>
       <span class="text">{{category.name}}</span>
     </a>
-    <button type="button" *ngIf="isExpandable" class="btn-expand" (click)="expanded=!expanded">
+    <button type="button" *ngIf="isExpandable" class="btn-expand" (click)="this.expanded=!this.expanded">
       <div [@expandButton]="expanded">
         <fa-icon [icon]="['fas', 'angle-left']"></fa-icon>
       </div>
     </button>
   </div>
   <div *ngIf="category.children && isExpandable && expanded" class="children-list" @expandBlock>
-    <app-nav-category-list [categories]="category!.children"></app-nav-category-list>
+    <app-nav-category-list [categories]="category!.children" [depth]="depth+1"></app-nav-category-list>
   </div>
 </div>

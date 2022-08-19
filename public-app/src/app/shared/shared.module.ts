@@ -14,7 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { GalleryModule } from './gallery/gallery.module';
 import { FileUploaderComponent } from './file-uploader/file-uploader';
-import { SafeHtmlPipe } from './pipes/SafeHtml.pipe';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { FilterEmptyFieldsPipe } from './pipes/filter-empty-fields.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SafeHtmlPipe } from './pipes/SafeHtml.pipe';
     SpinnerComponent,
     ConfirmModalComponent,
     FileUploaderComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    FilterEmptyFieldsPipe
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { SafeHtmlPipe } from './pipes/SafeHtml.pipe';
     ConfirmModalComponent,
     GalleryModule,
     FileUploaderComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    FilterEmptyFieldsPipe
   ]
 })
 export class SharedModule { }

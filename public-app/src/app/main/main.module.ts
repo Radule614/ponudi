@@ -14,6 +14,7 @@ import { HeaderComponent } from "./header/header.component";
 import { OptionsModule } from "./options/options.module";
 import { ArticleListModule } from "./article-list/article-list.module";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
+import { CommentListModule } from "./comment-list/comment-list.module";
 
 export const allIconNames: any = [];
 
@@ -33,7 +34,8 @@ export const allIconNames: any = [];
     CategorySelectorModule,
     MdbModalModule,
     OptionsModule,
-    ArticleListModule
+    ArticleListModule,
+    CommentListModule
   ],
   exports: [
     CommonModule, 
@@ -44,7 +46,8 @@ export const allIconNames: any = [];
     ArticleListModule,
     FilterBlockComponent,
     OptionsModule,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    CommentListModule
   ]
 })
 export class MainModule {

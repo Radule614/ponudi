@@ -3,7 +3,7 @@
     <app-breadcrumbs></app-breadcrumbs>
   </div>
   <h3>{{article?.content}}</h3>
-  <section class="info">
+  <section class="info-section">
     <div class="special-block">
       <div class="special high">
         <div class="special-header">Cijena</div>
@@ -19,19 +19,27 @@
       </div>
     </div>
   </section>
-  <section class="gallery">
+  <section class="gallery-section">
+    <h6>Galerija</h6>
     <app-gallery [images]="images"></app-gallery>
   </section>
-  <section class="details">
+  <section class="field-section">
+    <h6>Dodatna polja</h6>
     <div class="field-grid" *ngIf="article && article.additionalFields">
-      <div class="field" *ngFor="let field of article.additionalFields | keyvalue">
+      <div class="field" *ngFor="let field of article.additionalFields | filterEmptyFields | keyvalue">
         <div class="name">{{field.key}}</div>
         <div class="value">{{field.value}}</div>
       </div>
     </div>
   </section>
-  <section class="description">
+  <section class="description-section">
+    <h6>Detalji</h6>
     <div [innerHtml]="article?.description | safeHtml"></div>
   </section>
-  <section class="comments">komentari</section>
+  <section class="comments-section">
+    <h6>Komentari</h6>
+    <div class="comments">
+      <app-comment-list [comments]="comments"></app-comment-list>
+    </div>
+  </section>
 </div>
