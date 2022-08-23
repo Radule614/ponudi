@@ -5,7 +5,6 @@ import { FeatureBuilderDTO } from "./feature-builder.dto"
 import { IFeatureBuilder } from "./feature-builder.interface"
 import { IDoubleSliderParams } from "./double-slider-params.interface"
 import { FilterFactory } from "./filter.factory"
-import { Filter } from "src/filters/filter.schema"
 
 
 let standardFilters = [
@@ -14,7 +13,7 @@ let standardFilters = [
         type: FieldType.DOUBLE_SLIDER
     },
     {
-        name: 'name',
+        field: 'content',
         type: FieldType.SEARCH
     },
 ]
@@ -48,7 +47,7 @@ export class FeatureBuilder implements IFeatureBuilder {
         return this
     }
 
-    private createFiltersFromArray(array, additionalField = false) {
+    private createFiltersFromArray(array: IAdditionalField[], additionalField = false) {
         let conditionArray = []
         array.forEach(param => {
             let queryArrayChunk = FilterFactory.createFilter(this.params, param, additionalField)

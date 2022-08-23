@@ -6,7 +6,7 @@ export interface IProductRepository {
     create(product: CreateProductDTO): Promise<ProductDocument>
     findAll(): Promise<ProductDocument[]>
     findOne(id: string): Promise<ProductDocument>
-    delete(id: string): void
+    delete(id: string): Promise<void>
     updateOne(id: string, newProduct: UpdateProductDTO): Promise<ProductDocument>
     findAllByCategory(categoryId: string): any
     findAllByCategories(categories: string[]): any
