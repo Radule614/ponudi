@@ -15,7 +15,4 @@ export class FilterService {
     public async findFiltersForCategory(categoryId) {
         return await this.filterRepository.findAllByCategory(categoryId)
     }
-
-
-
 }

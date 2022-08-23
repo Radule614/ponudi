@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { ObjectId } from "mongoose";
-
+import { IAdditionalField } from "./interfaces/additional-field.interface";
 
 
 export type CategoryDocument = Category & Document
@@ -30,7 +30,7 @@ export class Category {
         type: Array<string>,
         default: []
     })
-    additionalFields: Array<string> = []
+    additionalFields: Array<IAdditionalField> = []
 
 }
 

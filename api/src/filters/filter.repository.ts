@@ -16,11 +16,6 @@ export class FilterRepository implements IFilterRepository {
         return newFilter.save()
     }
     findAllByCategory(categoryId: string): Promise<FilterDocument[]> {
-        // return this.FilterModel.find({
-        //     categories: categoryId
-        // }).exec()
-
-
         return this.FilterModel.aggregate([
             {
                 $match: {

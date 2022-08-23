@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Category } from "./category.schema";
 import { CreateCategoryDTO } from "./dtos/create-category.dto";
+import { IAdditionalField } from "./interfaces/additional-field.interface";
 import { ICategoryRepository } from "./interfaces/category-repository.interface";
 
 
@@ -28,6 +29,11 @@ export class CategoryService {
 
     async populateAllCategories() {
         return await this.categoryRepository.findAllPopulated()
+    }
+
+    async findCategoryAdditionalFields(categoryId: string): Promise<Array<IAdditionalField>> {
+        let category: Category = await this.categoryRepository.findById(categoryId)
+        return category.additionalFields
     }
 
     async findAllSubcategories(categoryId: string): Promise<string[]> {
