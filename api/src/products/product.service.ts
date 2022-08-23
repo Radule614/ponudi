@@ -1,7 +1,8 @@
-import { Inject, Injectable, Req } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, Req } from "@nestjs/common";
 import { Request } from "express";
 import { Category, CategoryDocument } from "src/categories/category.schema";
 import { CategoryService } from "src/categories/category.service";
+import { IAdditionalField } from "src/categories/interfaces/additional-field.interface";
 import { FilterService } from "src/filters/filter.service";
 import { FeatureBuilder } from "src/utils/feature-builder";
 import { IFeatureBuilder } from "src/utils/feature-builder.interface";
@@ -28,14 +29,13 @@ export class ProductService {
     }
 
     public async findAllByCategory(categoryId: string, queryParams: any) {
+
+        let additionalFields: Array<IAdditionalField> = await this.categoryService.findCategoryAdditionalFields(categoryId)
         let categories: string[] = await this.categoryService.findAllSubcategories(categoryId)
         categories.push(categoryId)
 
-        let filters = await this.filterService.findFiltersForCategory(categoryId)
-        console.log(filters)
-
         let query = this.productRepository.findAllByCategories(categories)
-        let featureBuilder: IFeatureBuilder = new FeatureBuilder(query, queryParams)
+        let featureBuilder: IFeatureBuilder = new FeatureBuilder(query, queryParams, additionalFields)
         return await featureBuilder.generateResponseFromOperations()
     }
 
@@ -57,12 +57,12 @@ export class ProductService {
         return await this.productRepository.updateOne(id, newProduct)
     }
 
-    private mapAdditionalFields(allowedFields: Array<string>, additionalFields: Object) {
+    private mapAdditionalFields(allowedFields: Array<IAdditionalField>, additionalFields: Object) {
         let allowedObject = {}
         if (!additionalFields) return allowedObject
 
-        allowedFields.forEach(field => {
-            allowedObject[field] = additionalFields[field]
+        allowedFields.forEach(additional => {
+            allowedObject[additional.field] = additionalFields[additional.field]
         })
         return allowedObject
     }

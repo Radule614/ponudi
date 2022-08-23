@@ -1,10 +1,28 @@
 import mongoose from "mongoose"
+import { FieldType } from "src/categories/enums/field-type.enum"
+import { IAdditionalField } from "src/categories/interfaces/additional-field.interface"
 import { FeatureBuilderDTO } from "./feature-builder.dto"
 import { IFeatureBuilder } from "./feature-builder.interface"
+import { IDoubleSliderParams } from "./double-slider-params.interface"
+import { FilterFactory } from "./filter.factory"
+import { Filter } from "src/filters/filter.schema"
+
+
+let standardFilters = [
+    {
+        field: 'price',
+        type: FieldType.DOUBLE_SLIDER
+    },
+    {
+        name: 'name',
+        type: FieldType.SEARCH
+    },
+]
 
 
 export class FeatureBuilder implements IFeatureBuilder {
-    constructor(private query: any, private params: any) { }
+    constructor(private query: any, private params: any, private filters: Array<IAdditionalField> = []) { }
+
 
     public paginate() {
         let { page = 1, limit = 20 } = this.params
@@ -18,17 +36,29 @@ export class FeatureBuilder implements IFeatureBuilder {
     }
 
     public filter() {
-        let { sort = 1, price } = this.params
+        let acceptedFields = this.filterAcceptedFilterFields()
 
-        // this.query = this.filterByPrice(this.query, price)
-        // this.query = this.query.sort({ createdAt: sort })
-        // this.query = this.query.where('price').gte(price.from).lt(price.to)
+        let regularFilters = this.createFiltersFromArray(standardFilters)
+        let additionalFilters = this.createFiltersFromArray(acceptedFields, true)
+        let conditionArray = [...regularFilters, ...additionalFilters]
+
+        if (conditionArray.length > 0)
+            this.query.find({ $or: conditionArray })
+
         return this
     }
 
-    private filterByPrice(query, price) {
-        if (!price) return query
-        return query.where('price').gte(price.from).lt(price.to)
+    private createFiltersFromArray(array, additionalField = false) {
+        let conditionArray = []
+        array.forEach(param => {
+            let queryArrayChunk = FilterFactory.createFilter(this.params, param, additionalField)
+            if (queryArrayChunk) conditionArray.push(queryArrayChunk)
+        })
+        return conditionArray
+    }
+
+    private filterAcceptedFilterFields() {
+        return this.filters.filter(filter => this.params[filter.field])
     }
 
     public calculatePages(docCount: number) {
@@ -57,4 +87,6 @@ export class FeatureBuilder implements IFeatureBuilder {
             pages: this.calculatePages(count)
         }
     }
+
+
 }
