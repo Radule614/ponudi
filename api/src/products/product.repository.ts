@@ -34,8 +34,8 @@ export class ProductRepository implements IProductRepository {
         return this.ProductModel.find().exec()
     }
 
-    public delete(id: string) {
-        this.ProductModel.findByIdAndDelete(id).exec()
+    public async delete(id: string) {
+        await this.ProductModel.findByIdAndDelete(id).exec()
     }
 
 

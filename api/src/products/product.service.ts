@@ -3,7 +3,6 @@ import { Request } from "express";
 import { Category, CategoryDocument } from "src/categories/category.schema";
 import { CategoryService } from "src/categories/category.service";
 import { IAdditionalField } from "src/categories/interfaces/additional-field.interface";
-import { FilterService } from "src/filters/filter.service";
 import { FeatureBuilder } from "src/utils/feature-builder";
 import { IFeatureBuilder } from "src/utils/feature-builder.interface";
 import { CreateProductDTO } from "./dtos/create-product.dto";
@@ -16,7 +15,6 @@ export class ProductService {
 
     constructor(
         @Inject('IProductRepository') private productRepository: IProductRepository,
-        private readonly filterService: FilterService,
         private readonly categoryService: CategoryService
     ) { }
 
