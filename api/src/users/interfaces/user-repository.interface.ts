@@ -6,4 +6,5 @@ export interface IUserRepository {
     findBy(params: Object): Promise<UserDocument>
     findByUsername(username: string): Promise<UserDocument>
     findAll(): Promise<UserDocument[]>
+    updateOne(id: string, newUser: User): Promise<UserDocument>
 }

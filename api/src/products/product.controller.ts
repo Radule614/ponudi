@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Query, Req, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
-import { Request } from "express";
+import { Body, Controller, Delete, FileTypeValidator, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Inject, MaxFileSizeValidator, NotFoundException, Param, ParseFilePipe, Patch, Post, Put, Query, Req, UploadedFile, UploadedFiles, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
+import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
 import { RolesGuard } from "src/auth/guards/role.guard";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
 import { Roles } from "src/auth/role.decorator";
 import { MongoErrorFilter } from "src/errorFilters/mongo-error.filter";
 import { ErrorInterceptor } from "src/interceptors/error.interceptor";
@@ -9,9 +9,10 @@ import { UserRole } from "src/users/enums/user-role.enum";
 import { ReqWithUser } from "src/users/interfaces/request-with-user.interface";
 import { CreateProductDTO } from "./dtos/create-product.dto";
 import { UpdateProductDTO } from "./dtos/update-product.dto";
-import { Product } from "./product.schema";
 import { ProductService } from "./product.service";
-
+import { ProductMatchesUser } from "./guards/product-matches-user.guard";
+import { ReqWithProduct } from "./interfaces/request-with-product";
+import { IStorageService } from "src/storage/interfaces/storage-service.interface";
 
 
 
@@ -20,12 +21,34 @@ import { ProductService } from "./product.service";
 @UseFilters(MongoErrorFilter)
 export class ProductController {
 
-    constructor(private readonly productService: ProductService) { }
+    constructor(
+        private readonly productService: ProductService,
+        @Inject('IStorageService') private readonly storageService: IStorageService
+    ) { }
+
+
+    @Put('/:id')
+    @Roles(UserRole.USER)
+    @UseGuards(JwtAuthGuard, RolesGuard, ProductMatchesUser)
+    @UseInterceptors(FilesInterceptor('files'))
+    async uploadPicturesForProduct(
+        @Param('id') id: string,
+        @UploadedFiles() files: Array<Express.Multer.File>,
+        @Req() request: ReqWithProduct
+    ) {
+        let product = request.product
+        let urls = await this.storageService.uploadFiles('product-imgs/' + request.user.username + "/", files)
+        product.pictures = urls
+        this.productService.updateOne(id, product)
+        return urls
+    }
 
     @Post('/')
     @Roles(UserRole.USER)
     @UseGuards(JwtAuthGuard, RolesGuard)
-    async create(@Body() product: CreateProductDTO) {
+    async create(@Body() product: CreateProductDTO, @Req() request: ReqWithUser) {
+        let user: any = request.user
+        product.owner = user.id
         return await this.productService.create(product)
     }
 
@@ -35,28 +58,22 @@ export class ProductController {
     }
 
     @Get('/:id')
-    async getProduct(@Param('id') id: string) {
-        return await this.productService.findOne(id)
+    async getProduct(@Req() request: ReqWithProduct) {
+        return request.product
     }
 
     @Patch("/:id")
     @Roles(UserRole.USER)
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    async updateProduct(@Param('id') id: string, @Body() newProduct: UpdateProductDTO, @Req() request: ReqWithUser) {
-        let product: any = await this.productService.findOne(id)
-        let userObj: any = request.user
-        if (product.owner.toString() !== userObj._id.toString()) throw new ForbiddenException()
+    @UseGuards(JwtAuthGuard, RolesGuard, ProductMatchesUser)
+    async updateProduct(@Param('id') id: string, @Body() newProduct: UpdateProductDTO) {
         return await this.productService.updateOne(id, newProduct)
     }
 
     @Delete("/:id")
     @HttpCode(HttpStatus.NO_CONTENT)
     @Roles(UserRole.USER)
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    async deleteProduct(@Param('id') id: string, @Req() request: ReqWithUser) {
-        let userObj: any = request.user
-        let product: any = await this.productService.findOne(id)
-        if (product.owner.toString() != userObj._id.toString()) throw new ForbiddenException()
+    @UseGuards(JwtAuthGuard, RolesGuard, ProductMatchesUser)
+    async deleteProduct(@Param('id') id: string) {
         return await this.productService.deleteOne(id)
     }
 

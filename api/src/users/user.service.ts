@@ -32,4 +32,8 @@ export class UserService {
     async findByUsername(username: string): Promise<User> {
         return await this.userRepository.findByUsername(username)
     }
+
+    async updateOne(id: string, newUser: User): Promise<UserDocument> {
+        return await this.userRepository.updateOne(id, newUser)
+    }
 }

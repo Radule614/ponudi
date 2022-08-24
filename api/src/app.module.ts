@@ -7,7 +7,22 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose'
 import { ProductModule } from './products/product.module';
 import { CategoriesModule } from './categories/category.module';
+import { MulterModule } from '@nestjs/platform-express';
 
+
+
+
+const multerConfig = {
+  dest: './upload',
+  fileFilter(req, file, callback) {
+    let allowedTypes = ['png', 'jpeg', 'jpg']
+    if (allowedTypes.includes(file.mimetype)) {
+      callback(null, true)
+    } else {
+      callback(new Error('File should be of type png jpeg or jpg!'), false)
+    }
+  },
+}
 
 @Module({
   imports: [
@@ -15,6 +30,7 @@ import { CategoriesModule } from './categories/category.module';
     AuthModule,
     ProductModule,
     CategoriesModule,
+    MulterModule.register(multerConfig),
     ConfigModule.forRoot({
       isGlobal: true
     }),
