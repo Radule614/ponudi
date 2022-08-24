@@ -9,7 +9,6 @@ export class CreateProductDTO {
     @IsNotEmpty()
     public price: number
 
-    @IsNotEmpty()
     public owner: string
 
     @IsNotEmpty()
@@ -22,6 +21,7 @@ export class CreateProductDTO {
     public currency?: string
 
     @IsObject()
+    @IsNotEmpty()
     public additionalFields: Object = {}
 
 }

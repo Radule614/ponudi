@@ -33,6 +33,7 @@ export class CategoryService {
 
     async findCategoryAdditionalFields(categoryId: string): Promise<Array<IAdditionalField>> {
         let category: Category = await this.categoryRepository.findById(categoryId)
+        if (!category) return []
         return category.additionalFields
     }
 

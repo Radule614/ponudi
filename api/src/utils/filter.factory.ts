@@ -41,7 +41,6 @@ export class FilterFactory {
 
     private static generateSearchQuery(queryParams, param: IAdditionalField, additional = false) {
         let val = queryParams[param.field]
-        console.log(val)
         if (!val) return null
         let result = {}
         let regExMatch = this.escapeRegExp(val)

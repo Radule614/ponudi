@@ -12,6 +12,10 @@ export class UserRepository implements IUserRepository {
         @InjectModel('User') private UserModel: Model<UserDocument>
     ) { }
 
+    async updateOne(id: string, newUser: User): Promise<UserDocument> {
+        return await this.UserModel.findOneAndUpdate({ _id: id }, { ...newUser }, { new: true }).exec()
+    }
+
     public findById(id: string): Promise<UserDocument> {
         return this.UserModel.findById(id).exec()
     }
