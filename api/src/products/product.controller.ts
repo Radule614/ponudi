@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Query, Req, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
-import { Request } from "express";
+import { Body, Controller, Delete, FileTypeValidator, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, Patch, Post, Query, Req, UploadedFile, UploadedFiles, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 import { RolesGuard } from "src/auth/guards/role.guard";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { Roles } from "src/auth/role.decorator";
@@ -11,7 +11,7 @@ import { CreateProductDTO } from "./dtos/create-product.dto";
 import { UpdateProductDTO } from "./dtos/update-product.dto";
 import { Product } from "./product.schema";
 import { ProductService } from "./product.service";
-
+import { FirebaseStorageService } from "src/firebase/firebase,service";
 
 
 
@@ -20,13 +20,27 @@ import { ProductService } from "./product.service";
 @UseFilters(MongoErrorFilter)
 export class ProductController {
 
-    constructor(private readonly productService: ProductService) { }
+    constructor(
+        private readonly productService: ProductService,
+        private readonly firebaseStorage: FirebaseStorageService
+    ) { }
 
     @Post('/')
     @Roles(UserRole.USER)
     @UseGuards(JwtAuthGuard, RolesGuard)
-    async create(@Body() product: CreateProductDTO) {
-        return await this.productService.create(product)
+    @UseInterceptors(FileInterceptor('file'))
+    async create(
+        @Body() product: CreateProductDTO,
+        @UploadedFile('file') file: Express.Multer.File,
+        @Req() request: ReqWithUser
+    ) {
+        let { user } = request
+        let prod: any = await this.productService.create(product)
+        let url = await this.firebaseStorage.uploadFile('product-imgs/' + user.username + "/" + product.content, file.buffer)
+        let newProduct = prod as CreateProductDTO
+        newProduct.pictures = [url]
+        await this.productService.updateOne(prod._id, newProduct)
+        return prod
     }
 
     @Get('/category/:id')

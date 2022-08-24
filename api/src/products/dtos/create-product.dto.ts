@@ -7,7 +7,6 @@ export class CreateProductDTO {
     public content: string
 
     @IsNotEmpty()
-    @IsNumber()
     public price: number
 
     @IsNotEmpty()
