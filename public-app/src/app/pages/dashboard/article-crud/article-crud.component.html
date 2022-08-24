@@ -14,7 +14,7 @@
     <div class="description">
       <h6>Detalji</h6>
       <div *ngIf="!descriptionEdit">
-        <div class="description-preview" [innerHtml]="form.getRawValue().description | safeHtml"></div>
+        <div class="description-preview ck-content" [innerHtml]="form.getRawValue().description | richtextDecoder | safeHtml"></div>
         <button type="button" mat-raised-button color="primary" (click)="openDescriptionEdit()">Izmjeni detalje</button>
       </div>
       <div *ngIf="descriptionEdit" class="description-form">

@@ -98,7 +98,10 @@ h6{
 }
 
 .table{
-  color:inherit;
+  color:unset;
+  td{
+    border-width:unset;
+  }
 }
 
 //ckeditor overrides

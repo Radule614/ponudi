@@ -34,7 +34,7 @@
   </section>
   <section class="description-section">
     <h6>Detalji</h6>
-    <div [innerHtml]="article?.description | safeHtml"></div>
+    <div class="ck-content" [innerHtml]="article?.description | richtextDecoder | safeHtml"></div>
   </section>
   <section class="comments-section">
     <h6>Komentari</h6>

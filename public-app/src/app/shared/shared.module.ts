@@ -16,6 +16,7 @@ import { GalleryModule } from './gallery/gallery.module';
 import { FileUploaderComponent } from './file-uploader/file-uploader';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { FilterEmptyFieldsPipe } from './pipes/filter-empty-fields.pipe';
+import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FilterEmptyFieldsPipe } from './pipes/filter-empty-fields.pipe';
     ConfirmModalComponent,
     FileUploaderComponent,
     SafeHtmlPipe,
-    FilterEmptyFieldsPipe
+    FilterEmptyFieldsPipe,
+    RichtextDecoderPipe
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { FilterEmptyFieldsPipe } from './pipes/filter-empty-fields.pipe';
     GalleryModule,
     FileUploaderComponent,
     SafeHtmlPipe,
-    FilterEmptyFieldsPipe
+    FilterEmptyFieldsPipe,
+    RichtextDecoderPipe
   ]
 })
 export class SharedModule { }

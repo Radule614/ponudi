@@ -16,6 +16,7 @@ import { ViewportScroller } from "@angular/common";
 import { Image } from "src/app/model/image.model";
 
 import * as CustomRichtext from 'src/app/richtext/ckeditor.js';
+import { richtextEncoder, richtextDecoder } from 'src/app/richtext/encoder.js';
 
 @Component({
   selector: 'app-article-crud',
@@ -189,12 +190,14 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   }
 
   openDescriptionEdit(){
-    this.descriptionForm.controls['description'].setValue(this.form.getRawValue().description);
+    this.descriptionForm.controls['description'].setValue(richtextDecoder(this.form.getRawValue().description));
     this.descriptionEdit = true;
   }
 
   descriptionSubmit(){
-    this.form.controls['description'].setValue(this.descriptionForm.getRawValue().description);
+    let raw = this.descriptionForm.getRawValue().description;
+    const html = richtextEncoder(raw);
+    this.form.controls['description'].setValue(html);
     this.descriptionEdit = false;
   }
 
