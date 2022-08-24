@@ -50,7 +50,10 @@ export class ArticleComponent extends UnsubscribeComponent implements OnInit{
       this.store.dispatch(FromArticle.fetchArticle({ id: this.articleId }))
     });
 
-    this.addToSubs = this.store.select(ArticleSelectors.selectArticle).subscribe(article => { this.article = article });
+    this.addToSubs = this.store.select(ArticleSelectors.selectArticle).subscribe(article => { 
+      this.article = article;
+      console.log(article);
+    });
     this.addToSubs = this.categoryService.getCurrentCategoryPath().subscribe(path => { this.categoryPath = path });
   }
 

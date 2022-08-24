@@ -21,14 +21,15 @@
       <app-options [static]="inheritedOptions" [dynamic]="newOptions"></app-options>
     </div>
   
-  
     <button *ngIf="!optionFormActive" mat-raised-button (click)="optionFormActive=true">
       <fa-icon [icon]="['fas', 'plus']"></fa-icon>
     </button>
     <form *ngIf="optionFormActive" [formGroup]="optionForm" (ngSubmit)="onOptionSubmit()" class="option-form">
       <h6>Dodaj novu opciju</h6>
       <div class="form-block">
-        <custom-input [form]="optionForm" placeholder="naziv opcije" controlName="option"></custom-input>
+        <custom-input [form]="optionForm" controlName="option" placeholder="naziv opcije"></custom-input>
+        <custom-select [form]="optionForm" controlName="type" placeholder="tip" [options]="optionTypes"></custom-select>
+        <custom-chips *ngIf="isSelectOption" placeholder="moguće opcije za polje" [chips]="optionSelectTypeChoices"></custom-chips>
       </div>
       <div class="form-block button-group">
         <button type="button" mat-raised-button (click)="optionFormActive=false">Odustani</button>

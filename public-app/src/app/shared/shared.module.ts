@@ -11,12 +11,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { GalleryModule } from './gallery/gallery.module';
 import { FileUploaderComponent } from './file-uploader/file-uploader';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { FilterEmptyFieldsPipe } from './pipes/filter-empty-fields.pipe';
 import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
+import { CustomChipsComponent } from './custom-chips/custom-chips.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FieldIntoFilterPipe } from './pipes/field-into-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
     FileUploaderComponent,
     SafeHtmlPipe,
     FilterEmptyFieldsPipe,
-    RichtextDecoderPipe
+    RichtextDecoderPipe,
+    CustomChipsComponent,
+    FieldIntoFilterPipe
   ],
   imports: [
     CommonModule,
@@ -38,7 +44,9 @@ import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
     MatInputModule,
     MatRadioModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule,
+    FontAwesomeModule
   ],
   exports: [
     CustomInputComponent,
@@ -52,7 +60,9 @@ import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
     FileUploaderComponent,
     SafeHtmlPipe,
     FilterEmptyFieldsPipe,
-    RichtextDecoderPipe
+    RichtextDecoderPipe,
+    CustomChipsComponent,
+    FieldIntoFilterPipe
   ]
 })
 export class SharedModule { }

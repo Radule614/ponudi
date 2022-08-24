@@ -1,0 +1,18 @@
+<div>
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>{{placeholder}}</mat-label>
+    <mat-chip-list #chipList aria-label="Čips">
+      <mat-chip *ngFor="let chip of chips" (removed)="remove(chip)">
+        {{chip}}
+        <button matChipRemove>
+          <fa-icon [icon]="['fas', 'xmark']"></fa-icon>
+        </button>
+      </mat-chip>
+      <input placeholder="Novi..."
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+</div>

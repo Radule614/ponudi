@@ -14,7 +14,7 @@
   
   <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="menuOpen">
     <div class="inner">
-      <app-category-filter></app-category-filter>
+      <app-category-filter [fields]="additionalFields"></app-category-filter>
     </div>
   </div>
 </div>

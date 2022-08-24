@@ -1,1 +1,6 @@
-filter-block
+<h4>Pretraga</h4>
+<div class="filter-block">
+  <form [formGroup]="form" class="grid">
+    <app-filter-item *ngFor="let filter of filters" [filter]="filter" [form]="form"></app-filter-item>
+  </form>
+</div>

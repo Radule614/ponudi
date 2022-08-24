@@ -10,6 +10,7 @@ import * as FromCategory from "src/app/store/category/category.actions";
 import * as FromGeneral from "src/app/store/general/general.actions";
 import { allIconNames } from "src/app/main/main.module";
 import { Router } from "@angular/router";
+import { AdditionalField, FieldType } from "src/app/model/article.model";
 
 @Component({
   selector: 'app-category-crud',
@@ -24,9 +25,15 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
   optionFormActive: boolean = false;
   categoryPath: Category[] = [];
 
-  inheritedOptions: string[] = [];
-  newOptions: string[] = [];
+  inheritedOptions: AdditionalField[] = [];
+  newOptions: AdditionalField[] = [];
   allIconNames: any[];
+  optionTypes = [
+    { name: FieldType.SEARCH,         value: 'Tekst' },
+    { name: FieldType.CHECKBOX,       value: 'Polje sa opcijama' },
+    { name: FieldType.DOUBLE_SLIDER,  value: 'Brojno polje' }
+  ];
+  optionSelectTypeChoices: string[] = [];
   
   constructor(private store: Store<AppState>, private router: Router) { super() }
   ngOnInit(): void {
@@ -38,7 +45,8 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
       'icon': new UntypedFormControl(null)
     });
     this.optionForm = new UntypedFormGroup({
-      'option': new UntypedFormControl(null, [Validators.required, Validators.maxLength(20), CategoryCrudComponent.OptionValidator(this.inheritedOptions, this.newOptions)])
+      'option': new UntypedFormControl(null, [Validators.required, Validators.maxLength(20), CategoryCrudComponent.OptionValidator(this.inheritedOptions, this.newOptions)]),
+      'type': new UntypedFormControl(FieldType.SEARCH, Validators.required)
     });
     this.allIconNames = allIconNames;
   }
@@ -53,7 +61,7 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
     for(let cat of data){
       if(cat.additionalFields != undefined){
         for(let field of cat.additionalFields){
-          this.inheritedOptions.push(field)
+          this.inheritedOptions.push(field);
         }
       }
     }
@@ -92,9 +100,12 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
 
   onOptionSubmit(){
     if(this.optionForm.valid){
-      this.newOptions.push(this.optionForm.getRawValue().option.trim());
+      const optionData = this.optionForm.getRawValue();
+      this.newOptions.push({ field: optionData.option.trim(), type: optionData.type });
       this.optionForm.reset();
+      this.optionForm.controls['type'].setValue(FieldType.SEARCH);
       this.optionFormActive = false;
+      this.optionSelectTypeChoices.length = 0;
     }
   }
 
@@ -102,9 +113,15 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
     this.router.navigate(['admin']);
   }
 
-  static OptionValidator(inheritedOptions: string[], newOptions: string[]): ValidatorFn {
+  static OptionValidator(inheritedOptions: AdditionalField[], newOptions: AdditionalField[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      return inheritedOptions.includes(control.value) || newOptions.includes(control.value) ? { exists: true } : null;
+      for(let field of inheritedOptions){
+        if(field.field == control.value) return { exists : true };
+      }
+      for(let field of newOptions){
+        if(field.field == control.value) return { exists : true };
+      }
+      return null;
     };
   }
 
@@ -121,5 +138,9 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
 
   get selectedIcon(){
     return this.categoryForm.controls['icon'].value;
+  }
+
+  get isSelectOption(){
+    return this.optionForm.controls['type'].value == FieldType.CHECKBOX;
   }
 }

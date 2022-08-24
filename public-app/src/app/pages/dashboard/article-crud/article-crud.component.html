@@ -45,7 +45,7 @@
     </div>
   
     <form class="grid options-block" [formGroup]="optionsForm">
-      <custom-input *ngFor="let option of options" class="control" [form]="optionsForm" [controlName]="option" [placeholder]="option"></custom-input>
+      <custom-input *ngFor="let option of options" class="control" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field"></custom-input>
     </form>
     
     <div class="error-block">

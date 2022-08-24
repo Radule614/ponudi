@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { Article } from "src/app/model/article.model";
+import { AdditionalField, Article } from "src/app/model/article.model";
 import { Category } from "src/app/model/category.model";
 import { User } from "src/app/model/user.model";
 import { AppState } from "src/app/store";
@@ -35,7 +35,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   selectedCategory: Category | null = null;
   categoryPath: Category[] = [];
   
-  options: string[] = [];
+  options: AdditionalField[] = [];
   optionsForm: UntypedFormGroup;
 
   descriptionEdit: boolean = false;
@@ -169,14 +169,15 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
 
   clearOptionsForm(){
     for(let option of this.options){
-      this.optionsForm.removeControl(option);
+      this.optionsForm.removeControl(option.field);
     }
   }
 
   setOptionsForm(){
     for(let option of this.options){
-      this.optionsForm.addControl(option, new UntypedFormControl(null));
+      this.optionsForm.addControl(option.field, new UntypedFormControl(null));
     }
+    this.fillExistingData();
   }
 
   cancel(): void{
