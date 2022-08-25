@@ -27,7 +27,12 @@ export class CategoryController {
     }
 
     @Get('/subcategories/:categoryId')
-    async getTest(@Param('categoryId') categoryId: string) {
+    async getSubcategories(@Param('categoryId') categoryId: string) {
         return await this.categoryService.findAllSubcategories(categoryId)
+    }
+
+    @Get('/test/:categoryId')
+    async getTest(@Param('categoryId') categoryId: string) {
+        return await this.categoryService.findCategoryAdditionalFields(categoryId)
     }
 }

@@ -33,12 +33,39 @@ export class CategoryService {
 
     async findCategoryAdditionalFields(categoryId: string): Promise<Array<IAdditionalField>> {
         let category: Category = await this.categoryRepository.findById(categoryId)
-        if (!category) return []
-        return category.additionalFields
+        let additionalFields: any[] = await this.categoryRepository.findParentHierarchyForCategory(categoryId)
+        let parents = additionalFields[0].parents
+        let resultFields: IAdditionalField[] = []
+        let allFields: any[] = this.mapAllAdditionalFields(parents)
+        allFields = [...allFields, ...category.additionalFields]
+
+        allFields.forEach(field => {
+            resultFields = this.addFieldIfDoesntExist(resultFields, field)
+        })
+
+        return resultFields
     }
 
     async findAllSubcategories(categoryId: string): Promise<string[]> {
         let subcategories: Object[] = await this.categoryRepository.findAllSubcategories(categoryId)
         return subcategories.map((subcategory: { _id: string; }) => subcategory._id)
     }
+
+    private addFieldIfDoesntExist(fields: IAdditionalField[], field: IAdditionalField) {
+        for (let prop of fields) {
+            if (prop.field == field.field)
+                return fields
+        }
+        fields.push(field)
+        return fields
+    }
+
+    private mapAllAdditionalFields(parents) {
+        let resultFields = []
+        parents.forEach(parent => {
+            resultFields = [...resultFields, ...parent.additionalFields]
+        })
+        return resultFields
+    }
+
 }
