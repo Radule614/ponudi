@@ -1,0 +1,15 @@
+<div class="filter-group">
+  <h6 *ngIf="filterGroup.type==FieldType.SEARCH">Pretrage</h6>
+  <h6 *ngIf="filterGroup.type==FieldType.DOUBLE_SLIDER">Slajderi</h6>
+  <h6 *ngIf="filterGroup.type==FieldType.CHECKBOX && filterGroup.filters.length>0">{{filterGroup.filters[0].field}}</h6>
+  <form [formGroup]="form" class="grid">
+    <div *ngFor="let filter of filterGroup.filters" [ngSwitch]="filterGroup.type">
+      <custom-input *ngSwitchCase="FieldType.SEARCH" [controlName]="filter.field" [placeholder]="filter.field" [form]="form"></custom-input>
+      <mat-checkbox *ngSwitchCase="FieldType.CHECKBOX" [formControlName]="filter.value+''">{{filter.value}}</mat-checkbox>
+      <div class="custom-slider" *ngSwitchCase="FieldType.DOUBLE_SLIDER">
+        <div class="slider-text">{{filter.field}}</div>
+        <ngx-slider [options]="sliderOptions" [formControlName]="filter.field"></ngx-slider>
+      </div>
+    </div>
+  </form>
+</div>

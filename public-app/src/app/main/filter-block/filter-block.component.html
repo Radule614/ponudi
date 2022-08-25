@@ -1,6 +1,10 @@
-<h4>Pretraga</h4>
-<div class="filter-block">
-  <form [formGroup]="form" class="grid">
-    <app-filter-item *ngFor="let filter of filters" [filter]="filter" [form]="form"></app-filter-item>
-  </form>
-</div>
+<form class="filter-block" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="filter-groups">
+    <app-filter-group *ngFor="let group of filterGroups; let i = index" [filterGroup]="group" [form]="getFormFromArray(i)"></app-filter-group>
+  </div>
+  <div class="button-group">
+    <button mat-raised-button type="button">Očisti filtere</button>
+    <button mat-raised-button color="primary">Primjeni filtere</button>
+  </div>
+</form>
+

@@ -20,7 +20,9 @@ import { FilterEmptyFieldsPipe } from './pipes/filter-empty-fields.pipe';
 import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
 import { CustomChipsComponent } from './custom-chips/custom-chips.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FieldIntoFilterPipe } from './pipes/field-into-filter.pipe';
+import { FilterGroupPipe } from './pipes/filter-group.pipe';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { FieldIntoFilterPipe } from './pipes/field-into-filter.pipe';
     FilterEmptyFieldsPipe,
     RichtextDecoderPipe,
     CustomChipsComponent,
-    FieldIntoFilterPipe
+    FilterGroupPipe
   ],
   imports: [
     CommonModule,
@@ -45,8 +47,10 @@ import { FieldIntoFilterPipe } from './pipes/field-into-filter.pipe';
     MatRadioModule,
     MatButtonModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatChipsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxSliderModule
   ],
   exports: [
     CustomInputComponent,
@@ -62,7 +66,9 @@ import { FieldIntoFilterPipe } from './pipes/field-into-filter.pipe';
     FilterEmptyFieldsPipe,
     RichtextDecoderPipe,
     CustomChipsComponent,
-    FieldIntoFilterPipe
+    FilterGroupPipe,
+    MatCheckboxModule,
+    NgxSliderModule
   ]
 })
 export class SharedModule { }

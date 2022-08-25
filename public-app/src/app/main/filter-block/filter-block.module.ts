@@ -3,10 +3,10 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/app/shared/shared.module";
 import { FilterBlockComponent } from "./filter-block.component";
-import { FilterItemComponent } from "./filter-item/filter-item.component";
+import { FilterGroupComponent } from "./filter-group/filter-group.component";
 
 @NgModule({
-  declarations: [FilterBlockComponent, FilterItemComponent],
+  declarations: [FilterBlockComponent, FilterGroupComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

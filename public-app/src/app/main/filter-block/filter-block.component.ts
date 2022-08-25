@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormGroup, UntypedFormControl, UntypedFormGroup } from "@angular/forms";
-import { FieldType } from "src/app/model/article.model";
-import { Filter } from "src/app/model/filter.model";
+import { UntypedFormArray, UntypedFormGroup } from "@angular/forms";
+import { FilterGroup } from "src/app/model/filter.model";
 
 @Component({
   selector: 'app-filter-block',
@@ -9,30 +8,10 @@ import { Filter } from "src/app/model/filter.model";
   styleUrls: ['./filter-block.component.scss']
 })
 export class FilterBlockComponent implements OnInit {
-  @Input() filters: Filter[] = [
-    {
-      field: 'kuce_opcija_0',
-      type: FieldType.DOUBLE_SLIDER
-    },
-    {
-      field: 'kuce_opcija_0',
-      type: FieldType.SEARCH
-    },
-    {
-      field: 'kuce_opcija_0',
-      type: FieldType.CHECKBOX
-    },
-    {
-      field: 'kuce_opcija_0',
-      type: FieldType.CHECKBOX
-    },
-    {
-      field: 'kuce_opcija_0',
-      type: FieldType.CHECKBOX
-    }
-  ]
+  @Input() filterGroups: FilterGroup[];
 
-  @Input() form: UntypedFormGroup = new UntypedFormGroup({});
+  formArray: UntypedFormArray;
+  form: UntypedFormGroup;
 
   constructor() { }
   ngOnInit(): void {
@@ -40,8 +19,20 @@ export class FilterBlockComponent implements OnInit {
   }
 
   setupForm(): void {
-    for(let filter of this.filters){
-      this.form.addControl(filter.field, new UntypedFormControl(null));
+    this.formArray = new UntypedFormArray([]);
+    this.form = new UntypedFormGroup({
+      formArray: this.formArray
+    });
+    for(let _ of this.filterGroups){
+      this.formArray.push(new UntypedFormGroup({}));
     }
+  }
+
+  getFormFromArray(index: number): UntypedFormGroup {
+    return this.formArray.at(index) as UntypedFormGroup;
+  }
+
+  onSubmit(): void {
+    console.log(this.form);
   }
 }

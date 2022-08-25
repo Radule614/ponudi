@@ -1,0 +1,13 @@
+.filter-group{
+  margin-bottom: 35px;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-gap: 0px 20px;
+}
+
+.slider-text{
+  margin-bottom: 5px;
+}
