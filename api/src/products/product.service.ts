@@ -20,8 +20,8 @@ export class ProductService {
 
 
     public async create(product: CreateProductDTO) {
-        let category: Category = await this.categoryService.findById(product.category)
-        product.additionalFields = this.mapAdditionalFields(category.additionalFields, product.additionalFields)
+        let additionalFields = await this.categoryService.findCategoryAdditionalFields(product.category)
+        product.additionalFields = this.mapAdditionalFields(additionalFields, product.additionalFields)
         let newProduct = await this.productRepository.create(product)
         return newProduct
     }

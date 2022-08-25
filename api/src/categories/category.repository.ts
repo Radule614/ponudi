@@ -13,7 +13,23 @@ export class CategoryRepository implements ICategoryRepository {
         @InjectModel('Category') private CategoryModel: Model<CategoryDocument>
     ) { }
 
-    public async findAllSubcategories(categoryId: string): Promise<Object[]> {
+    public findParentHierarchyForCategory(categoryId: string): Promise<CategoryDocument[]> {
+        return this.CategoryModel.aggregate([
+            {
+                $graphLookup: {
+                    from: "categories",
+                    startWith: "$parent",
+                    connectFromField: "parent",
+                    connectToField: "_id",
+                    as: "parents"
+                }
+            },
+            { $match: { _id: new mongoose.Types.ObjectId(categoryId) } },
+            { $project: { _id: 0, parents: 1 } }
+        ]).exec()
+    }
+
+    public findAllSubcategories(categoryId: string): Promise<Object[]> {
         return this.CategoryModel.aggregate([
             {
                 $graphLookup: {
@@ -24,20 +40,9 @@ export class CategoryRepository implements ICategoryRepository {
                     as: "reportingHierarchy"
                 }
             },
-            {
-                $unwind: "$reportingHierarchy"
-            },
-            {
-                $match: {
-                    "reportingHierarchy._id": new mongoose.Types.ObjectId(categoryId)
-                }
-            },
-            {
-                $project: {
-                    _id: 1
-                }
-            }
-
+            { $unwind: "$reportingHierarchy" },
+            { $match: { "reportingHierarchy._id": new mongoose.Types.ObjectId(categoryId) } },
+            { $project: { _id: 1 } }
         ]).exec()
     }
 
@@ -89,7 +94,6 @@ export class CategoryRepository implements ICategoryRepository {
     public async findById(categoryId: string): Promise<CategoryDocument> {
         return this.CategoryModel.findById(categoryId).exec()
     }
-
 
     private createDtoFromDocument(document: Category, id: any): SubcategoriesDTO {
         return {
