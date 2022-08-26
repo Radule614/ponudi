@@ -1,4 +1,4 @@
-<div class="filter-group">
+<div class="filter-group" [ngClass]="{'checkbox-group': filterGroup.type==FieldType.CHECKBOX}">
   <h6 *ngIf="filterGroup.type==FieldType.SEARCH">Pretrage</h6>
   <h6 *ngIf="filterGroup.type==FieldType.DOUBLE_SLIDER">Slajderi</h6>
   <h6 *ngIf="filterGroup.type==FieldType.CHECKBOX && filterGroup.filters.length>0">{{filterGroup.filters[0].field}}</h6>

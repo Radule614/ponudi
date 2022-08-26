@@ -32,10 +32,12 @@ export class FilterGroupComponent implements OnInit {
           this.form.addControl(filter.field, new UntypedFormControl(null));
           break;
         case FieldType.DOUBLE_SLIDER:
-          this.form.addControl(filter.field, new UntypedFormControl([20, 80]));
+          const from = filter.range?.from;
+          const to = filter.range?.to;
+          this.form.addControl(filter.field, new UntypedFormControl([from, to]));
           const newOptions: Options = Object.assign({}, this.sliderOptions);
-          newOptions.floor = filter.range?.from;
-          newOptions.ceil = filter.range?.to;
+          newOptions.floor = from
+          newOptions.ceil = to;
           this.sliderOptions = newOptions;
           break;
         case FieldType.CHECKBOX:

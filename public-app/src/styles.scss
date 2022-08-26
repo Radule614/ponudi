@@ -227,7 +227,7 @@ h6{
   }
 
   .ngx-slider-span.ngx-slider-pointer{
-    transition: width 0.2s ease, height 0.2s ease, top 0.2s ease;
+    //transition: width 0.2s ease, height 0.2s ease, top 0.2s ease;
     &.ngx-slider-active{
       width: 20px;
       height: 20px;

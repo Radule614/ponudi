@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Article } from "../model/article.model";
 
@@ -12,17 +12,25 @@ export class ArticleService {
 
   constructor(private http: HttpClient) {}
 
-  fetchArticles(id: string, page: number): Observable<any> {
+  fetchArticles(id: string, page: number, filterParams?:Object): Observable<any> {
     if(!page || page <= 0) page = 1;
+    
+    let httpParams = new HttpParams().append('page', page); 
+    if(filterParams){
+      for(let param in filterParams){
+        httpParams = httpParams.append(param, filterParams[param]);
+      }
+    }
+
     return this.http.get(`${environment.apiUrl}/products/category/${id}`, {
-      params: new HttpParams().set('page', page)
+      params: httpParams
     });
   }
 
   fetchUserArticles(userId: string, page: number): Observable<any> {
     if(!page || page <= 0) page = 1;
     return this.http.get(`${environment.apiUrl}/products/user/${userId}`, {
-      params: new HttpParams().set('page', page)
+      params: new HttpParams().append('page', page)
     });
   }
 

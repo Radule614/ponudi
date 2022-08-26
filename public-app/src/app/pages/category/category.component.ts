@@ -53,11 +53,14 @@ export class CategoryComponent extends UnsubscribeComponent implements OnInit {
     this.addToSubs = combineLatest([this.route.params, this.route.queryParams, this.store.select(CategorySelectors.selectAll)]).subscribe(([params, queryParams, categories]) => {
       this.categoryId = params['id'];
       this.page =       queryParams['page'];
+      
+      const filterParams = Object.assign({}, queryParams);
+      delete filterParams['page'];
+
       this.store.dispatch(FromArticle.activateLoading());
-      this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId, page: this.page }));
+      this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId, page: this.page, filterParams}));
       this.navigationService.activeCategory$.next(this.categoryId);
       this.additionalFields = this.categoryService.getAllAdditionalFields(categories, this.categoryId);
-
     });
     this.store.select(GeneralSelectors.selectMenuOpen).subscribe(menuOpen => { this.menuOpen = menuOpen })
   }

@@ -19,7 +19,7 @@ export class FilterGroupPipe {
           break;
         case FieldType.DOUBLE_SLIDER:
           let temp = new Filter(field.field);
-          temp.range = { from: 0, to:100 };
+          temp.range = { from: 0, to: 100 };
           sliderGroup.filters.push(temp);
           break;
         case FieldType.CHECKBOX: {
