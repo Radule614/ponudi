@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { Category } from "./category.schema";
 import { CreateCategoryDTO } from "./dtos/create-category.dto";
 import { IAdditionalField } from "./interfaces/additional-field.interface";
@@ -32,9 +32,12 @@ export class CategoryService {
     }
 
     async findCategoryAdditionalFields(categoryId: string): Promise<Array<IAdditionalField>> {
+        console.log(categoryId)
         let category: Category = await this.categoryRepository.findById(categoryId)
+        if (!category) throw new BadRequestException("Category doesn't exist!")
+
         let additionalFields: any[] = await this.categoryRepository.findParentHierarchyForCategory(categoryId)
-        let parents = additionalFields[0].parents
+        let parents = additionalFields[0]?.parents ? additionalFields[0].parents : []
         let resultFields: IAdditionalField[] = []
         let allFields: any[] = this.mapAllAdditionalFields(parents)
         allFields = [...allFields, ...category.additionalFields]

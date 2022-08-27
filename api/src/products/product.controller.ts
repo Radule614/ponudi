@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, FileTypeValidator, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Inject, MaxFileSizeValidator, NotFoundException, Param, ParseFilePipe, Patch, Post, Put, Query, Req, UploadedFile, UploadedFiles, UseFilters, UseGuards, UseInterceptors } from "@nestjs/common";
-import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
+import { Body, ClassSerializerInterceptor, Controller, Delete, FileTypeValidator, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Inject, Param, Patch, Post, Put, Query, Req, UploadedFiles, UseFilters, UseGuards, UseInterceptors, UsePipes } from "@nestjs/common";
+import { FilesInterceptor } from "@nestjs/platform-express";
 import { RolesGuard } from "src/auth/guards/role.guard";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
 import { Roles } from "src/auth/role.decorator";
@@ -13,7 +13,8 @@ import { ProductService } from "./product.service";
 import { ProductMatchesUser } from "./guards/product-matches-user.guard";
 import { ReqWithProduct } from "./interfaces/request-with-product";
 import { IStorageService } from "src/storage/interfaces/storage-service.interface";
-
+import { SanitizePipe } from "src/globalPipes/xss-sanitizer.pipe";
+import { Product, ProductDocument } from "./product.schema";
 
 
 @Controller('products')
@@ -25,7 +26,6 @@ export class ProductController {
         private readonly productService: ProductService,
         @Inject('IStorageService') private readonly storageService: IStorageService
     ) { }
-
 
     @Put('/:id')
     @Roles(UserRole.USER)
@@ -46,16 +46,20 @@ export class ProductController {
     @Post('/')
     @Roles(UserRole.USER)
     @UseGuards(JwtAuthGuard, RolesGuard)
+    @UseInterceptors(ClassSerializerInterceptor)
+    @UsePipes(new SanitizePipe(CreateProductDTO))
     async create(@Body() product: CreateProductDTO, @Req() request: ReqWithUser) {
         let user: any = request.user
         product.owner = user.id
-        return await this.productService.create(product)
+        let createdProduct: Product = await this.productService.create(product)
+        return createdProduct
     }
 
     @Get('/category/:id')
     async getProductsByCategory(@Param('id') categoryId: string, @Query() query) {
         return await this.productService.findAllByCategory(categoryId, query)
     }
+
 
     @Get('/:id')
     async getProduct(@Req() request: ReqWithProduct) {
