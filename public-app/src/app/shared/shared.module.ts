@@ -11,12 +11,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { GalleryModule } from './gallery/gallery.module';
 import { FileUploaderComponent } from './file-uploader/file-uploader';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { FilterEmptyFieldsPipe } from './pipes/filter-empty-fields.pipe';
 import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
+import { CustomChipsComponent } from './custom-chips/custom-chips.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FilterGroupPipe } from './pipes/filter-group.pipe';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,9 @@ import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
     FileUploaderComponent,
     SafeHtmlPipe,
     FilterEmptyFieldsPipe,
-    RichtextDecoderPipe
+    RichtextDecoderPipe,
+    CustomChipsComponent,
+    FilterGroupPipe
   ],
   imports: [
     CommonModule,
@@ -38,7 +46,11 @@ import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
     MatInputModule,
     MatRadioModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    FontAwesomeModule,
+    NgxSliderModule
   ],
   exports: [
     CustomInputComponent,
@@ -52,7 +64,11 @@ import { RichtextDecoderPipe } from './pipes/richtext-decode.pipe';
     FileUploaderComponent,
     SafeHtmlPipe,
     FilterEmptyFieldsPipe,
-    RichtextDecoderPipe
+    RichtextDecoderPipe,
+    CustomChipsComponent,
+    FilterGroupPipe,
+    MatCheckboxModule,
+    NgxSliderModule
   ]
 })
 export class SharedModule { }

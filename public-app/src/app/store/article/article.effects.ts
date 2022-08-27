@@ -13,7 +13,7 @@ export class ArticleEffects {
   fetchAll = createEffect(() => this.actions$.pipe(
     ofType(ArticleActions.fetchAll),
     switchMap(action => {
-      return this.articleService.fetchArticles(action.id, action.page).pipe(
+      return this.articleService.fetchArticles(action.id, action.page, action.filterParams).pipe(
         map(data => {
           this.store.dispatch(ArticleActions.deactivateLoading());
           return ArticleActions.setAll({articles: data.data, page: action.page, count: data.count});

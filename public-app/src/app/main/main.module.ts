@@ -15,13 +15,12 @@ import { OptionsModule } from "./options/options.module";
 import { ArticleListModule } from "./article-list/article-list.module";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { CommentListModule } from "./comment-list/comment-list.module";
+import { FilterBlockModule } from "./filter-block/filter-block.module";
 
 export const allIconNames: any = [];
 
 @NgModule({
   declarations: [
-    FilterBlockComponent,
-    FilterBlockComponent,
     HeaderComponent,
     BreadcrumbsComponent
   ],
@@ -35,7 +34,8 @@ export const allIconNames: any = [];
     MdbModalModule,
     OptionsModule,
     ArticleListModule,
-    CommentListModule
+    CommentListModule,
+    FilterBlockModule
   ],
   exports: [
     CommonModule, 
@@ -47,7 +47,8 @@ export const allIconNames: any = [];
     FilterBlockComponent,
     OptionsModule,
     BreadcrumbsComponent,
-    CommentListModule
+    CommentListModule,
+    FilterBlockModule
   ]
 })
 export class MainModule {

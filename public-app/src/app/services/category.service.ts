@@ -7,6 +7,7 @@ import { Category } from "../model/category.model";
 import { AppState } from "../store";
 import * as CategorySelectors from "src/app/store/category/category.selectors";
 import * as ArticleSelectors from "src/app/store/article/article.selectors";
+import { AdditionalField } from "../model/article.model";
 
 
 export interface CategoryDTO {
@@ -14,7 +15,7 @@ export interface CategoryDTO {
   parent: string | null;
   children: Category[];
   icon?: any;
-  additionalFields?: string[];
+  additionalFields?: AdditionalField[];
 }
 
 @Injectable({
@@ -50,5 +51,18 @@ export class CategoryService {
       }
     }
     return [];
+  }
+
+  getAllAdditionalFields(array: Category[], id:string | undefined | null): AdditionalField[] {
+    let temp:AdditionalField[] = [];
+    const data = this.getCategoryPath(array, id);
+    for(let cat of data){
+      if(cat.additionalFields != undefined){
+        for(let field of cat.additionalFields){
+          temp.push(field);
+        }
+      }
+    }
+    return temp;
   }
 }

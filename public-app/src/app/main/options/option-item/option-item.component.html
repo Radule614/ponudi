@@ -1,5 +1,5 @@
 <div class="option" [ngClass]="{'editable': editable}">
-  <div class="text">{{option}}</div>
+  <div class="text">{{option.field}}</div>
   <button class="icon" [disabled]="!editable" mat-icon-button (click)="deleteEvent.emit()">
     <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon>
   </button>
