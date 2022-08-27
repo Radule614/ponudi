@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AdditionalField, FieldType } from "src/app/model/article.model";
+import { AdditionalField } from "src/app/model/article.model";
 
 @Component({
   selector: 'app-category-filter',

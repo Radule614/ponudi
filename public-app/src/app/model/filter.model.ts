@@ -5,17 +5,6 @@ export interface Range {
   to: number;
 }
 
-export const standardFilters: Filter[] = [
-  {
-    field: 'price',
-    //type: FieldType.DOUBLE_SLIDER
-  },
-  {
-    field: 'content',
-    //type: FieldType.SEARCH
-  }
-]
-
 export class Filter {
   public readonly field: string;
   public value?: string | number;
@@ -32,6 +21,7 @@ export class Filter {
 export class FilterGroup {
   public readonly type: FieldType;
   public filters: Filter[];
+  public title?: string;
 
   constructor(type: FieldType, filters?: Filter[]) {
     this.type = type;

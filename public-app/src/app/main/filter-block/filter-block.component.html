@@ -1,6 +1,11 @@
 <form class="filter-block" [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="filter-groups">
-    <app-filter-group *ngFor="let group of filterGroups; let i = index" [filterGroup]="group" [form]="getFormFromArray(i)"></app-filter-group>
+    <app-filter-group *ngFor="let group of standardFilterGroups; let i = index" 
+                              [filterGroup]="group" 
+                              [form]="getFormFromArray(standardsArray, i)"></app-filter-group>
+    <app-filter-group *ngFor="let group of filterGroups; let i = index" 
+                              [filterGroup]="group" 
+                              [form]="getFormFromArray(additionalsArray, i)"></app-filter-group>
   </div>
   <div class="button-group">
     <button mat-raised-button type="button">Očisti filtere</button>
