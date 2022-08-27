@@ -8,6 +8,7 @@ import { IFeatureBuilder } from "src/utils/feature-builder.interface";
 import { CreateProductDTO } from "./dtos/create-product.dto";
 import { UpdateProductDTO } from "./dtos/update-product.dto";
 import { IProductRepository } from "./interfaces/product-repository.interface";
+import { Product, ProductDocument } from "./product.schema";
 
 
 @Injectable()
@@ -19,10 +20,10 @@ export class ProductService {
     ) { }
 
 
-    public async create(product: CreateProductDTO) {
+    public async create(product: CreateProductDTO): Promise<Product> {
         let additionalFields = await this.categoryService.findCategoryAdditionalFields(product.category)
         product.additionalFields = this.mapAdditionalFields(additionalFields, product.additionalFields)
-        let newProduct = await this.productRepository.create(product)
+        let newProduct: Product = await this.productRepository.create(product)
         return newProduct
     }
 
