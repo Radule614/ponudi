@@ -54,6 +54,7 @@ export class ProductController {
         @Req() request: ReqWithProduct
     ) {
         let product = request.product
+        console.log(product)
         let urls = await this.storageService.uploadFiles('product-imgs/' + request.user.username + "/", files)
         product.pictures = [...product.pictures, ...urls]
         this.productService.updateOne(id, product)
