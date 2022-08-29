@@ -7,7 +7,8 @@ export class SanitizePipe implements PipeTransform {
     constructor(private readonly className: any) { }
 
     transform(value: any, metadata: ArgumentMetadata) {
-        value = sanitize(value)
-        return plainToInstance(this.className, value, { excludeExtraneousValues: true }) as object as any;
+        let toPlainValue = instanceToPlain(value)
+        let objectValue = sanitize(toPlainValue)
+        return plainToInstance(this.className, objectValue, { excludeExtraneousValues: true }) as object as any;
     }
 }

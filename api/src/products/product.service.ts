@@ -20,11 +20,11 @@ export class ProductService {
     ) { }
 
 
-    public async create(product: CreateProductDTO): Promise<Product> {
+    public async create(product: CreateProductDTO): Promise<any> {
         let additionalFields = await this.categoryService.findCategoryAdditionalFields(product.category)
         product.additionalFields = this.mapAdditionalFields(additionalFields, product.additionalFields)
-        let newProduct: Product = await this.productRepository.create(product)
-        return newProduct
+        let newProduct: any = await this.productRepository.create(product)
+        return newProduct.toObject()
     }
 
     public async findAllByCategory(categoryId: string, queryParams: any) {
