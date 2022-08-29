@@ -44,6 +44,40 @@ export class ProductController {
         return urls
     }
 
+    @Put('/pictures/:id')
+    @Roles(UserRole.USER)
+    @UseGuards(JwtAuthGuard, RolesGuard, ProductMatchesUser)
+    @UseInterceptors(FilesInterceptor('files'))
+    async updatePicturesForProduct(
+        @Param('id') id: string,
+        @UploadedFiles() files: Array<Express.Multer.File>,
+        @Req() request: ReqWithProduct
+    ) {
+        let product = request.product
+        console.log(product)
+        let urls = await this.storageService.uploadFiles('product-imgs/' + request.user.username + "/", files)
+        product.pictures = [...product.pictures, ...urls]
+        this.productService.updateOne(id, product)
+        return urls
+    }
+
+    @Delete('/pictures/:id')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @Roles(UserRole.USER)
+    @UseGuards(JwtAuthGuard, RolesGuard, ProductMatchesUser)
+    async deletePicturesForProduct(
+        @Param('id') id: string,
+        @Body('images') images: string[],
+        @Req() request: ReqWithProduct
+    ) {
+        let product = request.product
+        product.pictures = product.pictures.filter(picture => !images.includes(picture))
+        this.productService.updateOne(id, product)
+        return product.pictures
+    }
+
+
+
     @Post('/')
     @Roles(UserRole.USER)
     @UseGuards(JwtAuthGuard, RolesGuard)
