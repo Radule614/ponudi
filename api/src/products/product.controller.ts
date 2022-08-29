@@ -94,8 +94,8 @@ export class ProductController {
     }
 
     @Get('/:id')
-    async getProduct(@Req() request: ReqWithProduct) {
-        return request.product
+    async getProduct(@Param('id') id: string) {
+        return await this.productService.findOne(id)
     }
 
     @Patch("/:id")
