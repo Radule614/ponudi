@@ -27,11 +27,22 @@ export class ProductModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(AttachProductMiddleware)
-            .exclude('/products/category/*')
-            .forRoutes({
-                path: '/products/:id',
-                method: RequestMethod.ALL,
-            })
+            .exclude(
+                {
+                    path: '/products/category/*',
+                    method: RequestMethod.ALL
+                }
+            )
+            .forRoutes(
+                {
+                    path: '/products/pictures/:id',
+                    method: RequestMethod.ALL
+                },
+                {
+                    path: '/products/:id',
+                    method: RequestMethod.PUT,
+                }
+            )
     }
 
 }
