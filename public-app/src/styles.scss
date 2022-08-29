@@ -105,6 +105,12 @@ h6{
   }
 }
 
+.icon:not(.icon-c-s):not(.icon-custom-size){
+  width: auto;
+  height: auto;
+  font-size: inherit;
+}
+
 //ckeditor overrides
 .ck{
   &.ck-editor__main > .ck-editor__editable{
@@ -183,6 +189,7 @@ h6{
   }
 }
 
+//slider overrides
 .custom-slider .ngx-slider {
   .ngx-slider-bar {
     background: var(--background-4);
@@ -235,6 +242,4 @@ h6{
       top:-10px;
     }
   }
-
-  
 }

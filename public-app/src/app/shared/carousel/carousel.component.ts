@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Image } from 'src/app/model/image.model';
 
 @Component({
   selector: 'app-carousel',
@@ -6,9 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit {
-  @Input() slides: any[] = new Array(3).fill({id: -1, src: '', title: '', subtitle: ''});
+  @Input() slides$: Observable<Image[]>;
 
   constructor() {}
-
   ngOnInit(): void {}
+
+  getUrl(image: Image): string {
+    return `url("${image.url}")`;
+  }
 }

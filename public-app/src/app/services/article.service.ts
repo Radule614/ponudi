@@ -43,6 +43,7 @@ export class ArticleService {
   }
 
   patchArticle(id: string, article: Article) {
+    console.log(id, article);
     return this.http.patch(`${environment.apiUrl}/products/${id}`, article);
   }
 
@@ -50,11 +51,28 @@ export class ArticleService {
     return this.http.delete(`${environment.apiUrl}/products/${id}`);
   }
 
-  uploadImages(id: string, images: File[]) {
+  putImages(id: string, images: File[]) {
+    console.log(images);
     const formData = new FormData();
-    for(let image of images){
+    for (let image of images) {
       formData.append('files', image);
     }
     return this.http.put(`${environment.apiUrl}/products/${id}`, formData);
+  }
+
+  appendImages(id: string, images: File[]) {
+    console.log(images);
+    const formData = new FormData();
+    for (let image of images) {
+      formData.append('files', image);
+    }
+    return this.http.put(`${environment.apiUrl}/products/pictures/${id}`, formData);
+  }
+
+  deleteImages(id: string, images: string[]) {
+    console.log(images);
+    return this.http.delete(`${environment.apiUrl}/products/pictures/${id}`, {
+      body: { images: images }
+    });
   }
 }

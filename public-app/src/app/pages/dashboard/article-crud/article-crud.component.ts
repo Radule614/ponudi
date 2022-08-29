@@ -17,7 +17,7 @@ import { Image } from "src/app/model/image.model";
 
 import * as CustomRichtext from 'src/app/richtext/ckeditor.js';
 import { richtextEncoder, richtextDecoder } from 'src/app/richtext/encoder.js';
-import { iif } from "rxjs";
+import { combineLatest } from "rxjs";
 
 @Component({
   selector: 'app-article-crud',
@@ -49,17 +49,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
 
   public Editor = CustomRichtext.Editor;
 
-  //temp
-  images: Image[] = [
-    { src: 'image_placeholder.jpg' },
-    { src: 'image_placeholder.jpg' },
-    { src: 'image_placeholder.jpg' },
-    { src: 'image_placeholder.jpg' },
-    { src: 'image_placeholder.jpg' },
-    { src: 'image_placeholder.jpg' }
-  ];
-  //temp end
-
+  images: Image[] = [];
   newImages: File[] = [];
 
   constructor(private store: Store<AppState>,
@@ -92,13 +82,12 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     let articleId = this.route.snapshot.params['id'];
     if (articleId) {
       this.mode = 'edit';
-      this.addToSubs = this.store.select(ArticleSelectors.selectArticle).subscribe(article => {
+      const article$ = this.store.select(ArticleSelectors.selectArticle);
+      const categoryPath$ = this.categoryService.getCurrentCategoryPath();
+      this.addToSubs = combineLatest([article$, categoryPath$]).subscribe(([article, categoryPath]) => {
         this.articleForEdit = article;
-        this.fillExistingData();
-      });
-      this.addToSubs = this.categoryService.getCurrentCategoryPath().subscribe(path => {
-        this.categoryPath = path;
-        this.categoryPathHandler(path);
+        this.categoryPath = categoryPath;
+        this.categoryPathHandler(categoryPath);
       });
     }
     this.addToSubs = this.store.select(ArticleSelectors.selectErrors).subscribe(errors => { this.errorMessages = errors });
@@ -120,6 +109,11 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
       for (let field in fields) {
         const control = optionControls[field];
         if (control != undefined) control.setValue(fields[field]);
+      }
+      if(article.pictures){
+        for (let image of article.pictures) {
+          this.images.push({ url: image });
+        }
       }
     }
   }
@@ -194,7 +188,8 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
 
   fileSelectedHandler(file: File) {
     console.log(file);
-    //this.images.push({ src: URL.createObjectURL(file) });
+    this.newImages.push(file);
+    this.images.push({ url: URL.createObjectURL(file), temp: true });
 
   }
 

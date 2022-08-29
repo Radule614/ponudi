@@ -1,3 +1,3 @@
-<div class="gallery">
+<div class="gallery" *ngIf="images">
   <app-gallery-item *ngFor="let image of images" [image]="image" (deleteEvent)="deleteHandler($event)" [editable]="editable"></app-gallery-item>
 </div>

@@ -1,12 +1,10 @@
-<c-carousel >
+<c-carousel *ngIf="slides$ | async as slides">
   <c-carousel-indicators></c-carousel-indicators>
-  <c-carousel-inner>
+  <c-carousel-inner *ngIf="slides.length > 0">
     <c-carousel-item *ngFor="let slide of slides">
-      <img 
-        [src]="slide.src"
-        alt="{{ slide.title }}"
-        class="d-block w-100 image"
-        loading="lazy" />
+      <div class="image-wrapper">
+        <img [src]="slide.url" class="image"/>
+      </div>
     </c-carousel-item>
   </c-carousel-inner>
   <c-carousel-control caption="Previous" direction="prev"></c-carousel-control>

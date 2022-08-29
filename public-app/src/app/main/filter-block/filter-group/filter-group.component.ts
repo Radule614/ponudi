@@ -41,8 +41,8 @@ export class FilterGroupComponent extends UnsubscribeComponent implements OnInit
             const from = this.findAllParamByField(params, `${filter.field}[from]`);
             const to = this.findAllParamByField(params, `${filter.field}[to]`);
             const control = this.form.controls[filter.field];
-            if(from) control.setValue([from, control.value[1]]);
-            if(to) control.setValue([control.value[0], to]);
+            if(from) control.setValue([parseInt(from), control.value[1]]);
+            if(to) control.setValue([control.value[0], parseInt(to)]);
           }
           break;
         }

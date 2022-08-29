@@ -12,12 +12,12 @@
   .text{
     flex: 1;
   }
-  .icon{
+  .option-icon{
     font-size: 22px;
     margin-left: 20px;
   }
   &:not(.editable){
-    .icon{
+    .option-icon{
       cursor:not-allowed;
       opacity: 0.3;
     }

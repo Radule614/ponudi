@@ -10,14 +10,22 @@ export class FilterGroupPipe {
     let groups: FilterGroup[] = [];
     let searchGroup = new FilterGroup(FieldType.SEARCH);
     let sliderGroup = new FilterGroup(FieldType.DOUBLE_SLIDER);
-    groups.push(searchGroup);
-    groups.push(sliderGroup);
+    let searchGroupExists = false;
+    let sliderGroupExists = false;
     for (let field of fields) {
       switch (field.type) {
         case FieldType.SEARCH:
+          if(!searchGroupExists){
+            searchGroupExists = true;
+            groups.push(searchGroup);
+          }
           searchGroup.filters.push(new Filter(field.field));
           break;
         case FieldType.DOUBLE_SLIDER:
+          if(!sliderGroupExists){
+            sliderGroupExists = true;
+            groups.push(sliderGroup);
+          }
           let temp = new Filter(field.field);
           temp.range = { from: 0, to: 100 };
           sliderGroup.filters.push(temp);
