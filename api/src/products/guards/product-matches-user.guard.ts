@@ -10,6 +10,5 @@ export class ProductMatchesUser implements CanActivate {
         let { user, product } = req
         if (!user || !product || user.id != product.owner) return false
         return true
-
     }
 }
