@@ -1,8 +1,9 @@
-import { NestMiddleware } from "@nestjs/common";
+import { Injectable, NestMiddleware } from "@nestjs/common";
 import { of } from "rxjs";
 import { NoResourceException } from "src/exceptions/no-resource.exception";
 import { ShopService } from "../shop.service";
 
+@Injectable()
 export class AttachShopMiddleware implements NestMiddleware {
 
     constructor(private readonly shopService: ShopService) { }

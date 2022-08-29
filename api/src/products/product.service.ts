@@ -19,7 +19,6 @@ export class ProductService {
         private readonly categoryService: CategoryService
     ) { }
 
-
     public async create(product: CreateProductDTO): Promise<any> {
         let additionalFields = await this.categoryService.findCategoryAdditionalFields(product.category)
         product.additionalFields = this.mapAdditionalFields(additionalFields, product.additionalFields)
@@ -28,7 +27,6 @@ export class ProductService {
     }
 
     public async findAllByCategory(categoryId: string, queryParams: any) {
-
         let additionalFields: Array<IAdditionalField> = await this.categoryService.findCategoryAdditionalFields(categoryId)
         let categories: string[] = await this.categoryService.findAllSubcategories(categoryId)
         categories.push(categoryId)

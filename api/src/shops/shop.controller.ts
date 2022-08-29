@@ -2,13 +2,11 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { Roles } from 'src/auth/role.decorator';
-import { UpdateProductDTO } from 'src/products/dtos/update-product.dto';
 import { UserRole } from 'src/users/enums/user-role.enum';
 import { CreateShopDTO } from './dtos/create-shop.dto';
 import { UpdateShopDTO } from './dtos/update-shop.dto';
 import { UserOwnsShop } from './guards/user-owns-shop.guard';
 import { ReqWithShop } from './interfaces/req-with-shop.interface';
-import { Shop } from './shop.schema';
 import { ShopService } from './shop.service';
 
 @Controller('shops')
@@ -16,10 +14,9 @@ export class ShopController {
 
     constructor(private readonly shopService: ShopService) { }
 
-
     @Post('/')
     @Roles(UserRole.USER)
-    @UseGuards(JwtAuthGuard, RolesGuard, UserOwnsShop)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     async create(@Body() shop: CreateShopDTO, @Req() request: any) {
         shop.owner = request.user.id
         return await this.shopService.create(shop)
@@ -46,7 +43,7 @@ export class ShopController {
     @HttpCode(HttpStatus.NO_CONTENT)
     @Roles(UserRole.USER)
     @UseGuards(JwtAuthGuard, RolesGuard, UserOwnsShop)
-    async deleteOne(@Param('') id: string) {
+    async deleteOne(@Param('id') id: string) {
         await this.shopService.deleteOne(id)
     }
 }

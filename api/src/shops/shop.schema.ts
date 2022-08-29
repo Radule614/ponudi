@@ -50,10 +50,13 @@ export class Shop extends BaseSchema {
     owner: string
 
     @Prop({
+        type: String,
+        enum: [ShopLevel.BRONZE, ShopLevel.SILVER, ShopLevel.GOLDEN],
         default: ShopLevel.BRONZE,
         nullable: false
     })
-    shopLevel: ShopLevel
+    shopLevel: ShopLevel = ShopLevel.BRONZE
+
 }
 
 

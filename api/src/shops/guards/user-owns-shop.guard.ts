@@ -8,7 +8,7 @@ export class UserOwnsShop implements CanActivate {
 
         let { user, shop } = request
 
-        if (user.id != shop.owner) return false
+        if (!user || !shop || user.id != shop.owner) return false
         return true
     }
 

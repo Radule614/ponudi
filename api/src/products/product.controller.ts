@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, FileTypeValidator, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Inject, Param, Patch, Post, Put, Query, Req, UploadedFiles, UseFilters, UseGuards, UseInterceptors, UsePipes } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Put, Query, Req, UploadedFiles, UseFilters, UseGuards, UseInterceptors, UsePipes } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { RolesGuard } from "src/auth/guards/role.guard";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
@@ -14,8 +14,7 @@ import { ProductMatchesUser } from "./guards/product-matches-user.guard";
 import { ReqWithProduct } from "./interfaces/request-with-product";
 import { IStorageService } from "src/storage/interfaces/storage-service.interface";
 import { SanitizePipe } from "src/pipes/xss-sanitizer.pipe";
-import { Product, ProductDocument } from "./product.schema";
-import { ProductResponseDTO } from "./dtos/product-response.dto";
+import { User } from "src/users/user.schema";
 
 
 @Controller('products')
@@ -54,7 +53,6 @@ export class ProductController {
         @Req() request: ReqWithProduct
     ) {
         let product = request.product
-        console.log(product)
         let urls = await this.storageService.uploadFiles('product-imgs/' + request.user.username + "/", files)
         product.pictures = [...product.pictures, ...urls]
         this.productService.updateOne(id, product)
@@ -75,8 +73,6 @@ export class ProductController {
         this.productService.updateOne(id, product)
         return product.pictures
     }
-
-
 
     @Post('/')
     @Roles(UserRole.USER)
