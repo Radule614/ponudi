@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { ProductModule } from './products/product.module';
 import { CategoriesModule } from './categories/category.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { ShopsModule } from './shops/shop.module';
 
 
 
@@ -30,11 +31,11 @@ const multerConfig = {
     AuthModule,
     ProductModule,
     CategoriesModule,
+    ShopsModule,
     MulterModule.register(multerConfig),
-    ConfigModule.forRoot({
-      isGlobal: true
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(`mongodb+srv://srdjan:srkisrki11@e2chat.va4mk.mongodb.net/olx-clone?retryWrites=true&w=majority`),
+    ShopsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
