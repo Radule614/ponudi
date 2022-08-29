@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import mongoose, { Mongoose } from "mongoose"
+import { BaseSchema } from "src/utils/base.schema"
 import { ILocation } from "./interfaces/location.interface"
 
 
@@ -6,7 +8,7 @@ export type ShopDocument = Shop & Document
 
 
 @Schema()
-export class Shop {
+export class Shop extends BaseSchema {
     @Prop({
         default: "",
         type: String
@@ -30,6 +32,12 @@ export class Shop {
         default: ""
     })
     telephoneNumber: string
+
+    @Prop({
+        type: mongoose.Schema.Types.ObjectId,
+        default: null
+    })
+    owner: string
 }
 
 
