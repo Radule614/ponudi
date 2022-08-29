@@ -1,5 +1,5 @@
 export class Image {
-  url: string;
+  src: string;
 
   constructor(){}
 }

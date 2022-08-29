@@ -23,14 +23,14 @@ export class ArticleComponent extends UnsubscribeComponent implements OnInit{
 
   //temp
   images: Image[] = [
-    { url: 'image_placeholder.jpg' },
-    { url: 'image_placeholder.jpg' },
-    { url: 'image_placeholder.jpg' },
-    { url: 'image_placeholder.jpg' },
-    { url: 'image_placeholder.jpg' },
-    { url: 'image_placeholder.jpg' },
-    { url: 'image_placeholder.jpg' },
-    { url: 'image_placeholder.jpg' }
+    { src: 'image_placeholder.jpg' },
+    { src: 'image_placeholder.jpg' },
+    { src: 'image_placeholder.jpg' },
+    { src: 'image_placeholder.jpg' },
+    { src: 'image_placeholder.jpg' },
+    { src: 'image_placeholder.jpg' },
+    { src: 'image_placeholder.jpg' },
+    { src: 'image_placeholder.jpg' }
   ];
 
   comments: Comment[] = [

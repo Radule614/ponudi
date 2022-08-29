@@ -15,6 +15,9 @@ h6{
 
 section{
   margin-bottom: 10px;
+  &.carousel-section{
+    margin-bottom: 30px;
+  }
   &.info-section{
     .special{
       background-color: var(--background-2);

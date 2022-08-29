@@ -23,6 +23,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FilterGroupPipe } from './pipes/filter-group.pipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { CarouselModule } from '@coreui/angular';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     FilterEmptyFieldsPipe,
     RichtextDecoderPipe,
     CustomChipsComponent,
-    FilterGroupPipe
+    FilterGroupPipe,
+    CarouselComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +53,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     MatCheckboxModule,
     MatChipsModule,
     FontAwesomeModule,
-    NgxSliderModule
+    NgxSliderModule,
+    CarouselModule
   ],
   exports: [
     CustomInputComponent,
@@ -68,7 +72,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     CustomChipsComponent,
     FilterGroupPipe,
     MatCheckboxModule,
-    NgxSliderModule
+    NgxSliderModule,
+    CarouselComponent
   ]
 })
 export class SharedModule { }

@@ -3,6 +3,10 @@
     <app-breadcrumbs></app-breadcrumbs>
   </div>
   <h3>{{article?.content}}</h3>
+  <section class="carousel-section">
+    <app-carousel [slides]="images"></app-carousel>
+  </section>
+
   <section class="info-section">
     <div class="special-block">
       <div class="special high">
@@ -19,10 +23,11 @@
       </div>
     </div>
   </section>
-  <section class="gallery-section">
+  <!-- <section class="gallery-section">
     <h6>Galerija</h6>
     <app-gallery [images]="images"></app-gallery>
-  </section>
+  </section> -->
+  
   <section class="field-section">
     <h6>Dodatna polja</h6>
     <div class="field-grid" *ngIf="article && article.additionalFields">

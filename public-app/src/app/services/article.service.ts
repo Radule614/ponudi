@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Article } from "../model/article.model";
 
@@ -10,14 +10,14 @@ import { Article } from "../model/article.model";
 })
 export class ArticleService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  fetchArticles(id: string, page: number, filterParams?:Object): Observable<any> {
-    if(!page || page <= 0) page = 1;
-    
-    let httpParams = new HttpParams().append('page', page); 
-    if(filterParams){
-      for(let param in filterParams){
+  fetchArticles(id: string, page: number, filterParams?: Object): Observable<any> {
+    if (!page || page <= 0) page = 1;
+
+    let httpParams = new HttpParams().append('page', page);
+    if (filterParams) {
+      for (let param in filterParams) {
         httpParams = httpParams.append(param, filterParams[param]);
       }
     }
@@ -28,7 +28,7 @@ export class ArticleService {
   }
 
   fetchUserArticles(userId: string, page: number): Observable<any> {
-    if(!page || page <= 0) page = 1;
+    if (!page || page <= 0) page = 1;
     return this.http.get(`${environment.apiUrl}/products/user/${userId}`, {
       params: new HttpParams().append('page', page)
     });
@@ -38,15 +38,23 @@ export class ArticleService {
     return this.http.get(`${environment.apiUrl}/products/${id}`);
   }
 
-  postArticle(article: Article){
+  postArticle(article: Article) {
     return this.http.post(`${environment.apiUrl}/products`, article);
   }
 
-  patchArticle(id: string, article: Article){
+  patchArticle(id: string, article: Article) {
     return this.http.patch(`${environment.apiUrl}/products/${id}`, article);
   }
 
-  deleteArticle(id: string){
+  deleteArticle(id: string) {
     return this.http.delete(`${environment.apiUrl}/products/${id}`);
+  }
+
+  uploadImages(id: string, images: File[]) {
+    const formData = new FormData();
+    for(let image of images){
+      formData.append('files', image);
+    }
+    return this.http.put(`${environment.apiUrl}/products/${id}`, formData);
   }
 }

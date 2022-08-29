@@ -31,6 +31,6 @@ export class GalleryItemComponent implements OnInit {
   }
 
   get imagePath(){
-    return `url("${this.image.url}")`;
+    return `url("${this.image.src}")`;
   }
 }

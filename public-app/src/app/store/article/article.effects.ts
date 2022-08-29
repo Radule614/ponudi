@@ -15,8 +15,9 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchArticles(action.id, action.page, action.filterParams).pipe(
         map(data => {
+          console.log(data);
           this.store.dispatch(ArticleActions.deactivateLoading());
-          return ArticleActions.setAll({articles: data.data, page: action.page, count: data.count});
+          return ArticleActions.setAll({ articles: data.data, page: action.page, count: data.count });
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -32,7 +33,7 @@ export class ArticleEffects {
       return this.articleService.fetchUserArticles(action.userId, action.page).pipe(
         map(data => {
           this.store.dispatch(ArticleActions.deactivateLoading());
-          return ArticleActions.setAll({articles: data.data, page: action.page, count: data.count});
+          return ArticleActions.setAll({ articles: data.data, page: action.page, count: data.count });
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -48,7 +49,7 @@ export class ArticleEffects {
       return this.articleService.fetchArticleData(action.id).pipe(
         map(data => {
           this.store.dispatch(ArticleActions.deactivateLoading());
-          return ArticleActions.setArticle({article: data});
+          return ArticleActions.setArticle({ article: data });
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -63,7 +64,11 @@ export class ArticleEffects {
     ofType(ArticleActions.createArticle),
     switchMap(action => {
       return this.articleService.postArticle(action.article).pipe(
-        map(_ => {
+        map(response => {
+          console.log(response);
+          if (action.images) {
+            return ArticleActions.uploadImages({ id: '123', images: action.images });
+          }
           return ArticleActions.articleSuccess();
         }),
         catchError(error => {
@@ -79,6 +84,10 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.patchArticle(action.id, action.article).pipe(
         map(_ => {
+          if (action.images) {
+            console.log(action.images);
+            return ArticleActions.uploadImages({ id: action.id, images: action.images });
+          }
           return ArticleActions.articleSuccess();
         }),
         catchError(error => {
@@ -114,15 +123,31 @@ export class ArticleEffects {
 
   deleteSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(ArticleActions.deleteSuccess),
-    switchMap(action => { 
+    switchMap(action => {
       this.store.dispatch(GeneralActions.deactivateLoading());
       return of(ArticleActions.fetchAllByUser({ userId: action.userId, page: this.route.snapshot.queryParams['page'] }));
-     })
+    })
   ));
 
-  constructor(private actions$: Actions, 
-              private articleService: ArticleService, 
-              private router: Router, 
-              private store: Store<AppState>,
-              private route: ActivatedRoute){}
+  uploadImage$ = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.uploadImages),
+    switchMap(action => {
+      return this.articleService.uploadImages(action.id, action.images).pipe(
+        map(data => {
+          console.log(data);
+          return ArticleActions.articleSuccess();
+        }),
+        catchError(error => {
+          console.log(error);
+          return of(GeneralActions.deactivateLoading());
+        })
+      )
+    })
+  ));
+
+  constructor(private actions$: Actions,
+    private articleService: ArticleService,
+    private router: Router,
+    private store: Store<AppState>,
+    private route: ActivatedRoute) { }
 }
