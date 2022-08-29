@@ -13,8 +13,9 @@ import { ProductService } from "./product.service";
 import { ProductMatchesUser } from "./guards/product-matches-user.guard";
 import { ReqWithProduct } from "./interfaces/request-with-product";
 import { IStorageService } from "src/storage/interfaces/storage-service.interface";
-import { SanitizePipe } from "src/globalPipes/xss-sanitizer.pipe";
+import { SanitizePipe } from "src/pipes/xss-sanitizer.pipe";
 import { Product, ProductDocument } from "./product.schema";
+import { ProductResponseDTO } from "./dtos/product-response.dto";
 
 
 @Controller('products')
@@ -46,20 +47,17 @@ export class ProductController {
     @Post('/')
     @Roles(UserRole.USER)
     @UseGuards(JwtAuthGuard, RolesGuard)
-    @UseInterceptors(ClassSerializerInterceptor)
     @UsePipes(new SanitizePipe(CreateProductDTO))
     async create(@Body() product: CreateProductDTO, @Req() request: ReqWithUser) {
         let user: any = request.user
         product.owner = user.id
-        let createdProduct: Product = await this.productService.create(product)
-        return createdProduct
+        return await this.productService.create(product)
     }
 
     @Get('/category/:id')
     async getProductsByCategory(@Param('id') categoryId: string, @Query() query) {
         return await this.productService.findAllByCategory(categoryId, query)
     }
-
 
     @Get('/:id')
     async getProduct(@Req() request: ReqWithProduct) {

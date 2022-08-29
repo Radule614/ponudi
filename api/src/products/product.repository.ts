@@ -25,9 +25,10 @@ export class ProductRepository implements IProductRepository {
         }).exec()
     }
 
-    public create(product: CreateProductDTO): Promise<ProductDocument> {
+    public async create(product: CreateProductDTO): Promise<ProductDocument> {
         const newProduct = new this.ProductModel(product)
-        return newProduct.save()
+        let saved = newProduct.save()
+        return saved
     }
 
     public findAll(): Promise<ProductDocument[]> {
@@ -37,7 +38,6 @@ export class ProductRepository implements IProductRepository {
     public async delete(id: string) {
         await this.ProductModel.findByIdAndDelete(id).exec()
     }
-
 
     public findAllByCategory(categoryId: string): any {
         return this.ProductModel.find({
@@ -61,7 +61,6 @@ export class ProductRepository implements IProductRepository {
     public updateOne(id: string, newProduct: UpdateProductDTO): Promise<ProductDocument> {
         return this.ProductModel.findOneAndUpdate({ _id: id }, { ...newProduct }, { new: true }).exec()
     }
-
 
     public async countAll(): Promise<number> {
         return await this.ProductModel.countDocuments()
