@@ -16,4 +16,9 @@ export class CreateShopDTO {
 
     @IsNotEmpty()
     telephoneNumber: string
+
+    @IsNotEmpty()
+    serviceType: string
+
+    owner?: string
 }
