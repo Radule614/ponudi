@@ -8,6 +8,7 @@ import { JwtService } from "@nestjs/jwt";
 import { LoginDTO } from "./dtos/login.dto";
 import { CredentialsWrongException } from "src/exceptions/credentials-wrong.exception";
 import { ITokenPayload } from "./interfaces/token-payload.interface";
+import { EmailService } from "src/email/email.service";
 
 
 
@@ -16,7 +17,7 @@ import { ITokenPayload } from "./interfaces/token-payload.interface";
 export class AuthService {
     constructor(
         private readonly userService: UserService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
     ) { }
 
 
@@ -31,7 +32,6 @@ export class AuthService {
     }
 
     async login({ username, password, email }: LoginDTO) {
-
         let user: User = await this.userService.find({
             '$or': [{ username }, { email }]
         })
