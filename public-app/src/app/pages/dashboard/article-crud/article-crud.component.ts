@@ -51,6 +51,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
 
   images: Image[] = [];
   newImages: File[] = [];
+  imagesToDelete: Image[] = [];
 
   constructor(private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -110,7 +111,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
         const control = optionControls[field];
         if (control != undefined) control.setValue(fields[field]);
       }
-      if(article.pictures){
+      if (article.pictures) {
         for (let image of article.pictures) {
           this.images.push({ url: image });
         }
@@ -131,11 +132,13 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
       data.additionalFields = this.optionsForm.getRawValue();
 
       let props = { article: data };
-      if (this.images.length > 0) {
+      if (this.newImages.length > 0) {
         props['images'] = this.newImages;
       }
-      console.log(props);
       if (this.mode == 'edit') {
+        if(this.imagesToDelete.length > 0){
+          props['imagesToDelete'] = this.imagesToDelete;
+        }
         this.store.dispatch(FromArticle.editArticle({ ...props, id: this.articleForEdit!._id }));
       } else {
         this.store.dispatch(FromArticle.createArticle(props));
@@ -187,10 +190,8 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   }
 
   fileSelectedHandler(file: File) {
-    console.log(file);
     this.newImages.push(file);
-    this.images.push({ url: URL.createObjectURL(file), temp: true });
-
+    this.images.push({ url: URL.createObjectURL(file), temp: true, file: file });
   }
 
   openDescriptionEdit() {
@@ -203,6 +204,15 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     const html = richtextEncoder(raw);
     this.form.controls['description'].setValue(html);
     this.descriptionEdit = false;
+  }
+
+  deleteImageHandler(image: Image){
+    if(image.temp && image.file){
+      let index = this.newImages.indexOf(image.file);
+      this.newImages.splice(index, 1);
+    }else{
+      this.imagesToDelete.push(image);
+    }
   }
 
   get categoryError() {

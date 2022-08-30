@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { Article } from "src/app/model/article.model";
+import { Image } from "src/app/model/image.model";
 
 export const fetchAll           = createAction('[Article] Fetch All',           props<{ id: string, page: number, filterParams?: Object }>());
 export const fetchAllByUser     = createAction('[Article] Fetch All By User',   props<{ userId: string, page: number }>());
@@ -10,7 +11,7 @@ export const setArticle         = createAction('[Article] Set Article',         
 export const fetchFailed        = createAction('[Article] Fetch Failed');
 
 export const createArticle      = createAction('[Article] Create Article',      props<{ article: Article, images?: File[] }>());
-export const editArticle        = createAction('[Article] Edit Article',        props<{ id: string, article: Article, images?: File[] }>());
+export const editArticle        = createAction('[Article] Edit Article',        props<{ id: string, article: Article, images?: File[], imagesToDelete?: Image[] }>());
 export const deleteArticle      = createAction('[Article] Delete Article',      props<{ id: string, userId: string }>());
 
 export const articleSuccess     = createAction('[Article] Article Success');
@@ -23,4 +24,4 @@ export const activateLoading    = createAction('[Article] Activate Loading');
 export const deactivateLoading  = createAction('[Article] Deactivate Loading');
 
 export const putImages          = createAction('[Article] Put Images',          props<{ id: string, images: File[] }>());
-export const appendImages       = createAction('[Article] Append Images',       props<{ id: string, images: File[] }>());
+export const updateImages       = createAction('[Article] Append Images',       props<{ id: string, images?: File[], imagesToDelete?: Image[] }>());

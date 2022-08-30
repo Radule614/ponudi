@@ -40,7 +40,7 @@ export class ProductModule implements NestModule {
                 },
                 {
                     path: '/products/:id',
-                    method: RequestMethod.PUT,
+                    method: RequestMethod.ALL,
                 }
             )
     }

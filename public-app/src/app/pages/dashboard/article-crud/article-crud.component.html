@@ -45,7 +45,7 @@
     </div>
 
     <div class="gallery">
-      <app-gallery [images]="images" [editable]="true"></app-gallery>
+      <app-gallery [images]="images" (deleteEvent)="deleteImageHandler($event)" [editable]="true"></app-gallery>
     </div>
   
     <div class="error-block">

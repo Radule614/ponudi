@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Article } from "../model/article.model";
+import { Image } from "../model/image.model";
 
 
 @Injectable({
@@ -43,7 +44,6 @@ export class ArticleService {
   }
 
   patchArticle(id: string, article: Article) {
-    console.log(id, article);
     return this.http.patch(`${environment.apiUrl}/products/${id}`, article);
   }
 
@@ -52,7 +52,6 @@ export class ArticleService {
   }
 
   putImages(id: string, images: File[]) {
-    console.log(images);
     const formData = new FormData();
     for (let image of images) {
       formData.append('files', image);
@@ -60,19 +59,27 @@ export class ArticleService {
     return this.http.put(`${environment.apiUrl}/products/${id}`, formData);
   }
 
-  appendImages(id: string, images: File[]) {
+  appendImages(id: string, images?: File[]) {
     console.log(images);
-    const formData = new FormData();
-    for (let image of images) {
-      formData.append('files', image);
+    if (images) {
+      const formData = new FormData();
+      for (let image of images) {
+        formData.append('files', image);
+      }
+      return this.http.put(`${environment.apiUrl}/products/pictures/${id}`, formData);
+    } else {
+      return of(0);
     }
-    return this.http.put(`${environment.apiUrl}/products/pictures/${id}`, formData);
   }
 
-  deleteImages(id: string, images: string[]) {
+  deleteImages(id: string, images?: Image[]) {
     console.log(images);
-    return this.http.delete(`${environment.apiUrl}/products/pictures/${id}`, {
-      body: { images: images }
-    });
+    if (images) {
+      return this.http.delete(`${environment.apiUrl}/products/pictures/${id}`, {
+        body: { images: images.map(im => im.url) }
+      });
+    } else {
+      return of(0);
+    }
   }
 }

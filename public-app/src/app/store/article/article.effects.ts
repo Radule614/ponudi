@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, tap, map, of, switchMap } from "rxjs";
+import { catchError, tap, map, of, switchMap, forkJoin } from "rxjs";
 import { ArticleService } from "src/app/services/article.service";
 import { AppState } from "..";
 import * as ArticleActions from './article.actions';
@@ -47,7 +47,6 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchArticleData(action.id).pipe(
         map(data => {
-          console.log(action.id, data);
           this.store.dispatch(ArticleActions.deactivateLoading());
           return ArticleActions.setArticle({ article: data });
         }),
@@ -83,8 +82,8 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.patchArticle(action.id, action.article).pipe(
         map(_ => {
-          if (action.images) {
-            return ArticleActions.appendImages({ id: action.id, images: action.images });
+          if (action.images || action.imagesToDelete) {
+            return ArticleActions.updateImages({ id: action.id, images: action.images, imagesToDelete: action.imagesToDelete });
           }
           return ArticleActions.articleSuccess();
         }),
@@ -149,18 +148,20 @@ export class ArticleEffects {
     })
   ));
 
-  appendImages$ = createEffect(() => this.actions$.pipe(
-    ofType(ArticleActions.appendImages),
+  updateImages$ = createEffect(() => this.actions$.pipe(
+    ofType(ArticleActions.updateImages),
     switchMap(action => {
-      return this.articleService.putImages(action.id, action.images).pipe(
-        map(data => {
+      const appendImages$ = this.articleService.appendImages(action.id, action.images);
+      const deleteImages$ = this.articleService.deleteImages(action.id, action.imagesToDelete);
+      return forkJoin([appendImages$, deleteImages$]).pipe(
+        map(([_, __]) => {
           return ArticleActions.articleSuccess();
         }),
         catchError(error => {
           console.log(error);
           return of(GeneralActions.deactivateLoading());
         })
-      )
+      );
     })
   ));
 

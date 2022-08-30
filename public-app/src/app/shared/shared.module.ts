@@ -23,8 +23,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FilterGroupPipe } from './pipes/filter-group.pipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import { CarouselModule } from '@coreui/angular';
 import { CarouselComponent } from './carousel/carousel.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     MatChipsModule,
     FontAwesomeModule,
     NgxSliderModule,
-    CarouselModule
+    NgbModule
   ],
   exports: [
     CustomInputComponent,

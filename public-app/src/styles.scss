@@ -2,7 +2,6 @@
 
 @import '~bootstrap/scss/bootstrap';
 @import "style/fonts";
-@import "~@coreui/coreui/scss/coreui";
 
 body{
   font-family: Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -103,12 +102,6 @@ h6{
   td{
     border-width:unset;
   }
-}
-
-.icon:not(.icon-c-s):not(.icon-custom-size){
-  width: auto;
-  height: auto;
-  font-size: inherit;
 }
 
 //ckeditor overrides

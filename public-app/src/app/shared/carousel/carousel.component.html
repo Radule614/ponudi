@@ -1,12 +1,13 @@
-<c-carousel *ngIf="slides$ | async as slides">
-  <c-carousel-indicators></c-carousel-indicators>
-  <c-carousel-inner *ngIf="slides.length > 0">
-    <c-carousel-item *ngFor="let slide of slides">
-      <div class="image-wrapper">
-        <img [src]="slide.url" class="image"/>
-      </div>
-    </c-carousel-item>
-  </c-carousel-inner>
-  <c-carousel-control caption="Previous" direction="prev"></c-carousel-control>
-  <c-carousel-control caption="Next" direction="next"></c-carousel-control>
-</c-carousel>
+
+<div class='container-fluid'>   
+  <div class='col-12' *ngIf="slides$ | async as slides">  
+    <ngb-carousel *ngIf="slides.length > 0">  
+      <ng-template ngbSlide *ngFor="let slide of slides">  
+        <div class="image-wrapper">
+          <img class="image" [src]="slide.url" alt="image">  
+        </div>
+      </ng-template>
+    </ngb-carousel>  
+  </div>  
+
+</div>
