@@ -15,6 +15,7 @@ import { ReqWithProduct } from "./interfaces/request-with-product";
 import { IStorageService } from "src/storage/interfaces/storage-service.interface";
 import { SanitizePipe } from "src/pipes/xss-sanitizer.pipe";
 import { User } from "src/users/user.schema";
+import { MailVerified } from "src/email/guards/mail-verified.guard";
 
 
 @Controller('products')
@@ -76,7 +77,7 @@ export class ProductController {
 
     @Post('/')
     @Roles(UserRole.USER)
-    @UseGuards(JwtAuthGuard, RolesGuard)
+    @UseGuards(JwtAuthGuard, MailVerified, RolesGuard)
     @UsePipes(new SanitizePipe(CreateProductDTO))
     async create(@Body() product: CreateProductDTO, @Req() request: ReqWithUser) {
         let user: any = request.user

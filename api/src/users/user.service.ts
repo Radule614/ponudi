@@ -1,9 +1,10 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { HttpException, Inject, Injectable } from "@nestjs/common";
 import { RegisterDTO } from "src/auth/dtos/register.dto";
 import { UserRole } from "./enums/user-role.enum";
 import { IUserRepository } from "./interfaces/user-repository.interface";
 import { User, UserDocument } from "./user.schema";
 import { UserRepository } from "./user.repository";
+import { NoResourceException } from "src/exceptions/no-resource.exception";
 
 
 @Injectable()
@@ -36,4 +37,10 @@ export class UserService {
     async updateOne(id: string, newUser: User): Promise<UserDocument> {
         return await this.userRepository.updateOne(id, newUser)
     }
+
+    async findByVerificationId(verificationId: string): Promise<UserDocument> {
+        return await this.userRepository.findBy({ verificationId })
+    }
+
+
 }

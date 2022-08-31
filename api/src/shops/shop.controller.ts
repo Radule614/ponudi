@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { Roles } from 'src/auth/role.decorator';
+import { MongoErrorFilter } from 'src/errorFilters/mongo-error.filter';
+import { ErrorInterceptor } from 'src/interceptors/error.interceptor';
 import { UserRole } from 'src/users/enums/user-role.enum';
 import { CreateShopDTO } from './dtos/create-shop.dto';
 import { UpdateShopDTO } from './dtos/update-shop.dto';
@@ -10,6 +12,8 @@ import { ReqWithShop } from './interfaces/req-with-shop.interface';
 import { ShopService } from './shop.service';
 
 @Controller('shops')
+@UseInterceptors(ErrorInterceptor)
+@UseFilters(MongoErrorFilter)
 export class ShopController {
 
     constructor(private readonly shopService: ShopService) { }

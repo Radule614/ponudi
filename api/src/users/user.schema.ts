@@ -42,7 +42,12 @@ export class User extends BaseSchema {
     })
     roles: Array<UserRole> = [UserRole.USER]
 
-}
+    @Prop({
+        type: Boolean,
+        default: false
+    })
+    isEmailVerified: boolean = false
 
+}
 
 export const UserSchema = SchemaFactory.createForClass(User)

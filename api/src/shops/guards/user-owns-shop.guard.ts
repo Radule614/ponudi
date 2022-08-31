@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext } from "@nestjs/common";
+import { CanActivate, ExecutionContext, ForbiddenException } from "@nestjs/common";
 import { Observable } from "rxjs";
 
 
@@ -8,7 +8,7 @@ export class UserOwnsShop implements CanActivate {
 
         let { user, shop } = request
 
-        if (!user || !shop || user.id != shop.owner) return false
+        if (!user || !shop || user.id != shop.owner) throw new ForbiddenException('User does not have permission for this shop!')
         return true
     }
 
