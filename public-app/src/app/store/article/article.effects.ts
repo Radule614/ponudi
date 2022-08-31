@@ -71,7 +71,7 @@ export class ArticleEffects {
         }),
         catchError(error => {
           console.log(error.error.message);
-          return of(ArticleActions.articleError({ messages: error.error.message }));
+          return of(ArticleActions.articleError({ messages: [error.error.message] }));
         })
       )
     })
@@ -137,7 +137,7 @@ export class ArticleEffects {
     ofType(ArticleActions.putImages),
     switchMap(action => {
       return this.articleService.putImages(action.id, action.images).pipe(
-        map(data => {
+        map(_ => {
           return ArticleActions.articleSuccess();
         }),
         catchError(error => {
@@ -153,7 +153,7 @@ export class ArticleEffects {
     switchMap(action => {
       const appendImages$ = this.articleService.appendImages(action.id, action.images);
       const deleteImages$ = this.articleService.deleteImages(action.id, action.imagesToDelete);
-      return forkJoin([appendImages$, deleteImages$]).pipe(
+      return forkJoin([deleteImages$, appendImages$]).pipe(
         map(([_, __]) => {
           return ArticleActions.articleSuccess();
         }),

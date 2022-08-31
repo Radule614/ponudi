@@ -68,7 +68,7 @@ export class ArticleService {
       }
       return this.http.put(`${environment.apiUrl}/products/pictures/${id}`, formData);
     } else {
-      return of(0);
+      return of({});
     }
   }
 
@@ -79,7 +79,7 @@ export class ArticleService {
         body: { images: images.map(im => im.url) }
       });
     } else {
-      return of(0);
+      return of({});
     }
   }
 }

@@ -14,6 +14,7 @@ import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.com
 export class FilterGroupComponent extends UnsubscribeComponent implements OnInit {
   @Input() filterGroup: FilterGroup;
   @Input() form: UntypedFormGroup;
+  @Input() titleOnly: boolean;
 
   FieldType = FieldType;
 

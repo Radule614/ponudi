@@ -19,7 +19,11 @@
     </div>
 
     <form class="grid options-block" [formGroup]="optionsForm">
-      <custom-input *ngFor="let option of options" class="control" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field"></custom-input>
+      <div class="control" *ngFor="let option of options" [ngSwitch]="option.type">
+        <custom-input *ngSwitchCase="FieldType.SEARCH" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field"></custom-input>
+        <custom-select *ngSwitchCase="FieldType.CHECKBOX" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field" [options]="option.enum"></custom-select>
+        <custom-input *ngSwitchCase="FieldType.DOUBLE_SLIDER" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field" type="number"></custom-input>
+      </div>
     </form>
 
     <div class="description">

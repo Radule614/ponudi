@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CategoryService } from "src/app/services/category.service";
 import { ViewportScroller } from "@angular/common";
 import { Image } from "src/app/model/image.model";
+import { FieldType } from "src/app/model/article.model";
 
 import * as CustomRichtext from 'src/app/richtext/ckeditor.js';
 import { richtextEncoder, richtextDecoder } from 'src/app/richtext/encoder.js';
@@ -48,6 +49,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   ]
 
   public Editor = CustomRichtext.Editor;
+  FieldType = FieldType;
 
   images: Image[] = [];
   newImages: File[] = [];

@@ -29,12 +29,14 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
   newOptions: AdditionalField[] = [];
   allIconNames: any[];
   optionTypes = [
-    { name: FieldType.SEARCH,         value: 'Tekst' },
-    { name: FieldType.CHECKBOX,       value: 'Polje sa opcijama' },
-    { name: FieldType.DOUBLE_SLIDER,  value: 'Brojno polje' }
+    { name: FieldType.SEARCH, value: 'Tekst' },
+    { name: FieldType.CHECKBOX, value: 'Polje sa opcijama' },
+    { name: FieldType.DOUBLE_SLIDER, value: 'Brojno polje' }
   ];
   optionSelectTypeChoices: string[] = [];
-  
+
+  FieldType = FieldType;
+
   constructor(private store: Store<AppState>, private router: Router) { super() }
   ngOnInit(): void {
     this.addToSubs = this.store.select(CategorySelectors.selectErrors).subscribe(data => {
@@ -46,21 +48,23 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
     });
     this.optionForm = new UntypedFormGroup({
       'option': new UntypedFormControl(null, [Validators.required, Validators.maxLength(20), CategoryCrudComponent.OptionValidator(this.inheritedOptions, this.newOptions)]),
-      'type': new UntypedFormControl(FieldType.SEARCH, Validators.required)
-    });
+      'type': new UntypedFormControl(FieldType.SEARCH, Validators.required),
+      'from': new UntypedFormControl(null),
+      'to': new UntypedFormControl(null)
+    }, CategoryCrudComponent.OptionRangeValidator('from', 'to', 'type'));
     this.allIconNames = allIconNames;
   }
 
-  pathChangedHandler(data: Category[]){
+  pathChangedHandler(data: Category[]) {
     this.categoryPath = [];
     this.inheritedOptions.length = 0;
-    if(data[data.length-1].id != 'new'){
+    if (data[data.length - 1].id != 'new') {
       return;
     }
     this.categoryPath = data;
-    for(let cat of data){
-      if(cat.additionalFields != undefined){
-        for(let field of cat.additionalFields){
+    for (let cat of data) {
+      if (cat.additionalFields != undefined) {
+        for (let field of cat.additionalFields) {
           this.inheritedOptions.push(field);
         }
       }
@@ -68,18 +72,18 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
     this.clearExistingOptions();
   }
 
-  clearExistingOptions(){
-    for(let inheritedOption of this.inheritedOptions){
+  clearExistingOptions() {
+    for (let inheritedOption of this.inheritedOptions) {
       let index = this.newOptions.indexOf(inheritedOption);
-      if(index != -1){
+      if (index != -1) {
         this.newOptions.splice(index);
       }
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     let formData = this.categoryForm.getRawValue();
-    if(this.categoryForm.valid && !this.categoryError){
+    if (this.categoryForm.valid && !this.categoryError) {
       this.store.dispatch(FromCategory.clearErrors())
       this.store.dispatch(FromGeneral.activateLoading());
       let data: CategoryDTO = {
@@ -90,18 +94,26 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
         additionalFields: this.newOptions
       };
       this.store.dispatch(FromCategory.createCategory({ category: data }));
-    }else{
+    } else {
       let messages: string[] = [];
-      if(this.categoryError) messages.push('lokacija nove kategorije mora biti izabrana');
-      if(this.categoryForm.controls['name'].hasError('required')) messages.push('naziv kategorije je obavezan');
+      if (this.categoryError) messages.push('lokacija nove kategorije mora biti izabrana');
+      if (this.categoryForm.controls['name'].hasError('required')) messages.push('naziv kategorije je obavezan');
       this.store.dispatch(FromCategory.createCategoryFailed({ messages: messages }));
     }
   }
 
-  onOptionSubmit(){
-    if(this.optionForm.valid){
+  onOptionSubmit() {
+    if (this.optionForm.valid) {
       const optionData = this.optionForm.getRawValue();
-      this.newOptions.push({ field: optionData.option.trim(), type: optionData.type });
+
+      let data: AdditionalField = { field: optionData.option.trim(), type: optionData.type };
+      if (data.type == FieldType.CHECKBOX) {
+        data.enum = [...this.optionSelectTypeChoices];
+      }
+      if (data.type == FieldType.DOUBLE_SLIDER) {
+        data.enum = [optionData.from, optionData.to];
+      }
+      this.newOptions.push(data);
       this.optionForm.reset();
       this.optionForm.controls['type'].setValue(FieldType.SEARCH);
       this.optionFormActive = false;
@@ -109,38 +121,65 @@ export class CategoryCrudComponent extends UnsubscribeComponent implements OnIni
     }
   }
 
-  cancel(): void{
+  cancel(): void {
     this.router.navigate(['admin']);
   }
 
   static OptionValidator(inheritedOptions: AdditionalField[], newOptions: AdditionalField[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      for(let field of inheritedOptions){
-        if(field.field == control.value) return { exists : true };
+      for (let field of inheritedOptions) {
+        if (field.field == control.value) return { exists: true };
       }
-      for(let field of newOptions){
-        if(field.field == control.value) return { exists : true };
+      for (let field of newOptions) {
+        if (field.field == control.value) return { exists: true };
       }
       return null;
     };
   }
 
-  get categoryParent(){
+  static OptionRangeValidator(from: string, to: string, type: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const fromCtrl = control.get(from);
+      const toCtrl = control.get(to);
+      if (type) {
+        const typeCtrl = control.get(type);
+        if (typeCtrl?.value == FieldType.DOUBLE_SLIDER) {
+          if (!fromCtrl || fromCtrl.value == '' || !toCtrl || toCtrl.value == '' || parseInt(fromCtrl.value) >= parseInt(toCtrl.value)) {
+            fromCtrl?.setErrors({ range: true });
+            toCtrl?.setErrors({ range: true });
+            return { range: true }
+          } else {
+            if (fromCtrl.errors) {
+              delete fromCtrl.errors['range'];
+              fromCtrl.updateValueAndValidity();
+            }
+            if (toCtrl.errors) {
+              delete toCtrl.errors['range'];
+              toCtrl.updateValueAndValidity();
+            }
+          }
+        }
+      }
+      return null;
+    };
+  }
+
+  get categoryParent() {
     let length = this.categoryPath.length;
-    if(length > 1) return this.categoryPath[length-2].id;
+    if (length > 1) return this.categoryPath[length - 2].id;
     return null;
   }
 
-  get categoryError(){
-    if(this.categoryPath.length == 0) return true;
+  get categoryError() {
+    if (this.categoryPath.length == 0) return true;
     return false;
   }
 
-  get selectedIcon(){
+  get selectedIcon() {
     return this.categoryForm.controls['icon'].value;
   }
 
-  get isSelectOption(){
-    return this.optionForm.controls['type'].value == FieldType.CHECKBOX;
+  isFieldType(type: FieldType) {
+    return this.optionForm.controls['type'].value == type;
   }
 }

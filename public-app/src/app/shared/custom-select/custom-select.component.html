@@ -3,7 +3,7 @@
     <mat-label>{{placeholder}}</mat-label>
     <mat-select [formControlName]="controlName">
       <mat-option>--</mat-option>
-      <mat-option *ngFor="let option of options" [value]="getName(option)">{{getValue(option)}}</mat-option>
+      <mat-option *ngFor="let option of getOptions" [value]="getName(option)">{{getValue(option)}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

@@ -40,7 +40,7 @@ export class ProductController {
         let product = request.product
         let urls = await this.storageService.uploadFiles('product-imgs/' + request.user.username + "/", files)
         product.pictures = urls
-        this.productService.updateOne(id, product)
+        await this.productService.updateOne(id, product)
         return urls
     }
 

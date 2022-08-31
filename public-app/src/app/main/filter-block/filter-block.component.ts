@@ -13,6 +13,7 @@ export class FilterBlockComponent extends UnsubscribeComponent implements OnInit
   @Input() filterGroups: FilterGroup[];
   @Input() categoryId: string;
   @Output() filterSubmitEvent: EventEmitter<Object> = new EventEmitter();
+  @Output() filterClearEvent: EventEmitter<any> = new EventEmitter();
 
   standardsArray: UntypedFormArray;
   additionalsArray: UntypedFormArray;
@@ -49,6 +50,10 @@ export class FilterBlockComponent extends UnsubscribeComponent implements OnInit
 
   getFormFromArray(array: UntypedFormArray, index: number): UntypedFormGroup {
     return array.at(index) as UntypedFormGroup;
+  }
+
+  clearFilters(){
+    this.filterClearEvent.emit();
   }
 
   onSubmit(): void {

@@ -10,29 +10,26 @@ export class FilterGroupPipe {
     let groups: FilterGroup[] = [];
     let searchGroup = new FilterGroup(FieldType.SEARCH);
     let sliderGroup = new FilterGroup(FieldType.DOUBLE_SLIDER);
-    let searchGroupExists = false;
-    let sliderGroupExists = false;
+    groups.push(searchGroup);
+    groups.push(sliderGroup);
     for (let field of fields) {
       switch (field.type) {
         case FieldType.SEARCH:
-          if(!searchGroupExists){
-            searchGroupExists = true;
-            groups.push(searchGroup);
-          }
           searchGroup.filters.push(new Filter(field.field));
           break;
         case FieldType.DOUBLE_SLIDER:
-          if(!sliderGroupExists){
-            sliderGroupExists = true;
-            groups.push(sliderGroup);
-          }
+          console.log(field);
           let temp = new Filter(field.field);
           temp.range = { from: 0, to: 100 };
           sliderGroup.filters.push(temp);
           break;
         case FieldType.CHECKBOX: {
           let temp = new FilterGroup(FieldType.CHECKBOX);
-          temp.filters.push(new Filter(field.field, 'filter_0'), new Filter(field.field, 'filter_1'), new Filter(field.field, 'filter_2'));
+          if(field.enum){
+            for(let fieldOption of field.enum){
+              temp.filters.push(new Filter(field.field, fieldOption));
+            }
+          }
           groups.push(temp);
           break;
         }

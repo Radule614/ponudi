@@ -40,9 +40,7 @@ export class GeneralEffects {
         })
       )
       return forkJoin([userData$, categoryData$]).pipe(
-        switchMap(([_, __]) => {
-          return of(GeneralActions.deactivateLoading());
-        })
+        switchMap(([_, __]) => of(GeneralActions.deactivateLoading()))
       )
     })
   ));

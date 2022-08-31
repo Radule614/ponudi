@@ -1,3 +1,6 @@
 <div class="filter-block">
-  <app-filter-block [categoryId]="categoryId" [filterGroups]="fields | filterGroup" (filterSubmitEvent)="filterSubmitHandler($event)"></app-filter-block>
+  <app-filter-block [categoryId]="categoryId" 
+                    [filterGroups]="fields | filterGroup" 
+                    (filterSubmitEvent)="filterSubmitHandler($event)"
+                    (filterClearEvent)="filterClearHandler()"></app-filter-block>
 </div>

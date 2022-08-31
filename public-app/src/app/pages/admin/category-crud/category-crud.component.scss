@@ -30,6 +30,11 @@ h6{
     margin-top: 30px;
     justify-content: right;
   }
+  .option-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 480px));
+    grid-gap: 0px 20px;
+  }
 }
 
 .grid{
