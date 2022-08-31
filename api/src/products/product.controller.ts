@@ -53,10 +53,9 @@ export class ProductController {
         @UploadedFiles() files: Array<Express.Multer.File>,
         @Req() request: ReqWithProduct
     ) {
-        let product = request.product
+        let product: any = request.product
         let urls = await this.storageService.uploadFiles('product-imgs/' + request.user.username + "/", files)
-        product.pictures = [...product.pictures, ...urls]
-        this.productService.updateOne(id, product)
+        await this.productService.addPictures(product.id, urls)
         return urls
     }
 
@@ -69,10 +68,10 @@ export class ProductController {
         @Body('images') images: string[],
         @Req() request: ReqWithProduct
     ) {
-        let product = request.product
-        product.pictures = product.pictures.filter(picture => !images.includes(picture))
-        this.productService.updateOne(id, product)
-        return product.pictures
+        let product: any = request.product
+        await this.productService.removePictures(product.id, images)
+        let newProduct = await this.productService.findOne(product.id)
+        return newProduct.pictures
     }
 
     @Post('/')

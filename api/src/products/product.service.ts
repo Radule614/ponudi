@@ -64,4 +64,12 @@ export class ProductService {
         return allowedObject
     }
 
+    public async addPictures(id: string, urls: string[]) {
+        await this.productRepository.addPictures(id, urls)
+    }
+
+    public async removePictures(id: string, urls: string[]) {
+        await this.productRepository.removePictures(id, urls)
+    }
+
 }

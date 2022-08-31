@@ -66,4 +66,13 @@ export class ProductRepository implements IProductRepository {
         return await this.ProductModel.countDocuments()
     }
 
+    async addPictures(id: string, urls: string[]): Promise<void> {
+        await this.ProductModel.updateOne({ _id: id }, { $push: { pictures: { $each: urls } } }).exec()
+    }
+    async removePictures(id: string, urls: string[]): Promise<void> {
+        await this.ProductModel.updateOne({ _id: id }, { $pull: { pictures: { $in: urls } } })
+    }
+
+
+
 }
