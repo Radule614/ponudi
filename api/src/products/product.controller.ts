@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, FileTypeValidator, ForbiddenException, Get, HttpCode, HttpException, HttpStatus, Inject, Param, Patch, Post, Put, Query, Req, UploadedFiles, UseFilters, UseGuards, UseInterceptors, UsePipes } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Put, Query, Req, UploadedFiles, UseFilters, UseGuards, UseInterceptors, UsePipes } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { RolesGuard } from "src/auth/guards/role.guard";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
@@ -14,8 +14,8 @@ import { ProductMatchesUser } from "./guards/product-matches-user.guard";
 import { ReqWithProduct } from "./interfaces/request-with-product";
 import { IStorageService } from "src/storage/interfaces/storage-service.interface";
 import { SanitizePipe } from "src/pipes/xss-sanitizer.pipe";
-import { Product, ProductDocument } from "./product.schema";
-import { ProductResponseDTO } from "./dtos/product-response.dto";
+import { User } from "src/users/user.schema";
+import { MailVerified } from "src/email/guards/mail-verified.guard";
 
 
 @Controller('products')
@@ -53,11 +53,9 @@ export class ProductController {
         @UploadedFiles() files: Array<Express.Multer.File>,
         @Req() request: ReqWithProduct
     ) {
-        let product = request.product
-        console.log(product)
+        let product: any = request.product
         let urls = await this.storageService.uploadFiles('product-imgs/' + request.user.username + "/", files)
-        product.pictures = [...product.pictures, ...urls]
-        this.productService.updateOne(id, product)
+        await this.productService.addPictures(product.id, urls)
         return urls
     }
 
@@ -70,17 +68,15 @@ export class ProductController {
         @Body('images') images: string[],
         @Req() request: ReqWithProduct
     ) {
-        let product = request.product
-        product.pictures = product.pictures.filter(picture => !images.includes(picture))
-        this.productService.updateOne(id, product)
-        return product.pictures
+        let product: any = request.product
+        await this.productService.removePictures(product.id, images)
+        let newProduct = await this.productService.findOne(product.id)
+        return newProduct.pictures
     }
-
-
 
     @Post('/')
     @Roles(UserRole.USER)
-    @UseGuards(JwtAuthGuard, RolesGuard)
+    @UseGuards(JwtAuthGuard, MailVerified, RolesGuard)
     @UsePipes(new SanitizePipe(CreateProductDTO))
     async create(@Body() product: CreateProductDTO, @Req() request: ReqWithUser) {
         let user: any = request.user

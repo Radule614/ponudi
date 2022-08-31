@@ -13,4 +13,6 @@ export interface IProductRepository {
     countAll(): Promise<number>
     countAllByCategories(categories: string[]): Promise<number>
     findAllByUser(userId: string)
+    addPictures(id: string, urls: string[]): Promise<void>
+    removePictures(id: string, urls: string[]): Promise<void>
 }

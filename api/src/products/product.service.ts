@@ -19,7 +19,6 @@ export class ProductService {
         private readonly categoryService: CategoryService
     ) { }
 
-
     public async create(product: CreateProductDTO): Promise<any> {
         let additionalFields = await this.categoryService.findCategoryAdditionalFields(product.category)
         product.additionalFields = this.mapAdditionalFields(additionalFields, product.additionalFields)
@@ -28,7 +27,6 @@ export class ProductService {
     }
 
     public async findAllByCategory(categoryId: string, queryParams: any) {
-
         let additionalFields: Array<IAdditionalField> = await this.categoryService.findCategoryAdditionalFields(categoryId)
         let categories: string[] = await this.categoryService.findAllSubcategories(categoryId)
         categories.push(categoryId)
@@ -64,6 +62,14 @@ export class ProductService {
             allowedObject[additional.field] = additionalFields[additional.field]
         })
         return allowedObject
+    }
+
+    public async addPictures(id: string, urls: string[]) {
+        await this.productRepository.addPictures(id, urls)
+    }
+
+    public async removePictures(id: string, urls: string[]) {
+        await this.productRepository.removePictures(id, urls)
     }
 
 }

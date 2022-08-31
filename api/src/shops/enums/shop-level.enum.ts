@@ -1,0 +1,1 @@
+export const enum ShopLevel { BRONZE, SILVER, GOLDEN }

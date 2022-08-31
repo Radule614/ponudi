@@ -1,13 +1,10 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
-import { User, UserSchema } from "src/users/user.schema";
 import { UsersModule } from "src/users/user.module";
-import { UserService } from "src/users/user.service";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./strategies/jwt.strategy";
-import { MongooseModule } from "@nestjs/mongoose"
+import { EmailModule } from "src/email/email.module";
 
 const jwtFactory = {
     useFactory: async () => ({
@@ -22,7 +19,8 @@ const jwtFactory = {
 @Module({
     imports: [
         UsersModule,
-        JwtModule.registerAsync(jwtFactory)
+        JwtModule.registerAsync(jwtFactory),
+        EmailModule
     ],
     controllers: [AuthController],
     providers: [AuthService, JwtStrategy]

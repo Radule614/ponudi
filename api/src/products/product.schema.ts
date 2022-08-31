@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IsNotEmpty } from "class-validator";
 import mongoose from "mongoose";
+import { BaseSchema } from "src/utils/base.schema";
 import { IAddress } from "./interfaces/adress.interface";
 
 
@@ -8,7 +9,7 @@ export type ProductDocument = Product & Document
 
 
 @Schema()
-export class Product {
+export class Product extends BaseSchema {
     @Prop({
         default: ""
     })
@@ -23,11 +24,6 @@ export class Product {
         default: "KM"
     })
     currency: string
-
-    @Prop({
-        default: Date.now()
-    })
-    createdAt: Date
 
     @Prop({
         type: Object
