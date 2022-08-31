@@ -3,6 +3,13 @@
   <h3 *ngIf="mode=='edit'">Promjena artikla</h3>
   
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngIf="mode=='add'">
+      <h6>Odaberi kategoriju</h6>
+      <div class="select-category">
+        <app-category-selector (pathChangedEvent)="categoryPathHandler($event)"></app-category-selector>
+      </div>
+    </div>
+
     <div class="grid">
       <custom-input class="control" [form]="form" controlName="content" placeholder="naslov"></custom-input>
       <div class="form-group">
@@ -10,6 +17,14 @@
         <custom-select  class="control" [form]="form" controlName="currency"  placeholder="valuta" [options]="currencies"></custom-select>
       </div>
     </div>
+
+    <form class="grid options-block" [formGroup]="optionsForm">
+      <div class="control" *ngFor="let option of options" [ngSwitch]="option.type">
+        <custom-input *ngSwitchCase="FieldType.SEARCH" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field"></custom-input>
+        <custom-select *ngSwitchCase="FieldType.CHECKBOX" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field" [options]="option.enum"></custom-select>
+        <custom-input *ngSwitchCase="FieldType.DOUBLE_SLIDER" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field" type="number"></custom-input>
+      </div>
+    </form>
 
     <div class="description">
       <h6>Detalji</h6>
@@ -34,20 +49,9 @@
     </div>
 
     <div class="gallery">
-      <app-gallery [images]="images" [editable]="true"></app-gallery>
-    </div>
-    
-    <div *ngIf="mode=='add'">
-      <h6>Odaberi kategoriju</h6>
-      <div class="select-category">
-        <app-category-selector (pathChangedEvent)="categoryPathHandler($event)"></app-category-selector>
-      </div>
+      <app-gallery [images]="images" (deleteEvent)="deleteImageHandler($event)" [editable]="true"></app-gallery>
     </div>
   
-    <form class="grid options-block" [formGroup]="optionsForm">
-      <custom-input *ngFor="let option of options" class="control" [form]="optionsForm" [controlName]="option.field" [placeholder]="option.field"></custom-input>
-    </form>
-    
     <div class="error-block">
       <div *ngFor="let msg of errorMessages">{{msg}}</div>
     </div>

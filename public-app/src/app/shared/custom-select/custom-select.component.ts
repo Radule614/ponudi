@@ -10,7 +10,7 @@ export class CustomSelectComponent implements OnInit {
   @Input() form: UntypedFormGroup;
   @Input() controlName: string;
   @Input() placeholder: string;
-  @Input() options: Object[] = [];
+  @Input() options: Object[] | undefined = [];
 
   constructor(){}
 
@@ -22,6 +22,9 @@ export class CustomSelectComponent implements OnInit {
   }
   getValue(option: any){
     return option['value'] != undefined ? option['value'] : option;
+  }
+  get getOptions() {
+    return this.options ? this.options : [];
   }
 
 }

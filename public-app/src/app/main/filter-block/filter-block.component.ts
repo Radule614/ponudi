@@ -13,15 +13,12 @@ export class FilterBlockComponent extends UnsubscribeComponent implements OnInit
   @Input() filterGroups: FilterGroup[];
   @Input() categoryId: string;
   @Output() filterSubmitEvent: EventEmitter<Object> = new EventEmitter();
+  @Output() filterClearEvent: EventEmitter<any> = new EventEmitter();
 
   standardsArray: UntypedFormArray;
   additionalsArray: UntypedFormArray;
   form: UntypedFormGroup;
-
-  standardFilterGroups: FilterGroup[] = [
-    { type: FieldType.SEARCH, filters: [{ field: 'content' }], title: 'Naslov' },
-    { type: FieldType.DOUBLE_SLIDER, filters: [{ field: 'price', range: { from: 0, to: 100 } }], title: 'Cijena' }
-  ];
+  standardFilterGroups: FilterGroup[];
 
   constructor() { super() }
   ngOnInit(): void { }
@@ -33,6 +30,10 @@ export class FilterBlockComponent extends UnsubscribeComponent implements OnInit
   }
 
   setupForm(): void {
+    this.standardFilterGroups = [
+      { type: FieldType.SEARCH, filters: [{ field: 'content' }], title: 'Naslov' },
+      { type: FieldType.DOUBLE_SLIDER, filters: [{ field: 'price', range: { from: 0, to: 100 } }], title: 'Cijena' }
+    ];
     this.standardsArray = new UntypedFormArray([]);
     this.additionalsArray = new UntypedFormArray([]);
     this.form = new UntypedFormGroup({
@@ -49,6 +50,10 @@ export class FilterBlockComponent extends UnsubscribeComponent implements OnInit
 
   getFormFromArray(array: UntypedFormArray, index: number): UntypedFormGroup {
     return array.at(index) as UntypedFormGroup;
+  }
+
+  clearFilters(){
+    this.filterClearEvent.emit();
   }
 
   onSubmit(): void {
@@ -75,10 +80,8 @@ export class FilterBlockComponent extends UnsubscribeComponent implements OnInit
           for (let filter of group.filters) {
             const from = formGroupRaw[filter.field][0];
             const to = formGroupRaw[filter.field][1];
-            if (filter.range?.from != from) {
+            if (filter.range?.from != from || filter.range?.to != to) {
               params[`${filter.field}[from]`] = from;
-            }
-            if (filter.range?.to != to) {
               params[`${filter.field}[to]`] = to;
             }
           }

@@ -1,7 +1,7 @@
 
 <app-header></app-header>
 <div class="main">
-  <div class="sidebar" *ngIf="menuOpen" @menu>
+  <div class="main-sidebar" *ngIf="menuOpen" @menu>
     <app-navigation></app-navigation>
   </div>
   <div class="content" [@contentAdjust]="menuOpen">

@@ -2,13 +2,14 @@
   <div class="filter-groups">
     <app-filter-group *ngFor="let group of standardFilterGroups; let i = index" 
                               [filterGroup]="group" 
+                              [titleOnly]="true"
                               [form]="getFormFromArray(standardsArray, i)"></app-filter-group>
     <app-filter-group *ngFor="let group of filterGroups; let i = index" 
                               [filterGroup]="group" 
                               [form]="getFormFromArray(additionalsArray, i)"></app-filter-group>
   </div>
   <div class="button-group">
-    <button mat-raised-button type="button">Očisti filtere</button>
+    <button mat-raised-button type="button" (click)="clearFilters()">Očisti filtere</button>
     <button mat-raised-button color="primary">Primjeni filtere</button>
   </div>
 </form>

@@ -3,13 +3,45 @@
   background-size: cover;
   height: 200px;
   position: relative;
-  border:1px solid var(--background-4);
+  border:2px solid var(--background-4);
+  // .new-image{
+  //   position: absolute;
+  //   inset: 0px;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   .new-background{
+  //     position: absolute;
+  //     inset: 0px;
+  //     background-color: green;
+  //     opacity: 0.2;
+  //   }
+  //   .new-text{
+  //     position: relative;
+  //   }
+  // }
+  &.new-image{
+    overflow: hidden;
+    &::after{
+      content: "nova";
+      text-align: center;
+      position: absolute;
+      line-height: 30px;
+      width: 100px;
+      height: 30px;
+      left:-30px;
+      top:10px;
+
+      background-color: green;
+      transform: rotateZ(-45deg);
+    }
+  }
   .btn-delete{
     position: absolute;
     top: 5px;
     right: 5px;
     font-size: 19px;
-    opacity: 0.2;
+    opacity: 0.3;
     transition: opacity 0.2s ease-in-out;
   }
   &:hover{

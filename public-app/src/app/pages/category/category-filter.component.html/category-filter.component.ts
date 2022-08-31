@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ViewportScroller } from "@angular/common";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { AdditionalField } from "src/app/model/article.model";
 
@@ -10,14 +11,19 @@ import { AdditionalField } from "src/app/model/article.model";
 export class CategoryFilterComponent implements OnInit {
   @Input() fields: AdditionalField[] = [];
   @Input() categoryId: string;
+  @Output() filtersChangedEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(private router: Router) { }
-  ngOnInit(): void {}
+  constructor(private router: Router, private viewPortScroller: ViewportScroller) { }
+  ngOnInit(): void { }
 
-  filterSubmitHandler(params: Object){
-    this.router.navigate(
-      ['/category', this.categoryId],
-      { queryParams: params }
-    );
+  filterSubmitHandler(params: Object) {
+    this.filtersChangedEvent.emit();
+    this.router.navigate(['/category', this.categoryId], { queryParams: params });
+    this.viewPortScroller.scrollToPosition([0, 0]);
+  }
+  filterClearHandler() {
+    this.filtersChangedEvent.emit();
+    this.router.navigate(['/category', this.categoryId]);
+    this.viewPortScroller.scrollToPosition([0, 0]);
   }
 }

@@ -18,13 +18,18 @@ export class FilterGroupPipe {
           searchGroup.filters.push(new Filter(field.field));
           break;
         case FieldType.DOUBLE_SLIDER:
+          console.log(field);
           let temp = new Filter(field.field);
           temp.range = { from: 0, to: 100 };
           sliderGroup.filters.push(temp);
           break;
         case FieldType.CHECKBOX: {
           let temp = new FilterGroup(FieldType.CHECKBOX);
-          temp.filters.push(new Filter(field.field, 'filter_0'), new Filter(field.field, 'filter_1'), new Filter(field.field, 'filter_2'));
+          if(field.enum){
+            for(let fieldOption of field.enum){
+              temp.filters.push(new Filter(field.field, fieldOption));
+            }
+          }
           groups.push(temp);
           break;
         }

@@ -1,11 +1,12 @@
 <div class="container">
   <h3>Kreiranje kategorije</h3>
-  
+
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <div class="grid">
       <custom-input class="control" [form]="categoryForm" controlName="name" placeholder="naziv"></custom-input>
       <div class="icon-block">
-        <custom-select class="control" [form]="categoryForm" controlName="icon" placeholder="ikonica" [options]="allIconNames"></custom-select>
+        <custom-select class="control" [form]="categoryForm" controlName="icon" placeholder="ikonica"
+          [options]="allIconNames"></custom-select>
         <div class="icon" *ngIf="selectedIcon!=null">
           <fa-icon [icon]="['fas', selectedIcon]"></fa-icon>
         </div>
@@ -14,13 +15,14 @@
 
     <h6>Odaberi lokaciju</h6>
     <div class="category-selector">
-      <app-category-selector class="category-selector" (pathChangedEvent)="pathChangedHandler($event)" [creation]="true"></app-category-selector>
+      <app-category-selector class="category-selector" (pathChangedEvent)="pathChangedHandler($event)"
+        [creation]="true"></app-category-selector>
     </div>
     <h6>Opcije</h6>
     <div class="options">
       <app-options [static]="inheritedOptions" [dynamic]="newOptions"></app-options>
     </div>
-  
+
     <button *ngIf="!optionFormActive" mat-raised-button (click)="optionFormActive=true">
       <fa-icon [icon]="['fas', 'plus']"></fa-icon>
     </button>
@@ -29,14 +31,18 @@
       <div class="form-block">
         <custom-input [form]="optionForm" controlName="option" placeholder="naziv opcije"></custom-input>
         <custom-select [form]="optionForm" controlName="type" placeholder="tip" [options]="optionTypes"></custom-select>
-        <custom-chips *ngIf="isSelectOption" placeholder="moguće opcije za polje" [chips]="optionSelectTypeChoices"></custom-chips>
+        <custom-chips *ngIf="isFieldType(FieldType.CHECKBOX)" placeholder="moguće opcije za polje" [chips]="optionSelectTypeChoices"></custom-chips>
+        <div *ngIf="isFieldType(FieldType.DOUBLE_SLIDER)" class="option-grid">
+          <custom-input [form]="optionForm" controlName="from" placeholder="od" type="number"></custom-input>
+          <custom-input [form]="optionForm" controlName="to" placeholder="do" type="number"></custom-input>
+        </div>
       </div>
       <div class="form-block button-group">
         <button type="button" mat-raised-button (click)="optionFormActive=false">Odustani</button>
         <button class="button-primary" mat-raised-button color="primary">Dodaj opciju</button>
       </div>
     </form>
-  
+
     <div class="error-block">
       <div *ngFor="let msg of errorMessages">{{msg}}</div>
     </div>

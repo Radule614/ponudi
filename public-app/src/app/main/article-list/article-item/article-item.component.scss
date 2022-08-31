@@ -5,7 +5,7 @@
   border-radius: 5px;
   position: relative;
   .image{
-    background-image: url("../../../../assets/image_placeholder.jpg");
+    //background-image: url("../../../../assets/image_placeholder.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 180px;
@@ -32,7 +32,7 @@
       padding-top: 40px;
       padding-bottom: 40px;
     }
-    .footer{
+    .article-footer{
       font-size: 13px;
       display: flex;
       color:var(--secondary);

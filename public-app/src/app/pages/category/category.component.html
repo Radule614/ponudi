@@ -14,7 +14,7 @@
   
   <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="menuOpen">
     <div class="inner">
-      <app-category-filter [categoryId]="categoryId" [fields]="additionalFields"></app-category-filter>
+      <app-category-filter [categoryId]="categoryId" [fields]="additionalFields" (filtersChangedEvent)="filtersExpanded=false"></app-category-filter>
     </div>
   </div>
 </div>

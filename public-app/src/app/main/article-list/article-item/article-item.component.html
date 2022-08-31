@@ -13,16 +13,17 @@
       </button>
     </div>
   </div>
-  <div class="image"></div>
+  <div class="image" [ngStyle]="{'background-image': displayImage}"></div>
   <div class="content">
     <div class="heading-block">
       <div class="title">{{article.content}}</div>
-      <button type="button" mat-icon-button [routerLink]="['/article', article._id]" (click)="btnDetailsClick()" (auxclick)="btnDetailsClick()">
+      <button type="button" mat-icon-button [routerLink]="['/article', article._id]" (click)="btnDetailsClick()"
+        (auxclick)="btnDetailsClick()">
         <fa-icon [icon]="['fas', 'up-right-from-square']"></fa-icon>
       </button>
     </div>
     <div class="details">detalji</div>
-    <div class="footer">
+    <div class="article-footer">
       <div class="icon">
         <fa-icon [icon]="['fas', 'clock-rotate-left']"></fa-icon>
       </div>

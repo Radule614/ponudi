@@ -60,4 +60,11 @@ export class ArticleItemComponent extends UnsubscribeComponent implements OnInit
       }
     });
   }
+
+  get displayImage(){
+    if(this.article.pictures && this.article.pictures.length > 0){
+      return `url("${this.article.pictures[0]}")`;
+    }
+    return `url("")`;
+  }
 }

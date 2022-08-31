@@ -4,7 +4,8 @@ export enum FieldType { CHECKBOX = 0, DOUBLE_SLIDER = 1, SEARCH = 2 }
 
 export interface AdditionalField {
   field: string,
-  type: FieldType
+  type: FieldType,
+  enum?: string[];
 }
 
 export class Article {

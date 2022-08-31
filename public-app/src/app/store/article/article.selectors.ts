@@ -27,3 +27,11 @@ export const selectLoading = createSelector(
   articleFeature,
   (state: ArticleState) => state.loading
 );
+
+export const selectImages = createSelector(
+  articleFeature,
+  (state: ArticleState) => {
+    const article = state.article;
+    return article && article.pictures ? article.pictures.map(picture => ({ url: picture })) : [];
+  }
+);

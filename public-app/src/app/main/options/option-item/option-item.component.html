@@ -1,6 +1,42 @@
 <div class="option" [ngClass]="{'editable': editable}">
-  <div class="text">{{option.field}}</div>
-  <button class="icon" [disabled]="!editable" mat-icon-button (click)="deleteEvent.emit()">
-    <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon>
-  </button>
+  <div class="option-heading">
+    <div class="field">{{option.field}}</div>
+  </div>
+  <div class="details" [ngSwitch]="option.type">
+    <div *ngSwitchCase="FieldType.SEARCH">
+      <div class="field-type">
+        Tekst polje
+      </div>
+    </div>
+    <div *ngSwitchCase="FieldType.DOUBLE_SLIDER">
+      <div class="field-type">
+        Brojno polje
+      </div>
+      <div *ngIf="option.enum && option.enum.length >= 2">
+        <table>
+          <tr>
+            <td>Filter minimum:</td>
+            <td>{{option.enum[0]}}</td>
+          </tr>
+          <tr>
+            <td>Filter maksimum:</td>
+            <td>{{option.enum[1]}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div *ngSwitchCase="FieldType.CHECKBOX">
+      <div class="field-type">
+        Polje sa opcijama
+      </div>
+      <div>
+        <ul>
+          <li *ngFor="let suboption of option.enum">{{suboption}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="button-group">
+    <button [disabled]="!editable" type="button" color="warn" mat-button (click)="openDeleteModal()" [disabled]="!editable">Izbriši</button>
+  </div>
 </div>
