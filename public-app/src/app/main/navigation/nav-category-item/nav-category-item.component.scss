@@ -1,0 +1,53 @@
+
+.link-wrapper{
+  margin-bottom: 3px;
+  &:first-child{
+    margin-top: 0px;
+  }
+  .link-inner{
+    display: flex;
+    a{
+      display: flex;
+      flex:1;
+      transition: background-color 0.13s ease, color 0.13s ease;
+      .text{
+        max-width: 180px;
+        overflow: hidden;
+      }
+      &.active-link{
+        background-color: var(--primary);
+        & + button{
+          background-color: var(--primary);
+          color: #fff;
+          &:hover{
+            background-color: var(--primary-2);
+            color: #fff;
+          }
+        }
+      }
+    }
+    .btn-expand{
+      background-color: var(--background-2);
+      border: 0px;
+      padding:0px 18px;
+      position: relative;
+      border-radius: 0px 10px 10px 0px;
+      transition: background-color 0.13s ease, color 0.13s ease;
+      &:hover{
+        color: var(--primary-2);
+      }
+    }
+  }
+  &.expandable{
+    & > .link-inner{
+      a{
+        border-radius: 10px 0px 0px 10px;
+      }
+    }
+  }
+  .children-list{
+    padding-top: 3px;
+    overflow: hidden;
+  }
+}
+

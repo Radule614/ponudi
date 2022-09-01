@@ -1,0 +1,40 @@
+
+.link-wrapper{
+  margin-bottom: 3px;
+  &:first-child{
+    margin-top: 0px;
+  }
+  a{
+    padding:10px 18px 10px 12px;
+    font-size: 18px;
+    color: var(--foreground);
+    transition: background-color 0.13s ease, color 0.13s ease;
+    border-radius: 10px;
+    align-items: center;
+    text-decoration: none;
+    display: flex;
+    span{
+      display: inline-block;
+    }
+    .icon{
+      width: 30px;
+      text-align: center;
+    }
+    .text{
+      padding-left: 10px;
+      flex:1;
+    }
+    &:hover{
+      color: var(--primary-2);
+    }
+    &.active-link{
+      color: #fff;
+      background-color: var(--primary);
+    }
+  }
+  &.divider{
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--primary);
+    margin-bottom: 20px;
+  }
+}

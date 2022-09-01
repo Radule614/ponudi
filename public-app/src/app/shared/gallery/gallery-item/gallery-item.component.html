@@ -1,0 +1,9 @@
+<div class="image" [ngClass]="{'editable': editable }" [ngStyle]="{ 'background-image': imagePath }" [ngClass]="{'new-image': image.temp}">
+  <!-- <div class="new-image" *ngIf="image.temp">
+    <div class="new-background"></div>
+    <div class="new-text">Nova Slika</div>
+  </div> -->
+  <button *ngIf="editable" type="button" mat-mini-fab class="btn-delete" (click)="openDeleteModal()">
+    <fa-icon [icon]="['fas', 'xmark']"></fa-icon>
+  </button>
+</div>

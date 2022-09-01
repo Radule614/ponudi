@@ -1,0 +1,55 @@
+button{
+  width: 100%;
+  border:none;
+  text-align: left;
+  padding:10px 30px 10px 15px;
+  background-color: var(--background);
+  position: relative;
+  border-radius: 10px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  &:hover{
+    color: var(--primary);
+    .icon{
+      visibility: visible;
+    }
+  }
+  .icon{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top:0px;
+    right:8px;
+    height: 100%;
+    visibility: hidden;
+  }
+  &.selected{
+    .icon{
+      visibility: visible;
+    }
+    &:not(.expandable){
+      background-color: var(--primary);
+      color:#fff;
+    }
+    &.expandable{
+      color: var(--primary);
+    }
+  }
+  &.new-item{
+    border: 1px solid var(--background-4);
+    padding-right: 45px;
+    font-style: italic;
+    .icon{
+      visibility: visible;
+    }
+    .icon{
+      font-size: 16px;
+    }
+    &:hover{
+      border: 1px solid var(--primary);
+    }
+    &.selected{
+      border: 1px solid var(--primary);
+      color:#fff;
+    }
+  }
+}

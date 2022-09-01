@@ -1,14 +1,9 @@
-
-<div class="wrapper" [formGroup]="form" [ngClass]="{'custom-error': error}">
-  <input  [type]="type" 
-          [formControlName]="controlName" 
-          [name]="controlName"
-          (change)="valueChanged($event)" 
-          (focus)="onFocus($event)" 
-          (blur)="onBlur($event)" 
-          #inputEl>
-
-  <label  class="nohighlight" (click)="inputEl.focus()" [ngClass]="{'animate': focused || !empty}">
-    {{placeholder}}
-  </label>
+<div [formGroup]="form" [ngClass]="{'custom-error': error}">
+  <mat-form-field appearance="fill" class="mat-form-field">
+    <mat-label>{{placeholder}}</mat-label>
+    <input  matInput 
+            [type]="type" 
+            [formControlName]="controlName" 
+            [name]="controlName">
+  </mat-form-field>
 </div>

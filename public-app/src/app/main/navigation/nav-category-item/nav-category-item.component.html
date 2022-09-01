@@ -1,0 +1,18 @@
+<div class="link-wrapper" [ngClass]="{'main-nav': mainNav, 'expandable': isExpandable}">
+  <div class="link-inner">
+    <a [routerLink]="'category/' + category.id" routerLinkActive="active-link">
+      <span class="icon" *ngIf="category.icon">
+        <fa-icon   [icon]="['fas', category.icon]"></fa-icon>
+      </span>
+      <span class="text">{{category.name}}</span>
+    </a>
+    <button type="button" *ngIf="isExpandable" class="btn-expand" (click)="this.expanded=!this.expanded">
+      <div [@expandButton]="expanded">
+        <fa-icon [icon]="['fas', 'angle-left']"></fa-icon>
+      </div>
+    </button>
+  </div>
+  <div *ngIf="category.children && isExpandable && expanded" class="children-list" @expandBlock>
+    <app-nav-category-list [categories]="category!.children" [depth]="depth+1"></app-nav-category-list>
+  </div>
+</div>

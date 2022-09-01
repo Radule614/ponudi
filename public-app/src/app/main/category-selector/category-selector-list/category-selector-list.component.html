@@ -1,0 +1,18 @@
+<div class="group">
+  <div class="list">
+    <app-category-selector-item *ngFor="let category of categories" 
+                                [category]="category" 
+                                [selected]="path[depth]==category" 
+                                (itemSelected)="categorySelectedEvent(category)"
+    >
+    </app-category-selector-item>
+  </div>
+  <app-category-selector-list *ngIf="path[depth] && path[depth].children && path[depth].children.length != 0" 
+                              [categories]="path[depth].children"
+                              [depth]="depth+1"
+                              [path]="path"
+                              (pathChanged)="pathChangedHandler()"
+                              [creation]="creation"
+  >
+  </app-category-selector-list>
+</div>

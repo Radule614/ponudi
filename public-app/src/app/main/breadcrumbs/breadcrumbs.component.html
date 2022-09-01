@@ -1,0 +1,9 @@
+
+<div class="breadcrumbs">
+  <div class="breadcrumb" *ngFor="let cat of path; index as i">
+    <div class="separator" *ngIf="i != 0">
+      <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
+    </div>
+    <button mat-button [routerLink]="['/category', cat.id]">{{cat.name}}</button>
+  </div>
+</div>

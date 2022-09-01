@@ -1,31 +1,8 @@
 nav{
-  .link-wrapper{
-    &:first-child{
-      margin-top: 0px;
-    }
-    & > a{
-      padding:10px 25px 10px 12px;
-      color: var(--active-primary);
-      font-size: 18px;
-      display: block;
-      color:var(--light-primary);
-      transition: background-color 0.13s ease;
-      span{
-        display: inline-block;
-      }
-      .icon{
-        width: 30px;
-        text-align: center;
-      }
-      .text{
-        padding-left: 10px;
-      }
-      &:hover{
-        background-color: rgba(var(--active-primary-rgb), $alpha: 0.20);
-      }
-      &.active-link{
-        background-color: var(--active-primary);
-      }
-    }
+  padding: 30px 15px 100px 15px;
+  .caption{
+    text-transform: uppercase;
+    font-size: 14px;
+    padding-bottom:12px;
   }
 }

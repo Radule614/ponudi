@@ -1,0 +1,59 @@
+h3{
+  border-bottom: 1px solid var(--background-4);
+}
+
+h6{
+  margin-top: 40px;
+}
+
+.button-group{
+  margin-top: 60px;
+}
+
+.category-selector{
+  margin-bottom: 40px;
+}
+
+.options {
+  max-width: 1000px;
+}
+
+.option-form{
+  h6{
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+  .form-block{
+    max-width: 500px;
+  }
+  .button-group{
+    margin-top: 30px;
+    justify-content: right;
+  }
+  .option-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 480px));
+    grid-gap: 0px 20px;
+  }
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 480px));
+  grid-gap: 0px 20px;
+  margin-bottom: 40px;
+  .icon-block{
+    display: flex;
+    .control{
+      width: 100%;
+    }
+    .icon{
+      width: 80px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
+  }
+}

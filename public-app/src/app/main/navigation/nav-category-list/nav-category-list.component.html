@@ -1,0 +1,6 @@
+
+<div class="category-group nohighlight" [ngClass]="{'main-nav': mainNav }">
+  <div *ngFor="let cat of categories">
+    <app-nav-category-item [category]="cat" [mainNav]="mainNav" [depth]="depth"></app-nav-category-item>
+  </div>
+</div>

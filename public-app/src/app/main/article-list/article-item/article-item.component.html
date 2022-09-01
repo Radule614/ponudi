@@ -1,0 +1,33 @@
+<div class="article-item">
+  <div *ngIf="editable" class="user-overlay">
+    <div class="background"></div>
+    <div class="user-panel">
+      <button mat-icon-button class="btn-edit" (click)="btnEditClick()">
+        <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+      </button>
+      <button mat-icon-button class="btn-share">
+        <fa-icon [icon]="['fas', 'share-nodes']"></fa-icon>
+      </button>
+      <button mat-icon-button class="btn-delete" (click)="btnDeleteClick()">
+        <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="image" [ngStyle]="{'background-image': displayImage}"></div>
+  <div class="content">
+    <div class="heading-block">
+      <div class="title">{{article.content}}</div>
+      <button type="button" mat-icon-button [routerLink]="['/article', article._id]" (click)="btnDetailsClick()"
+        (auxclick)="btnDetailsClick()">
+        <fa-icon [icon]="['fas', 'up-right-from-square']"></fa-icon>
+      </button>
+    </div>
+    <div class="details">detalji</div>
+    <div class="article-footer">
+      <div class="icon">
+        <fa-icon [icon]="['fas', 'clock-rotate-left']"></fa-icon>
+      </div>
+      <div>prije 50 sekundi</div>
+    </div>
+  </div>
+</div>

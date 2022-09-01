@@ -1,6 +1,4 @@
-<div class="background"></div>
-<div class="auth-block">
-
+<div class="auth-block modal-block">
   <div class="form-container login-block" [@loginBlock]="state">
     <app-login></app-login>
   </div>
@@ -9,7 +7,7 @@
   </div>
 
   <div class="transition-block" [@transitionBlock]="state">
-    <button (click)="switchState()" class="button-primary">
+    <button (click)="switchState()" mat-flat-button>
       <div *ngIf="state=='register'" class="inner login-text">sign in</div>
       <div *ngIf="state=='login'" class="inner register-text">sign up</div>
     </button>
@@ -31,5 +29,4 @@
       Enter your personal details and start journey with us
     </p>
   </div>
-
 </div>

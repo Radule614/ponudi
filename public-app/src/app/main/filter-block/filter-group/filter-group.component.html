@@ -1,0 +1,13 @@
+<div *ngIf="filterGroup.filters.length > 0" class="filter-group" [ngClass]="{'checkbox-group': filterGroup.type==FieldType.CHECKBOX}">
+  <h6>{{title}}</h6>
+  <form [formGroup]="form" class="grid">
+    <div *ngFor="let filter of filterGroup.filters" [ngSwitch]="filterGroup.type">
+      <custom-input *ngSwitchCase="FieldType.SEARCH" [controlName]="filter.field" [placeholder]="filter.field" [form]="form"></custom-input>
+      <mat-checkbox *ngSwitchCase="FieldType.CHECKBOX" [formControlName]="filter.value+''">{{filter.value}}</mat-checkbox>
+      <div class="custom-slider" *ngSwitchCase="FieldType.DOUBLE_SLIDER">
+        <div *ngIf="!titleOnly" class="slider-text">{{filter.field}}</div>
+        <ngx-slider [options]="sliderOptions" [formControlName]="filter.field"></ngx-slider>
+      </div>
+    </div>
+  </form>
+</div>

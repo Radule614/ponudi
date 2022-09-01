@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import User from '../../model/user.model';
+import { User } from '../../model/user.model';
 import * as AuthActions from './auth.actions';
 
 export interface AuthState {
@@ -12,7 +12,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
   user: null,
-  token: null,
+  token: localStorage.getItem('token'),
   loginError: "",
   loading: false,
   registerErrors: []
@@ -25,7 +25,6 @@ export const authReducer = createReducer(
   on(AuthActions.loginFailed,       (state, payload)  => ({ ...state, loginError: payload.message, loading:false })),
   on(AuthActions.loginClear,        (state, _)        => ({ ...state, loginError: "", loading:false })),
   on(AuthActions.logout,            (__, _)           => ({ ...initialState })),
-  on(AuthActions.checkAuth,         (state, _)        => ({ ...state, token: localStorage.getItem('token') })),
   on(AuthActions.fetchUserSuccess,  (state, payload)  => ({ ...state, user: payload.user })),
   on(AuthActions.registerFailed,    (state, payload)  => ({ ...state, registerErrors: payload.messages, loading:false })),
   on(AuthActions.registerClear,     (state, _)        => ({ ...state, registerErrors: [], loading:false })),

@@ -1,8 +1,7 @@
-import { ObjectID } from "typeorm"
 
 
 export class UserDTO {
-    id?: ObjectID
+    id?: string
     name?: string
     surname?: string
     username?: string

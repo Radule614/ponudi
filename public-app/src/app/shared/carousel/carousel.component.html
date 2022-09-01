@@ -1,0 +1,13 @@
+
+<div class='container-fluid'>   
+  <div class='col-12' *ngIf="slides$ | async as slides">  
+    <ngb-carousel *ngIf="slides.length > 0">  
+      <ng-template ngbSlide *ngFor="let slide of slides">  
+        <div class="image-wrapper">
+          <img class="image" [src]="slide.url" alt="image">  
+        </div>
+      </ng-template>
+    </ngb-carousel>  
+  </div>  
+
+</div>
