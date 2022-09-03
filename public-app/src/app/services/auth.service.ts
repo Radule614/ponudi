@@ -23,19 +23,19 @@ export interface registerDTO {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService{
+export class AuthService {
 
-  constructor(private http: HttpClient, private store: Store<AppState>){}
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
 
-  loginUser(data: loginDTO): Observable<any>{
+  loginUser(data: loginDTO): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/login`, data);
   }
 
-  fetchUserData(): Observable<any>{
+  fetchUserData(): Observable<any> {
     return this.store.select(isLogged).pipe(
       take(1),
       exhaustMap(userLogged => {
-        if(userLogged){
+        if (userLogged) {
           return this.http.get(`${environment.apiUrl}/users/me`);
         }
         return throwError(() => new Error('user not logged'));
@@ -45,5 +45,14 @@ export class AuthService{
 
   registerUser(data: registerDTO): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/register`, data);
+  }
+
+  emailVerification(token: string): Observable<any> {
+    console.log(token);
+    return this.http.post(`${environment.apiUrl}/email/verify`, { token });
+  }
+
+  resendEmailVerification(user_id: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/email/verify/resend`, { user_id });
   }
 }

@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
-import { MainModule } from "src/app/main/main.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { AdminMainComponent } from "./admin-main/admin-main.component";
 import { AdminComponent } from "./admin.component";
 import { CategoryCrudComponent } from "./category-crud/category-crud.component";
-import { MatSelectModule } from '@angular/material/select';
+import { AdminRoutingModule } from "./admin-routing.module";
+import { SharedFormsModule } from "src/app/shared/shared-forms.module";
+import { OptionsModule } from "src/app/main/options/options.module";
+import { CategorySelectorModule } from "src/app/main/category-selector/category-selector.module";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -16,12 +16,12 @@ import { MatSelectModule } from '@angular/material/select';
     CategoryCrudComponent
   ],
   imports: [
-    MainModule,
-    RouterModule,
-    ReactiveFormsModule,
+    AdminRoutingModule,
     SharedModule,
-    MatButtonModule,
-    MatSelectModule
+    SharedFormsModule,
+    OptionsModule,
+    CategorySelectorModule,
+    CommonModule
   ]
 })
 export class AdminModule {}

@@ -15,8 +15,10 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { effects } from './store/index';
 import { SharedModule } from './shared/shared.module';
 import { MainModule } from './main/main.module';
-import { PagesModule } from './pages/pages.module';
 import { environment } from 'src/environments/environment';
+import { PagesModule } from './pages/pages.module';
+import { NavigationModule } from './main/navigation/navigation.module';
+import { HeaderModule } from './main/header/header.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,15 +37,17 @@ import { environment } from 'src/environments/environment';
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({
       name: 'Ponudi devtools',
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
+      maxAge: 25,
+      logOnly: environment.production,
     }),
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
     AuthModule,
     MainModule,
-    PagesModule
+    PagesModule,
+    NavigationModule,
+    HeaderModule
   ],
   bootstrap: [AppComponent]
 })

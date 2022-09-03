@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  //resend email verification (in settings)
+
   constructor() { }
 
   ngOnInit(): void {

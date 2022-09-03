@@ -8,20 +8,20 @@ import * as AuthActions from './auth.actions';
 @Injectable()
 export class AuthEffects {
   login$ = createEffect(() => this.actions$.pipe(
-      ofType(AuthActions.login),
-      switchMap(action => {
-        let data = {username: action.username, password: action.password};
-        return this.authService.loginUser(data).pipe(
-          map(data => {
-            return AuthActions.loginSuccess({token: data.token});
-          }),
-          catchError(error => {
-            console.log(error.error.message);
-            return of(AuthActions.loginFailed({message: error.error.message}));
-          })
-        );
-      })
-    )
+    ofType(AuthActions.login),
+    switchMap(action => {
+      let data = { username: action.username, password: action.password };
+      return this.authService.loginUser(data).pipe(
+        map(data => {
+          return AuthActions.loginSuccess({ token: data.token });
+        }),
+        catchError(error => {
+          console.log(error.error.message);
+          return of(AuthActions.loginFailed({ message: error.error.message }));
+        })
+      );
+    })
+  )
   );
 
   loginSuccess$ = createEffect(() => this.actions$.pipe(
@@ -45,7 +45,7 @@ export class AuthEffects {
     switchMap(() => {
       return this.authService.fetchUserData().pipe(
         map(data => {
-          return AuthActions.fetchUserSuccess({user: data});
+          return AuthActions.fetchUserSuccess({ user: data });
         }),
         catchError(error => {
           console.log(error.error.message);
@@ -60,13 +60,13 @@ export class AuthEffects {
     switchMap(action => {
       return this.authService.registerUser(action.userData).pipe(
         map(data => {
-          return AuthActions.registerSuccess({username: action.userData.username, password: action.userData.password});
+          return AuthActions.registerSuccess({ username: action.userData.username, password: action.userData.password });
         }),
         catchError(error => {
           console.log(error);
           let payload = error.error.message;
-          if(!Array.isArray(payload)) payload = [payload];
-          return of(AuthActions.registerFailed({messages: payload }));
+          if (!Array.isArray(payload)) payload = [payload];
+          return of(AuthActions.registerFailed({ messages: payload }));
         })
       );
     })
@@ -79,5 +79,5 @@ export class AuthEffects {
     })
   ));
 
-  constructor(private actions$: Actions, private authService: AuthService, private router: Router){}
+  constructor(private actions$: Actions, private authService: AuthService, private router: Router) { }
 }

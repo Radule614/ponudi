@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { SharedFormsModule } from "src/app/shared/shared-forms.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { FilterBlockComponent } from "./filter-block.component";
 import { FilterGroupComponent } from "./filter-group/filter-group.component";
@@ -9,7 +9,7 @@ import { FilterGroupComponent } from "./filter-group/filter-group.component";
   declarations: [FilterBlockComponent, FilterGroupComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    SharedFormsModule,
     SharedModule
   ],
   exports: [FilterBlockComponent]

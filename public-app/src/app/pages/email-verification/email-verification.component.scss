@@ -1,0 +1,29 @@
+.page{
+  padding-bottom: 200px;
+  .verification-block{
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    & > div{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .inprogress{
+      .spinner{
+        margin-top: 60px;
+      }
+    }
+    .success{
+      h4{
+        color:var(--primary);
+      }
+    }
+    .failed{
+      h4{
+        color:var(--error);
+      }
+    }
+  }
+}

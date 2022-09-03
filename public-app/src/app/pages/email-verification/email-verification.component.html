@@ -1,0 +1,18 @@
+<div class="page">
+  <div class="verification-block" [ngSwitch]="status">
+    <div class="inprogress" *ngSwitchCase="Status.INPROGRESS">
+      <h4>Verifikacija e-mejla u toku...</h4>
+      <div class="spinner">
+        <spinner></spinner>
+      </div>
+    </div>
+    <div class="success" *ngSwitchCase="Status.SUCCESS">
+      <h4>Verifikacija uspješna</h4>
+    </div>
+    <div class="failed" *ngSwitchCase="Status.FAILED">
+      <h4>Verifikacija neuspješna</h4>
+      <button type="button" mat-button color="primary" (click)="resendVerification()">Ponovo pošalji</button>
+    </div>
+  </div>
+</div>
+

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Observable, map, of, mergeMap, catchError } from "rxjs";
+import { Observable, map, of, mergeMap, catchError, take } from "rxjs";
 import { ArticleService } from "src/app/services/article.service";
 import { AuthService } from "src/app/services/auth.service";
 import { AppState } from "src/app/store";
@@ -21,6 +21,7 @@ export class ArticleEditGuard implements CanActivate {
       this.store.dispatch(FromGeneral.activateLoading());
       let articleId = route.params['id'];
       return this.articleService.fetchArticleData(articleId).pipe(
+        take(1),
         mergeMap(articleData => {
           //if user object exists => check if article ownership matches
           if(user){

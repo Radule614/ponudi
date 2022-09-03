@@ -13,7 +13,7 @@ export class OptionsComponent {
   deleteHandler(option: AdditionalField) {
     let index = -1;
     for(let i = 0; i < this.dynamic.length; i++){
-      if(option.field == this.dynamic[i].field) index = i;
+      if(option.field === this.dynamic[i].field) index = i;
     }
     if(index != -1){
       this.dynamic.splice(index, 1);

@@ -42,7 +42,7 @@ export class ArticleItemComponent extends UnsubscribeComponent implements OnInit
   }
 
   btnEditClick(): void {
-    this.router.navigate(['/dashboard/edit', this.article._id]);
+    this.router.navigate(['/dashboard/article/edit', this.article._id]);
   }
 
   btnDeleteClick(): void {
