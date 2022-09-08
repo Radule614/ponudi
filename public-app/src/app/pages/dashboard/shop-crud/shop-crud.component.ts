@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Shop } from 'src/app/model/shop.model';
@@ -12,10 +12,12 @@ import * as AuthSelectors from 'src/app/store/auth/auth.selectors';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LatLng } from 'leaflet';
 @Component({
   selector: 'app-shop-crud',
   templateUrl: './shop-crud.component.html',
-  styleUrls: ['../shared.scss', './shop-crud.component.scss']
+  styleUrls: ['../shared.scss', './shop-crud.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopCrudComponent extends UnsubscribeComponent implements OnInit {
   mode: string = 'add';
@@ -89,5 +91,9 @@ export class ShopCrudComponent extends UnsubscribeComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['dashboard']);
+  }
+
+  locationHandler(location: LatLng){
+    console.log(location);
   }
 }

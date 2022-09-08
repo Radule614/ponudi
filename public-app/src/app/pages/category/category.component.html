@@ -1,4 +1,7 @@
-<div class="wrapper" [ngClass]="{ 'menu-open': menuOpen }">
+<div class="wrapper" *ngLet="{
+    menuOpen: menuOpen$ | async, 
+    categoryParams: categoryParams$ | async
+  } as vars" [ngClass]="{ 'menu-open': vars.menuOpen}">
   <div class="panel">
     <button type="button" class="btn-expand" (click)="filtersExpanded=!filtersExpanded">
       <div class="text">filteri</div>
@@ -12,7 +15,7 @@
     <app-article-list></app-article-list>
   </div>
   
-  <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="menuOpen">
+  <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="vars.menuOpen">
     <div class="inner">
       <app-category-filter [categoryId]="categoryId" [fields]="additionalFields" (filtersChangedEvent)="filtersExpanded=false"></app-category-filter>
     </div>

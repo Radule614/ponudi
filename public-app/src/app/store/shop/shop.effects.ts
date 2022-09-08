@@ -13,7 +13,7 @@ export class ShopEffects {
   fetchAll = createEffect(() => this.actions$.pipe(
     ofType(ShopActions.fetchAll),
     switchMap(action => {
-      return this.shopService.fetchShops(action.page).pipe(
+      return this.shopService.fetchShops(action.page, action.filterParams).pipe(
         map(data => {
           console.log(data);
           return ShopActions.setAll({ shops: data, page: -1, count: -1 });

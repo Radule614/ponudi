@@ -1,12 +1,13 @@
 import { ViewportScroller } from "@angular/common";
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { AdditionalField } from "src/app/model/article.model";
 
 @Component({
   selector: 'app-category-filter',
   templateUrl: './category-filter.component.html',
-  styleUrls: ['./category-filter.component.scss']
+  styleUrls: ['./category-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryFilterComponent implements OnInit {
   @Input() fields: AdditionalField[] = [];

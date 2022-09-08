@@ -20,7 +20,7 @@ import { Shop } from "src/app/model/shop.model";
   styleUrls: ['./shop-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShopItemComponent extends UnsubscribeComponent implements OnInit{
+export class ShopItemComponent extends UnsubscribeComponent implements OnInit {
   @Input() shop: Shop;
   @Input() editable: boolean = false;
   user: User | null;
@@ -33,9 +33,7 @@ export class ShopItemComponent extends UnsubscribeComponent implements OnInit{
               private modalService: MdbModalService){ super() }
 
   ngOnInit(): void { 
-    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => {
-      this.user = user;
-    });
+    this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => this.user = user);
   }
 
   btnDetailsClick(): void {
@@ -57,7 +55,7 @@ export class ShopItemComponent extends UnsubscribeComponent implements OnInit{
     this.modalRef.onClose.pipe(take(1)).subscribe(message => {
       if(message=='confirm'){
         this.store.dispatch(FromGeneral.activateLoading());
-        this.store.dispatch(FromShop.deleteShop({ id: this.shop._id, userId: this.user!._id}));
+        this.store.dispatch(FromShop.deleteShop({ id: this.shop._id, userId: this.user!._id }));
       }
     });
   }

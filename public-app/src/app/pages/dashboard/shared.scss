@@ -1,29 +1,40 @@
-h3{
+h3 {
   border-bottom: 1px solid var(--background-4);
 }
-.grid{
+
+.grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(200px, 480px));
   grid-gap: 0px 20px;
+
   //margin-bottom: 10px;
-  .form-group{
+  .form-group {
     display: flex;
     flex: 1;
-    .grid-placeholder{
+
+    .grid-placeholder {
       width: 100%;
     }
-    .control{
+
+    .control {
       width: 100%;
       margin-left: 20px;
-      &:first-child{
+
+      &:first-child {
         margin-left: 0px;
       }
     }
   }
-  .full{
+
+  .full {
     grid-column: span 2;
   }
 }
-.button-group{
+
+.button-group {
   margin-top: 40px;
+}
+
+.wrapper {
+  padding-bottom: 100px;
 }

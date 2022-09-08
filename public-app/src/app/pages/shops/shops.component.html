@@ -1,4 +1,8 @@
-<div class="wrapper" [ngClass]="{ 'menu-open': menuOpen }">
+<div class="wrapper" [ngClass]="{ 'menu-open': vars.menuOpen }"
+  *ngLet="{
+    menuOpen: menuOpen$ | async, 
+    shopParams: shopParams$ | async
+  } as vars">
   <div class="panel">
     <button type="button" class="btn-expand" (click)="filtersExpanded=!filtersExpanded">
       <div class="text">filteri</div>
@@ -12,7 +16,7 @@
     <app-shop-list></app-shop-list>
   </div>
   
-  <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="menuOpen">
+  <div *ngIf="filtersExpanded" class="filter-block" [@expandBlock]="vars.menuOpen">
     <div class="inner">
       
     </div>

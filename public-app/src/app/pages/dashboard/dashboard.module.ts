@@ -16,6 +16,7 @@ import { ShopCrudComponent } from "./shop-crud/shop-crud.component";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ShopListModule } from "src/app/main/shop-list/shop-list.module";
 import { UserShopsComponent } from "./dashboard-main/user-shops/user-shops.component";
+import { MapModule } from "src/app/shared/map/map.module";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserShopsComponent } from "./dashboard-main/user-shops/user-shops.compo
     SharedFormsModule,
     CategorySelectorModule,
     MatButtonToggleModule,
-    ShopListModule
+    ShopListModule,
+    MapModule
   ]
 })
 export class DashboardModule { }
