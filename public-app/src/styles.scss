@@ -3,6 +3,8 @@
 @import '~bootstrap/scss/bootstrap';
 @import "style/fonts";
 
+@import "style/grid-board.scss";
+
 body{
   font-family: Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden;

@@ -1,5 +1,13 @@
-<div class="button-group">
-  <button mat-raised-button type="button" routerLink="article/add">Kreiraj artikal</button>
-  <button mat-raised-button type="button" routerLink="shop/add">Kreiraj šop</button>
+<div class="dashboard-header">
+  <div class="button-group left">
+    <button mat-raised-button type="button" routerLink="article/add">Kreiraj artikal</button>
+    <button mat-raised-button type="button" routerLink="shop/add">Kreiraj šop</button>
+  </div>
+  <div class="button-group right">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" appearance="legacy">
+      <mat-button-toggle class="subnav-btn" routerLink="/dashboard/articles" routerLinkActive="active-link">Moji artikli</mat-button-toggle>
+      <mat-button-toggle class="subnav-btn" routerLink="/dashboard/shops" routerLinkActive="active-link">Moji šopovi</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 </div>
 <router-outlet></router-outlet>

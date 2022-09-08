@@ -1,5 +1,17 @@
-.button-group{
+.dashboard-header {
   border-bottom: 1px solid var(--background-4);
   padding-bottom: 15px;
   margin-bottom: 25px;
+  display: flex;
+  .left{
+    flex:1;
+  }
+  .right {
+    font-size: 14px;
+    font-weight: bold;
+    .active-link {
+      background-color: var(--primary);
+      color:#fff;
+    }
+  }
 }

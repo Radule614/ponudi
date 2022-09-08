@@ -19,23 +19,23 @@ import { AdditionalField } from "src/app/model/article.model";
   animations: [
     trigger('expandBlock', [
       transition(':enter', [
-        style({ height: 0}),
+        style({ height: 0 }),
         animate('250ms ease-out', style({ height: '*' })),
       ]),
       transition(':leave', [
-        style({ height: '*'}),
+        style({ height: '*' }),
         group([
           animate('250ms ease-out', style({ height: 0 })),
           query('.inner', [
-            style({ opacity: 1}),
+            style({ opacity: 1 }),
             animate(200, style({ opacity: 0 })),
           ])
         ])
       ])
     ]),
     trigger('expandButton', [
-      state('true',   style({ transform: 'rotateZ(-90deg)' })),
-      state('false',  style({ transform: 'rotateZ(0deg)' })),
+      state('true', style({ transform: 'rotateZ(-90deg)' })),
+      state('false', style({ transform: 'rotateZ(0deg)' })),
       transition('true <=> false', animate('250ms ease-out'))
     ])
   ]
@@ -47,18 +47,18 @@ export class CategoryComponent extends UnsubscribeComponent implements OnInit {
   menuOpen: boolean = true;
   additionalFields: AdditionalField[] = [];
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>, private navigationService: NavigationService, private categoryService: CategoryService){ super() }
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private navigationService: NavigationService, private categoryService: CategoryService) { super() }
 
   ngOnInit(): void {
     this.addToSubs = combineLatest([this.route.params, this.route.queryParams, this.store.select(CategorySelectors.selectAll)]).subscribe(([params, queryParams, categories]) => {
       this.categoryId = params['id'];
-      this.page =       queryParams['page'];
-      
+      this.page = queryParams['page'];
+
       const filterParams = Object.assign({}, queryParams);
       delete filterParams['page'];
 
       this.store.dispatch(FromArticle.activateLoading());
-      this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId, page: this.page, filterParams}));
+      this.store.dispatch(FromArticle.fetchAll({ id: this.categoryId, page: this.page, filterParams }));
       this.navigationService.activeCategory$.next(this.categoryId);
       this.additionalFields = this.categoryService.getAllAdditionalFields(categories, this.categoryId);
     });

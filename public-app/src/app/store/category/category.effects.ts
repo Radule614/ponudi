@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, finalize, map, of, switchMap } from "rxjs";
 import { CategoryService } from "src/app/services/category.service";
 import { AppState } from "..";
 import * as CategoryActions from './category.actions';
@@ -21,7 +21,7 @@ export class CategoryEffects {
           console.log(error.error.message);
           return of(CategoryActions.fetchAllFailed());
         })
-      )
+      );
     })
   ));
   createCategory = createEffect(() => this.actions$.pipe(
@@ -30,15 +30,14 @@ export class CategoryEffects {
       return this.categoryService.createCategory(action.category).pipe(
         map(_ => {
           this.router.navigate(['/admin']);
-          this.store.dispatch(GeneralActions.deactivateLoading());
           return CategoryActions.fetchAll();
         }),
         catchError(error => {
           console.log(error.error.message);
-          this.store.dispatch(GeneralActions.deactivateLoading());
           return of(CategoryActions.createCategoryFailed(error.error.message));
-        })
-      )
+        }),
+        finalize(() => this.store.dispatch(GeneralActions.deactivateLoading()))
+      );
     })
   ));
 

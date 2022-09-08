@@ -78,7 +78,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'shop',
+    path: 'shop/:id',
     loadChildren: () => import('./pages/shop/shop.module').then(m => m.ShopModule)
   },
   {

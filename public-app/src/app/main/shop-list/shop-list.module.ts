@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ArticleItemComponent } from "./article-item/article-item.component";
-import { ArticleListComponent } from "./article-list.component";
+import { ShopItemComponent } from "./shop-item/shop-item.component";
+import { ShopListComponent } from "./shop-list.component";
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CustomPaginatorIntl } from "../../shared/paginator-intl";
@@ -11,8 +11,8 @@ import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   declarations: [
-    ArticleListComponent,
-    ArticleItemComponent
+    ShopListComponent,
+    ShopItemComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { SharedModule } from "src/app/shared/shared.module";
     RouterModule,
     SharedModule
   ],
-  exports: [ArticleListComponent],
-  providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}],
+  exports: [ShopListComponent],
+  providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
 })
-export class ArticleListModule {}
+export class ShopListModule { }

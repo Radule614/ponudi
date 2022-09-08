@@ -23,7 +23,7 @@ import { combineLatest } from "rxjs";
 @Component({
   selector: 'app-article-crud',
   templateUrl: './article-crud.component.html',
-  styleUrls: ['./article-crud.component.scss']
+  styleUrls: ['../shared.scss', './article-crud.component.scss']
 })
 export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit {
   mode: string = 'add';
@@ -124,7 +124,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
   onSubmit() {
     if (this.loggedUser == null || !this.loggedUser._id) return;
     if (this.form.status == 'VALID' && !this.categoryError) {
-      this.store.dispatch(FromArticle.clearErrors())
+      this.store.dispatch(FromArticle.clearErrors());
       this.store.dispatch(FromGeneral.activateLoading());
 
       let data: Article = this.form.getRawValue();
@@ -138,7 +138,7 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
         props['images'] = this.newImages;
       }
       if (this.mode == 'edit') {
-        if(this.imagesToDelete.length > 0){
+        if (this.imagesToDelete.length > 0) {
           props['imagesToDelete'] = this.imagesToDelete;
         }
         this.store.dispatch(FromArticle.editArticle({ ...props, id: this.articleForEdit!._id }));
@@ -208,11 +208,11 @@ export class ArticleCrudComponent extends UnsubscribeComponent implements OnInit
     this.descriptionEdit = false;
   }
 
-  deleteImageHandler(image: Image){
-    if(image.temp && image.file){
+  deleteImageHandler(image: Image) {
+    if (image.temp && image.file) {
       let index = this.newImages.indexOf(image.file);
       this.newImages.splice(index, 1);
-    }else{
+    } else {
       this.imagesToDelete.push(image);
     }
   }

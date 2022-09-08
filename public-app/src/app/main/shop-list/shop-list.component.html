@@ -1,5 +1,5 @@
-<div class="grid-board" *ngLet="(articles$ | async) as articles">
-  <app-article-item *ngFor="let item of articles" [editable]="editable" [article]="item"></app-article-item>
+<div class="grid-board" *ngLet="(shops$ | async) as shops">
+  <app-shop-item *ngFor="let item of shops" [editable]="editable" [shop]="item"></app-shop-item>
 </div>
 <mat-paginator  [length]="count"
                 [pageIndex]="page"

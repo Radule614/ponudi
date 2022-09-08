@@ -16,8 +16,8 @@
   <div class="image" [ngStyle]="{'background-image': displayImage}"></div>
   <div class="content">
     <div class="heading-block">
-      <div class="title">{{article.content}}</div>
-      <button type="button" mat-icon-button [routerLink]="['/article', article._id]" (click)="btnDetailsClick()"
+      <div class="title">{{shop.name}}</div>
+      <button type="button" mat-icon-button [routerLink]="['/shop', shop._id]" (click)="btnDetailsClick()"
         (auxclick)="btnDetailsClick()">
         <fa-icon [icon]="['fas', 'up-right-from-square']"></fa-icon>
       </button>

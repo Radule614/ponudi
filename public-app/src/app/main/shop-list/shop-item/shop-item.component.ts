@@ -2,26 +2,26 @@ import { ViewportScroller } from "@angular/common";
 import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Article } from "src/app/model/article.model";
 import { AppState } from "src/app/store";
 import * as FromGeneral from "src/app/store/general/general.actions";
-import * as FromArticle from "src/app/store/article/article.actions";
+import * as FromShop from "src/app/store/shop/shop.actions";
 import * as AuthSelectors from "src/app/store/auth/auth.selectors";
 import { ConfirmModalComponent } from "src/app/shared/confirm-modal/confirm-modal.component";
 import { MdbModalRef, MdbModalService } from "mdb-angular-ui-kit/modal";
 import { take } from "rxjs";
 import { User } from "src/app/model/user.model";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
+import { Shop } from "src/app/model/shop.model";
 
 
 @Component({
-  selector: 'app-article-item',
-  templateUrl: './article-item.component.html',
-  styleUrls: ['./article-item.component.scss'],
+  selector: 'app-shop-item',
+  templateUrl: './shop-item.component.html',
+  styleUrls: ['./shop-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ArticleItemComponent extends UnsubscribeComponent implements OnInit{
-  @Input() article: Article;
+export class ShopItemComponent extends UnsubscribeComponent implements OnInit{
+  @Input() shop: Shop;
   @Input() editable: boolean = false;
   user: User | null;
 
@@ -43,7 +43,7 @@ export class ArticleItemComponent extends UnsubscribeComponent implements OnInit
   }
 
   btnEditClick(): void {
-    this.router.navigate(['/dashboard/article/edit', this.article._id]);
+    this.router.navigate(['/dashboard/shop/edit', this.shop._id]);
   }
 
   btnDeleteClick(): void {
@@ -57,15 +57,12 @@ export class ArticleItemComponent extends UnsubscribeComponent implements OnInit
     this.modalRef.onClose.pipe(take(1)).subscribe(message => {
       if(message=='confirm'){
         this.store.dispatch(FromGeneral.activateLoading());
-        this.store.dispatch(FromArticle.deleteArticle({ id: this.article._id, userId: this.user!._id}));
+        this.store.dispatch(FromShop.deleteShop({ id: this.shop._id, userId: this.user!._id}));
       }
     });
   }
 
   get displayImage(){
-    if(this.article.pictures && this.article.pictures.length > 0){
-      return `url("${this.article.pictures[0]}")`;
-    }
     return `url("")`;
   }
 }

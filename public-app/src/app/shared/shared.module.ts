@@ -11,6 +11,7 @@ import { FilterGroupPipe } from './pipes/filter-group.pipe';
 import { CarouselComponent } from './carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatButtonModule } from '@angular/material/button';
+import { NgLetModule } from 'ng-let';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     FontAwesomeModule,
     NgbModule,
-    MatButtonModule
+    MatButtonModule,
+    NgLetModule 
   ],
   exports: [
     UnsubscribeComponent,
@@ -40,7 +42,8 @@ import { MatButtonModule } from '@angular/material/button';
     CarouselComponent,
     FontAwesomeModule,
     NgbModule,
-    MatButtonModule
+    MatButtonModule,
+    NgLetModule
   ]
 })
 export class SharedModule { }

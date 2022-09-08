@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, tap, map, of, switchMap, forkJoin } from "rxjs";
+import { catchError, tap, map, of, switchMap, forkJoin, finalize } from "rxjs";
 import { ArticleService } from "src/app/services/article.service";
 import { AppState } from "..";
 import * as ArticleActions from './article.actions';
@@ -15,14 +15,13 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchArticles(action.id, action.page, action.filterParams).pipe(
         map(data => {
-          this.store.dispatch(ArticleActions.deactivateLoading());
           return ArticleActions.setAll({ articles: data.data, page: action.page, count: data.count });
         }),
         catchError(error => {
           console.log(error.error.message);
-          this.store.dispatch(ArticleActions.deactivateLoading());
           return of(ArticleActions.fetchFailed());
-        })
+        }),
+        finalize(() => this.store.dispatch(ArticleActions.deactivateLoading()))
       )
     })
   ));
@@ -47,14 +46,13 @@ export class ArticleEffects {
     switchMap(action => {
       return this.articleService.fetchArticleData(action.id).pipe(
         map(data => {
-          this.store.dispatch(ArticleActions.deactivateLoading());
           return ArticleActions.setArticle({ article: data });
         }),
         catchError(error => {
           console.log(error.error.message);
-          this.store.dispatch(ArticleActions.deactivateLoading());
           return of(ArticleActions.fetchFailed());
-        })
+        }),
+        finalize(() => this.store.dispatch(ArticleActions.deactivateLoading()))
       )
     })
   ));

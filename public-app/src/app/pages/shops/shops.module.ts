@@ -1,5 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { ShopListModule } from "src/app/main/shop-list/shop-list.module";
+import { SharedModule } from "src/app/shared/shared.module";
 import { ShopsRoutingModule } from "./shops-routing.module";
 import { ShopsComponent } from "./shops.component";
 
@@ -7,7 +9,9 @@ import { ShopsComponent } from "./shops.component";
   declarations: [ShopsComponent],
   imports: [
     ShopsRoutingModule,
-    CommonModule
+    CommonModule,
+    SharedModule,
+    ShopListModule
   ]
 })
 export class ShopsModule {}

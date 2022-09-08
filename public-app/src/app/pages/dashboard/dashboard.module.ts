@@ -12,13 +12,19 @@ import { SharedFormsModule } from "src/app/shared/shared-forms.module";
 import { ArticleListModule } from "src/app/main/article-list/article-list.module";
 import { CategorySelectorModule } from "src/app/main/category-selector/category-selector.module";
 import { CommonModule } from "@angular/common";
+import { ShopCrudComponent } from "./shop-crud/shop-crud.component";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ShopListModule } from "src/app/main/shop-list/shop-list.module";
+import { UserShopsComponent } from "./dashboard-main/user-shops/user-shops.component";
 
 @NgModule({
   declarations: [
     DashboardComponent,
     DashboardMainComponent,
     ArticleCrudComponent,
-    UserArticlesComponent
+    UserArticlesComponent,
+    ShopCrudComponent,
+    UserShopsComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +35,9 @@ import { CommonModule } from "@angular/common";
     CKEditorModule,
     GalleryModule,
     SharedFormsModule,
-    CategorySelectorModule
+    CategorySelectorModule,
+    MatButtonToggleModule,
+    ShopListModule
   ]
 })
-export class DashboardModule {}
+export class DashboardModule { }
