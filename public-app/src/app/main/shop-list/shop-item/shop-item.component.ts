@@ -12,6 +12,7 @@ import { take } from "rxjs";
 import { User } from "src/app/model/user.model";
 import { UnsubscribeComponent } from "src/app/shared/unsubscribe/unsubscribe.component";
 import { Shop } from "src/app/model/shop.model";
+import { LatLng } from "leaflet";
 
 
 @Component({
@@ -27,12 +28,12 @@ export class ShopItemComponent extends UnsubscribeComponent implements OnInit {
 
   modalRef: MdbModalRef<ConfirmModalComponent> | null = null;
 
-  constructor(private viewportScroller: ViewportScroller, 
-              private router: Router, 
-              private store: Store<AppState>,
-              private modalService: MdbModalService){ super() }
+  constructor(private viewportScroller: ViewportScroller,
+    private router: Router,
+    private store: Store<AppState>,
+    private modalService: MdbModalService) { super() }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.addToSubs = this.store.select(AuthSelectors.selectUser).subscribe(user => this.user = user);
   }
 
@@ -53,14 +54,15 @@ export class ShopItemComponent extends UnsubscribeComponent implements OnInit {
       modalClass: 'modal-dialog-centered'
     });
     this.modalRef.onClose.pipe(take(1)).subscribe(message => {
-      if(message=='confirm'){
+      if (message == 'confirm') {
         this.store.dispatch(FromGeneral.activateLoading());
         this.store.dispatch(FromShop.deleteShop({ id: this.shop._id, userId: this.user!._id }));
       }
     });
   }
 
-  get displayImage(){
-    return `url("")`;
+  get shopLocation(): LatLng {
+    const loc = this.shop.location;
+    return new LatLng(loc.latitude, loc.longitude);
   }
 }

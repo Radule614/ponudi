@@ -8,10 +8,10 @@
     top: var(--header-height);
     right: 0px;
     left: var(--main-sidebar-width);
-    z-index: 90;
     opacity: 1;
     height: 50px;
     transition: left 0.25s ease-in-out;
+    z-index: 500;
     button{
       top:0px;
       border: none;
@@ -43,6 +43,7 @@
     transition: left 0.25s ease-in-out;
     overflow-y:scroll;
     overflow-x:hidden;
+    z-index: 500;
     .inner{
       position: relative;
     }

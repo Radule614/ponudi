@@ -13,7 +13,9 @@
       </button>
     </div>
   </div>
-  <div class="image" [ngStyle]="{'background-image': displayImage}"></div>
+  <div class="image">
+    <app-map [markerLocation]="shopLocation" [fixedZoomLevel]="14"></app-map>
+  </div>
   <div class="content">
     <div class="heading-block">
       <div class="title">{{shop.name}}</div>
@@ -23,11 +25,11 @@
       </button>
     </div>
     <div class="details">detalji</div>
-    <div class="article-footer">
+    <!-- <div class="footer-block">
       <div class="icon">
         <fa-icon [icon]="['fas', 'clock-rotate-left']"></fa-icon>
       </div>
       <div>prije 50 sekundi</div>
-    </div>
+    </div> -->
   </div>
 </div>

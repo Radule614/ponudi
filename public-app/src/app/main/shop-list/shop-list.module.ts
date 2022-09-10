@@ -8,6 +8,7 @@ import { CustomPaginatorIntl } from "../../shared/paginator-intl";
 import { RouterModule } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { SharedModule } from "src/app/shared/shared.module";
+import { MapModule } from "src/app/shared/map/map.module";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SharedModule } from "src/app/shared/shared.module";
     MatButtonModule,
     FontAwesomeModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    MapModule
   ],
   exports: [ShopListComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],

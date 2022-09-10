@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LatLng } from 'leaflet';
+import { Location } from 'src/app/model/shop.model';
 @Component({
   selector: 'app-shop-crud',
   templateUrl: './shop-crud.component.html',
@@ -25,6 +26,7 @@ export class ShopCrudComponent extends UnsubscribeComponent implements OnInit {
   loggedUser: User | null = null;
   errorMessages$: Observable<string[]> = this.store.select(ShopSelectors.selectErrors);
   form: UntypedFormGroup;
+  location: Location | null;
 
   constructor(private store: Store<AppState>, private viewportScroller: ViewportScroller, private route: ActivatedRoute, private router: Router) { super() }
   ngOnInit(): void {
@@ -68,11 +70,11 @@ export class ShopCrudComponent extends UnsubscribeComponent implements OnInit {
 
   onSubmit() {
     if (this.loggedUser == null || !this.loggedUser._id) return;
-    if (this.form.status == 'VALID') {
+    if (this.form.status == 'VALID' && this.location != null) {
       this.store.dispatch(FromShop.clearErrors());
       this.store.dispatch(FromGeneral.activateLoading());
       let data: Shop = this.form.getRawValue();
-      data.location = { latitude: 0, longitude: 0 };
+      data.location = this.location;
       let props = { shop: data };
       if (this.mode == 'edit') {
         this.store.dispatch(FromShop.editShop({ ...props, id: this.shopForEdit!._id }));
@@ -85,6 +87,7 @@ export class ShopCrudComponent extends UnsubscribeComponent implements OnInit {
       if (this.form.controls['address'].hasError('required')) messages.push('adresa šopa je obavezna');
       if (this.form.controls['serviceType'].hasError('required')) messages.push('vrsta servisa je obavezna');
       if (this.form.controls['telephoneNumber'].hasError('required')) messages.push('broj telefona je obavezan');
+      if(this.location == null) messages.push('lokacija mora biti izabrana');
       this.store.dispatch(FromShop.shopError({ messages: messages }));
     }
   }
@@ -93,7 +96,7 @@ export class ShopCrudComponent extends UnsubscribeComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
-  locationHandler(location: LatLng){
-    console.log(location);
+  locationHandler(location: LatLng) {
+    this.location = { latitude: location.lat, longitude: location.lng };
   }
 }

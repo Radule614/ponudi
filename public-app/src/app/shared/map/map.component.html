@@ -1,7 +1,7 @@
 <div  leaflet 
       class="map-container" 
       [leafletOptions]="options"
-      [leafletLayers]="layers"
+      [leafletLayers]="markerLayers"
       (leafletClick)="setMarker($event)"
       [(leafletCenter)]="center">
 </div>

@@ -9,8 +9,9 @@
       <custom-input class="control" [form]="form" controlName="telephoneNumber" placeholder="broj telefona"></custom-input>
       <custom-input class="control" [form]="form" controlName="serviceType" placeholder="vrsta servisa"></custom-input>
     </div>
-
-    <app-map (markerEvent)="locationHandler($event)"></app-map>
+    <div class="map-container">
+      <app-map (markerEvent)="locationHandler($event)" [editable]="true" [dragable]="true"></app-map>
+    </div>
 
     <div class="error-block" *ngLet="(errorMessages$ | async) as errors">
       <div *ngFor="let msg of errors">{{msg}}</div>
