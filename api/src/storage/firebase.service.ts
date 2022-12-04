@@ -19,7 +19,10 @@ export class FirebaseStorageService implements IStorageService {
         const bucketUrl = this.configService.get('FIREBASE_STORAGE_BUCKET')
         const storage = getStorage(app, `gs://${bucketUrl}/`)
         const name = uuid.v4()
-        const extension: string = "." + file.originalname.split('.').at(-1)
+        const chunks = file.originalname.split('.');
+        const extension: string = "." + chunks[chunks.length - 1]
+
+        console.log("EXTENSION: " + extension);
 
         const storageRef = ref(storage, path + name + extension)
         await uploadBytes(storageRef, file.buffer)
